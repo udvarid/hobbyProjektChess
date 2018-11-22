@@ -6,10 +6,8 @@ public class Coordinate {
     private int y;
 
     public Coordinate(int x, int y) {
-        if (x > 0 && x < 9 && y > 0 && y < 9) {
-            this.x = x;
-            this.y = y;
-        }
+        this.x = x;
+        this.y = y;
     }
 
     public int getX() {

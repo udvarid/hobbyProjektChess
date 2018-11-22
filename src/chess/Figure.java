@@ -73,6 +73,7 @@ public class Figure {
         this.actualPosition = actualPosition;
     }
 
+
     public void setStillInStartingPosition(boolean stillInStartingPosition) {
         if (this.stillInStartingPosition && !stillInStartingPosition)
             this.stillInStartingPosition = stillInStartingPosition;

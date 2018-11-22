@@ -55,12 +55,35 @@ public class King extends Figure {
         validMoves.add(new ValidMove(new Coordinate(-1, -1)));
         validMoves.add(new ValidMove(new Coordinate(-1, 0)));
         validMoves.add(new ValidMove(new Coordinate(-1, 1)));
+        validMoves.add(new ValidMove(new Coordinate(0, 2),true,"Castling"));
+        validMoves.add(new ValidMove(new Coordinate(0, -2),true,"Castling"));
 
-        //TODO the castlng part is missing
 
     }
 
     public HashSet<ValidMove> getValidMoves() {
-        return validMoves;
+
+        HashSet<ValidMove> modifiedSet = new HashSet<>();
+        for (ValidMove validmove : this.validMoves) {
+            if (stayOnBoard(validmove)) {
+                modifiedSet.add(validmove);
+            }
+        }
+
+        return modifiedSet;
+    }
+
+    private boolean stayOnBoard(ValidMove validmove) {
+
+        int actX = getActualPosition().getCoordinate().getX();
+        int actY = getActualPosition().getCoordinate().getY();
+        int moveX = validmove.getCoordinate().getX();
+        int moveY = validmove.getCoordinate().getY();
+
+        if (actX + moveX >= 1 && actX + moveX <= 8 &&
+                actY + moveY >= 1 && actY + moveY <= 8)
+            return true;
+
+        return false;
     }
 }
