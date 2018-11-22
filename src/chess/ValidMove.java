@@ -2,25 +2,25 @@ package chess;
 
 import java.util.ArrayList;
 
-public class ValidMoves {
+public class ValidMove {
 
     private Coordinate coordinate;
     private ArrayList<Coordinate> emptyCells;
     private boolean specialMove;
     private String specialMoveType;
 
-    public ValidMoves(Coordinate coordinate, ArrayList<Coordinate> emptyCells, boolean specialMove, String specialMoveType) {
+    public ValidMove(Coordinate coordinate, ArrayList<Coordinate> emptyCells, boolean specialMove, String specialMoveType) {
         this.coordinate = coordinate;
         this.emptyCells = emptyCells;
         this.specialMove = specialMove;
         this.specialMoveType = specialMoveType;
     }
 
-    public ValidMoves(Coordinate coordinate, ArrayList<Coordinate> emptyCells) {
+    public ValidMove(Coordinate coordinate, ArrayList<Coordinate> emptyCells) {
         this(coordinate, emptyCells, false, null);
     }
 
-    public ValidMoves(Coordinate coordinate) {
+    public ValidMove(Coordinate coordinate) {
         this(coordinate, new ArrayList<Coordinate>(), false, null);
     }
 

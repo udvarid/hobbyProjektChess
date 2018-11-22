@@ -1,20 +1,21 @@
 package chess;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class King extends Figure {
 
     private boolean inChess;
     private boolean wasAlreadyInChess;
     private boolean alredyCastled;
-    private ArrayList<ValidMoves> validMoves;
+    private HashSet<ValidMove> validMoves;
 
     public King(char color, Cell startingPosition) {
         super("King", 'K', color, startingPosition, 0);
         this.inChess = false;
         this.wasAlreadyInChess = false;
         this.alredyCastled = false;
-        validMoves = new ArrayList<ValidMoves>();
+        validMoves = new HashSet<ValidMove>();
         setValidMoves();
     }
 
@@ -46,17 +47,20 @@ public class King extends Figure {
 
     private void setValidMoves() {
 
-        validMoves.add(new ValidMoves(new Coordinate(1, -1)));
-        validMoves.add(new ValidMoves(new Coordinate(1, 0)));
-        validMoves.add(new ValidMoves(new Coordinate(1, 1)));
-        validMoves.add(new ValidMoves(new Coordinate(0, -1)));
-        validMoves.add(new ValidMoves(new Coordinate(0, 1)));
-        validMoves.add(new ValidMoves(new Coordinate(-1, -1)));
-        validMoves.add(new ValidMoves(new Coordinate(-1, 0)));
-        validMoves.add(new ValidMoves(new Coordinate(-1, 1)));
+        validMoves.add(new ValidMove(new Coordinate(1, -1)));
+        validMoves.add(new ValidMove(new Coordinate(1, 0)));
+        validMoves.add(new ValidMove(new Coordinate(1, 1)));
+        validMoves.add(new ValidMove(new Coordinate(0, -1)));
+        validMoves.add(new ValidMove(new Coordinate(0, 1)));
+        validMoves.add(new ValidMove(new Coordinate(-1, -1)));
+        validMoves.add(new ValidMove(new Coordinate(-1, 0)));
+        validMoves.add(new ValidMove(new Coordinate(-1, 1)));
 
         //TODO the castlng part is missing
 
+    }
 
+    public HashSet<ValidMove> getValidMoves() {
+        return validMoves;
     }
 }
