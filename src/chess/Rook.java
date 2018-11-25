@@ -6,11 +6,9 @@ import java.util.List;
 
 public class Rook extends Figure {
 
-    private HashSet<ValidMove> validMoves;
 
-    public Rook(char color, Cell startingPosition, int value) {
+    public Rook(char color, Coordinate startingPosition, int value) {
         super("Rook", 'R', color, startingPosition, value);
-        validMoves = new HashSet<ValidMove>();
         setValidMoves();
     }
 
@@ -28,38 +26,13 @@ public class Rook extends Figure {
                 coordinatesOfEmptyCellsRigth.add(new Coordinate(0,j));
                 coordinatesOfEmptyCellsLeft.add(new Coordinate(0,  - j));
             }
-            validMoves.add(new ValidMove(new Coordinate(i, 0), coordinatesOfEmptyCellsUp));
-            validMoves.add(new ValidMove(new Coordinate(-i, 0), coordinatesOfEmptyCellsDown));
-            validMoves.add(new ValidMove(new Coordinate(0, i), coordinatesOfEmptyCellsRigth));
-            validMoves.add(new ValidMove(new Coordinate(0, -i), coordinatesOfEmptyCellsLeft));
+            setValidMoves(new ValidMove(new Coordinate(i, 0), coordinatesOfEmptyCellsUp));
+            setValidMoves(new ValidMove(new Coordinate(-i, 0), coordinatesOfEmptyCellsDown));
+            setValidMoves(new ValidMove(new Coordinate(0, i), coordinatesOfEmptyCellsRigth));
+            setValidMoves(new ValidMove(new Coordinate(0, -i), coordinatesOfEmptyCellsLeft));
         }
 
 
     }
 
-    public HashSet<ValidMove> getValidMoves() {
-
-        HashSet<ValidMove> modifiedSet = new HashSet<>();
-        for (ValidMove validmove : this.validMoves) {
-            if (stayOnBoard(validmove)) {
-                modifiedSet.add(validmove);
-            }
-        }
-
-        return modifiedSet;
-    }
-
-    private boolean stayOnBoard(ValidMove validmove) {
-
-        int actX = getActualPosition().getCoordinate().getX();
-        int actY = getActualPosition().getCoordinate().getY();
-        int moveX = validmove.getCoordinate().getX();
-        int moveY = validmove.getCoordinate().getY();
-
-        if (actX + moveX >= 1 && actX + moveX <= 8 &&
-                actY + moveY >= 1 && actY + moveY <= 8)
-            return true;
-
-        return false;
-    }
 }

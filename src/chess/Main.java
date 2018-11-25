@@ -16,7 +16,7 @@ public class Main {
             System.out.println();
         }
 
-        Queen pawn = new Queen('W', new Cell(new Coordinate(8, 1), 'B'),1);
+        Knight pawn = new Knight('W', new Coordinate(1, 1),1);
         for (ValidMove validmove : pawn.getValidMoves()) {
             System.out.println(validmove.getCoordinate().getX() + " - " + validmove.getCoordinate().getY() + " - " + validmove.getEmptyCells().size());
 

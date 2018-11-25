@@ -6,12 +6,10 @@ import java.util.List;
 
 public class Bishop extends Figure {
 
-    private HashSet<ValidMove> validMoves;
 
 
-    public Bishop(char color, Cell startingPosition, int value) {
+    public Bishop(char color, Coordinate startingPosition, int value) {
         super("Bishop", 'B', color, startingPosition,  value);
-        validMoves = new HashSet<ValidMove>();
         setValidMoves();
     }
 
@@ -29,38 +27,13 @@ public class Bishop extends Figure {
                 coordinatesOfEmptyCellsDownRigth.add(new Coordinate(-j,j));
                 coordinatesOfEmptyCellsDownLeft.add(new Coordinate(-j,  - j));
             }
-            validMoves.add(new ValidMove(new Coordinate(i, i), coordinatesOfEmptyCellsUpRight));
-            validMoves.add(new ValidMove(new Coordinate(i, -i), coordinatesOfEmptyCellsUpLeft));
-            validMoves.add(new ValidMove(new Coordinate(-i, i), coordinatesOfEmptyCellsDownRigth));
-            validMoves.add(new ValidMove(new Coordinate(-i, -i), coordinatesOfEmptyCellsDownLeft));
+            setValidMoves(new ValidMove(new Coordinate(i, i), coordinatesOfEmptyCellsUpRight));
+            setValidMoves(new ValidMove(new Coordinate(i, -i), coordinatesOfEmptyCellsUpLeft));
+            setValidMoves(new ValidMove(new Coordinate(-i, i), coordinatesOfEmptyCellsDownRigth));
+            setValidMoves(new ValidMove(new Coordinate(-i, -i), coordinatesOfEmptyCellsDownLeft));
         }
 
 
     }
 
-    public HashSet<ValidMove> getValidMoves() {
-
-        HashSet<ValidMove> modifiedSet = new HashSet<>();
-        for (ValidMove validmove : this.validMoves) {
-            if (stayOnBoard(validmove)) {
-                modifiedSet.add(validmove);
-            }
-        }
-
-        return modifiedSet;
-    }
-
-    private boolean stayOnBoard(ValidMove validmove) {
-
-        int actX = getActualPosition().getCoordinate().getX();
-        int actY = getActualPosition().getCoordinate().getY();
-        int moveX = validmove.getCoordinate().getX();
-        int moveY = validmove.getCoordinate().getY();
-
-        if (actX + moveX >= 1 && actX + moveX <= 8 &&
-                actY + moveY >= 1 && actY + moveY <= 8)
-            return true;
-
-        return false;
-    }
 }

@@ -8,7 +8,7 @@ public class Game {
 
     //TODO chess checking
 
-    //TODO order evaluation, valid movement check and special cases (en-passan, castling, avoiding chess)
+    //TODO order evaluation, valid movement check and special cases (en-passan, double moving, castling, avoiding chess)
 
     //TODO Draw checking (similar board-set/no check within X round/no possible valid move)
 
