@@ -30,8 +30,8 @@ public class Pawn extends Figure {
 
 
         //szimpla ütés
-        setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, 1)));
-        setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, -1)));
+        setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, 1), true, "Pawn hit"));
+        setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, -1), true, "Pawn hit"));
 
         //előre 1 lépés
         List<Coordinate> coordinatesOfEmptyCells = new ArrayList<>();
