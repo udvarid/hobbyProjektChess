@@ -8,6 +8,8 @@ public class Main {
 
         game.printBoard();
 
+        game.finalValidMoves();
+
         game.printValidMoves();
 
 

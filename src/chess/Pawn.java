@@ -39,18 +39,10 @@ public class Pawn extends Figure {
         setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, 0), coordinatesOfEmptyCells));
         //előre 2 lépés
         coordinatesOfEmptyCells = new ArrayList<>();
+        coordinatesOfEmptyCells.add(new Coordinate(1 * colorModifier, 0));
         coordinatesOfEmptyCells.add(new Coordinate(2 * colorModifier, 0));
         setValidMoves(new ValidMove(new Coordinate(2 * colorModifier, 0), coordinatesOfEmptyCells, true, "Pawn double move"));
 
-        //en passan 1
-        coordinatesOfEmptyCells = new ArrayList<>();
-        coordinatesOfEmptyCells.add(new Coordinate(1 * colorModifier, 1));
-        setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, 1), coordinatesOfEmptyCells, true,"En passan"));
-
-        //en passan 2
-        coordinatesOfEmptyCells = new ArrayList<>();
-        coordinatesOfEmptyCells.add(new Coordinate(1 * colorModifier, -1));
-        setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, -1), coordinatesOfEmptyCells, true,"En passan"));
 
     }
 }
