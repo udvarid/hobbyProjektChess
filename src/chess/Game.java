@@ -1,11 +1,12 @@
 package chess;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class Game {
 
-    private Set<Figure> figures = new HashSet<>();
+    private Set<Figure> figures;
     private int round;
     private int chessLastTime;
     private Board board; //TODO meggondolni, hogy ez kell e egyáltalán
@@ -13,9 +14,11 @@ public class Game {
     private Player playerWhite;
     private Player playerBlack;
     private Set<ValidMovePair> validmoves;
+    private Set<ValidMovePair> validmovesForCalculate;
+
 
     public Game(String version, Player playerWhite, Player playerBlack) {
-        setFigures();
+        this.figures = new HashSet<>();
         this.round = 0;
         this.chessLastTime = 0;
         this.board = new Board();
@@ -23,6 +26,9 @@ public class Game {
         this.playerWhite = playerWhite;
         this.playerBlack = playerBlack;
         this.validmoves = new HashSet<>();
+        this.validmovesForCalculate = new HashSet<>();
+        if (this.version.equals("Normal"))
+            setFigures();
     }
 
 
@@ -99,8 +105,9 @@ public class Game {
         figures.add(new Queen('B', new Coordinate(8, 4), 8));
 
         //King
-        figures.add(new King('W', new Coordinate(1, 5)));
-        figures.add(new King('B', new Coordinate(8, 5)));
+        figures.add(new King('W', new Coordinate(1, 5), 0));
+        figures.add(new King('B', new Coordinate(8, 5), 0));
+
 
     }
 
@@ -122,6 +129,7 @@ public class Game {
 
     }
 
+
     private String lookingForFigures(int coordinateX, int coordinateY) {
         for (Figure figure : this.figures) {
             if (figure.getActualPosition().getX() == coordinateX &&
@@ -134,7 +142,6 @@ public class Game {
     //TODO this method is only for testing purpuse
     public void printValidMoves() {
 
-        System.out.println(validmoves.size());
 
         for (ValidMovePair validMovesToPrint : this.validmoves) {
             int xStart = validMovesToPrint.getStart().getX();
@@ -150,7 +157,8 @@ public class Game {
 
             }
 
-            System.out.println(figureSign + " : " + xStart + translateFromNumber(yStart) + " -> " + xEnd + translateFromNumber(yEnd));
+            System.out.println(figureSign + " : " + translateFromNumber(yStart) + xStart + " -> " +
+                    translateFromNumber(yEnd) + xEnd + " : " + validMovesToPrint.isChessTest());
         }
     }
 
@@ -176,9 +184,21 @@ public class Game {
         return 'X';
     }
 
+    public void cleanTable() {
+        this.figures = new HashSet<>();
+    }
 
-    public void finalValidMoves() {
-        this.validmoves = new HashSet<>();
+
+    public void finalValidMoves(boolean isNormal) {
+
+        //for calculation making the reset
+        this.validmovesForCalculate = new HashSet<>();
+
+        if (isNormal) {
+            this.validmoves = this.validmovesForCalculate;
+        }
+
+
         for (Figure figure : this.figures) {
             for (ValidMove validMoveOfFigure : figure.getValidMoves()) {
                 //in case the movement is a normal type
@@ -191,14 +211,16 @@ public class Game {
                         wrapToValidMovePairs(figure, validMoveOfFigure);
 
                 }
-
             }
         }
+
+
     }
+
 
     private boolean specialCaseAndValid(Figure figure, ValidMove validMoveOfFigure) {
         switch (validMoveOfFigure.getSpecialMoveType()) {
-            case "Castling" :
+            case "Castling":
                 return isCastlingOk(figure, validMoveOfFigure);
             case "Pawn hit":
                 return isPawnHitOk(figure, validMoveOfFigure); //this is checking the En Passan case as well
@@ -222,8 +244,8 @@ public class Game {
         boolean foundAnybody = false;
         for (Figure figure : figures) {
             if (figure.getActualPosition().getX() == rowOfRook &&
-                figure.getActualPosition().getY() > Math.min(columnOfRook, 5) &&
-                figure.getActualPosition().getY() < Math.max(columnOfRook, 5)) {
+                    figure.getActualPosition().getY() > Math.min(columnOfRook, 5) &&
+                    figure.getActualPosition().getY() < Math.max(columnOfRook, 5)) {
                 foundAnybody = true;
                 break;
             }
@@ -244,9 +266,9 @@ public class Game {
                     figure.getActualPosition().equals(coordinateRook)) {
                 King king = (King) thisFigure;
                 if (!king.isAlredyCastled() &&
-                    !king.isInChess() &&
-                    king.isStillInStartingPosition() &&
-                    figure.isStillInStartingPosition()) {
+                        !king.isInChess() &&
+                        king.isStillInStartingPosition() &&
+                        figure.isStillInStartingPosition()) {
                     return true;
                 }
             }
@@ -328,15 +350,91 @@ public class Game {
     private void wrapToValidMovePairs(Figure figure, ValidMove validMoveOfFigure) {
         Coordinate startOfMove = new Coordinate(figure.getActualPosition().getX(), figure.getActualPosition().getY());
         Coordinate endOfMove = new Coordinate(validMoveOfFigure.getCoordinate().getX(), validMoveOfFigure.getCoordinate().getY());
-        this.validmoves.add(new ValidMovePair(startOfMove, endOfMove));
+        this.validmovesForCalculate.add(new ValidMovePair(startOfMove, endOfMove));
+    }
+
+    public void addFigures(Figure figure) {
+        this.figures.add(figure);
+    }
+
+    public Set<ValidMovePair> getValidmoves() {
+        return validmoves;
+    }
+
+    public void cleanFromChessRelatedMoves() {
+        for (ValidMovePair validMovePair : validmovesForCalculate) {
+            Figure pufferEnd = removeEndFigure(validMovePair);
+            Figure pufferStart = moveStartFigure(validMovePair);
+            finalValidMoves(false);
+            flagValidMove(validMovePair); //először csak jelölni, majd törölni
+            takeBackFigure(pufferEnd, validMovePair.getEnd());
+            takeBackFigure(pufferStart, validMovePair.getStart());
+
+
+        }
+
+    }
+
+    private void flagValidMove(ValidMovePair validMovePair) {
+        //kikeresni az aktuális figura színét
+        char color = 'X';
+        for (Figure figure : figures) {
+            if (figure.getActualPosition().equals(validMovePair.getEnd())) {
+                color = figure.getColor();
+                break;
+            }
+        }
+        //megkeresni az ehhez a színhez tartozó királyt és annak koordinátáját
+        Coordinate kingsCoordinate = null;
+        for (Figure figure : figures) {
+            if (figure.getColor() == color && figure.getSign() == 'K') {
+                kingsCoordinate = figure.getActualPosition();
+                break;
+            }
+        }
+        //ha a validmovepair-ok között van olyan, aminél az ellenfél tud ide (a királyhoz) lépni
+        //azt jelölni, később törölni
+        for (ValidMovePair validMovePairForCheck : validmovesForCalculate) {
+            if (validMovePairForCheck.getEnd().equals(kingsCoordinate)) {
+                validMovePair.setChessTest(true);
+                break;
+            }
+        }
+
+    }
+
+    private void takeBackFigure(Figure pufferFigure, Coordinate coordinateBack) {
+        if (pufferFigure != null) {
+            pufferFigure.getActualPosition().setX(coordinateBack.getX());
+            pufferFigure.getActualPosition().setY(coordinateBack.getY());
+        }
+    }
+
+    private Figure moveStartFigure(ValidMovePair validMovePair) {
+        for (Figure figure : figures) {
+            if (figure.getActualPosition().equals(validMovePair.getStart())) {
+                figure.getActualPosition().setX(validMovePair.getEnd().getX());
+                figure.getActualPosition().setY(validMovePair.getEnd().getY());
+                return figure;
+            }
+        }
+
+        return null;
+    }
+
+    private Figure removeEndFigure(ValidMovePair validMovePair) {
+        for (Figure figure : figures) {
+            if (figure.getActualPosition().equals(validMovePair.getEnd())) {
+                figure.getActualPosition().setX(100);
+                figure.getActualPosition().setY(100);
+                return figure;
+            }
+        }
+        return null;
     }
 
 
     //TODO two player give order (from->to), this has to translate to coordinates with a initial validation
-
-    //TODO chess checking. The valid moves should be filtered. The castling part should be checked as well
-
-    //TODO order evaluation, valid movement check and special cases (en-passan, double moving, castling, avoiding chess)
 
     //TODO Draw checking (similar board-set/no check within X round/no possible valid move)
 

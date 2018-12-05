@@ -12,7 +12,7 @@ public class KingTest {
 
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
-                king = new King('W', new Coordinate(i, j));
+                king = new King('W', new Coordinate(i, j),0);
 
                 for (ValidMove validmove : king.getValidMoves()) {
                     int getX = validmove.getCoordinate().getX();

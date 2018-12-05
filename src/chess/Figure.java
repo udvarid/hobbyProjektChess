@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class Figure {
+public class Figure implements Cloneable{
 
     private String name;
     private char sign;
@@ -129,4 +129,8 @@ public class Figure {
         return false;
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

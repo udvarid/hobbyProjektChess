@@ -3,6 +3,8 @@ package chess;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class BishopTest {
@@ -31,6 +33,75 @@ public class BishopTest {
 
             }
         }
+
+
+    }
+
+    @Test
+    public void testConcreateValidMoves() {
+
+        Game newGame = new Game();
+        newGame.cleanTable();
+        Bishop bishop = new Bishop('W', new Coordinate(1, 1), 3);
+        newGame.addFigures(bishop);
+        newGame.finalValidMoves(true);
+        int numberOfMoves = newGame.getValidmoves().size();
+        Assertions.assertEquals(7, numberOfMoves);
+
+        //change location to B2
+        bishop.setActualPosition(new Coordinate(2, 2));
+        newGame.finalValidMoves(true);
+        numberOfMoves = newGame.getValidmoves().size();
+        Assertions.assertEquals(9, numberOfMoves);
+
+        //change location to C3
+        bishop.setActualPosition(new Coordinate(3, 3));
+        newGame.finalValidMoves(true);
+        numberOfMoves = newGame.getValidmoves().size();
+        Assertions.assertEquals(11, numberOfMoves);
+
+        List<Coordinate> bishopMoves = new ArrayList<>();
+        for (ValidMovePair validMovePair : newGame.getValidmoves()) {
+            bishopMoves.add(validMovePair.getEnd());
+        }
+        Assertions.assertTrue(bishopMoves.contains(new Coordinate(2,2)));
+
+        //put one friendly figure to B2
+        Knight knight = new Knight('W', new Coordinate(2, 2), 3);
+        newGame.addFigures(knight);
+        newGame.finalValidMoves(true);
+        numberOfMoves = 0;
+        bishopMoves = new ArrayList<>();
+        for (ValidMovePair validMovePair : newGame.getValidmoves()) {
+            if (validMovePair.getStart().equals(new Coordinate(3,3))) {
+                numberOfMoves++;
+                bishopMoves.add(validMovePair.getEnd());
+            }
+        }
+        Assertions.assertEquals(9, numberOfMoves);
+        Assertions.assertFalse(bishopMoves.contains(new Coordinate(2,2)));
+
+        //put an enemy figure to B2
+        newGame = new Game();
+        newGame.cleanTable();
+        bishop = new Bishop('W', new Coordinate(3, 3), 3);
+        newGame.addFigures(bishop);
+
+        knight = new Knight('B', new Coordinate(2, 2), 3);
+        newGame.addFigures(knight);
+
+        newGame.finalValidMoves(true);
+        numberOfMoves = 0;
+        bishopMoves = new ArrayList<>();
+        for (ValidMovePair validMovePair : newGame.getValidmoves()) {
+            if (validMovePair.getStart().equals(new Coordinate(3,3))) {
+                numberOfMoves++;
+                bishopMoves.add(validMovePair.getEnd());
+            }
+        }
+        Assertions.assertEquals(10, numberOfMoves);
+        Assertions.assertTrue(bishopMoves.contains(new Coordinate(2,2)));
+
 
 
     }
