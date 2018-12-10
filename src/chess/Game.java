@@ -1,7 +1,6 @@
 package chess;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 public class Game {
@@ -180,8 +179,10 @@ public class Game {
                 return 'G';
             case 8:
                 return 'H';
+            default:
+                return 'X';
         }
-        return 'X';
+
     }
 
     public void cleanTable() {
@@ -226,8 +227,10 @@ public class Game {
                 return isPawnHitOk(figure, validMoveOfFigure); //this is checking the En Passan case as well
             case "Pawn double move":
                 return isDoubleMoveOk(figure, validMoveOfFigure);
+            default:
+                return false;
         }
-        return false;
+
     }
 
     private boolean isCastlingOk(Figure figure, ValidMove validMoveOfFigure) {
@@ -284,18 +287,13 @@ public class Game {
         //simple hit check
         for (Figure figure : this.figures) {
             if (figure.getActualPosition().equals(goalCoordinate)) {
-                if (figure.getColor() == thisFigure.getColor())
-                    return false;
-                else
-                    return true;
+                return figure.getColor() != thisFigure.getColor();
+
             }
         }
         //if the goal cell is empty, it can be an En Passan move
-        if (couldbeEnPassan(thisFigure) && enPassan(goalCoordinate, thisFigure.getColor())) {
-            return true;
-        }
 
-        return false;
+        return couldbeEnPassan(thisFigure) && enPassan(goalCoordinate, thisFigure.getColor());
     }
 
     private boolean couldbeEnPassan(Figure thisFigure) {
@@ -435,6 +433,8 @@ public class Game {
 
 
     //TODO two player give order (from->to), this has to translate to coordinates with a initial validation
+
+    //TODO promotion feature
 
     //TODO Draw checking (similar board-set/no check within X round/no possible valid move)
 

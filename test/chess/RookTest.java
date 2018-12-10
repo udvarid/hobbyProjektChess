@@ -3,6 +3,9 @@ package chess;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RookTest {
 
     @Test
@@ -32,4 +35,57 @@ public class RookTest {
 
 
     }
+
+    @Test
+    public void testConcreateValidMoves() {
+        Game newGame = new Game();
+        newGame.cleanTable();
+        Rook rook = new Rook('W', new Coordinate(1, 1), 5);
+        newGame.addFigures(rook);
+        newGame.finalValidMoves(true);
+        int numberOfMoves = newGame.getValidmoves().size();
+        Assertions.assertEquals(14, numberOfMoves);
+        List<Coordinate> rookMoves = new ArrayList<>();
+        for (ValidMovePair validMovePair : newGame.getValidmoves()) {
+            rookMoves.add(validMovePair.getEnd());
+        }
+        Assertions.assertTrue(rookMoves.contains(new Coordinate(1,2)));
+        Assertions.assertTrue(rookMoves.contains(new Coordinate(2,1)));
+        Assertions.assertFalse(rookMoves.contains(new Coordinate(2,2)));
+
+        //change the location to D4
+        rook.setActualPosition(new Coordinate(4,4));
+        newGame.finalValidMoves(true);
+        numberOfMoves = newGame.getValidmoves().size();
+        Assertions.assertEquals(14, numberOfMoves);
+
+        //put an enemy to the location of B4
+        Rook rook2 = new Rook('B', new Coordinate(2, 4), 5);
+        newGame.addFigures(rook2);
+        newGame.finalValidMoves(true);
+        rookMoves = new ArrayList<>();
+        for (ValidMovePair validMovePair : newGame.getValidmoves()) {
+            if (validMovePair.getStart().equals(rook.getActualPosition()))
+                rookMoves.add(validMovePair.getEnd());
+        }
+        Assertions.assertEquals(13, rookMoves.size());
+        Assertions.assertTrue(rookMoves.contains(new Coordinate(2,4)));
+        Assertions.assertFalse(rookMoves.contains(new Coordinate(1,4)));
+
+        //change the enemy figure to friendly one
+        newGame.getFigures().remove(rook2);
+        Rook rook3 = new Rook('W', new Coordinate(2, 4), 5);
+        newGame.addFigures(rook3);
+        newGame.finalValidMoves(true);
+        rookMoves = new ArrayList<>();
+        for (ValidMovePair validMovePair : newGame.getValidmoves()) {
+            if (validMovePair.getStart().equals(rook.getActualPosition()))
+                rookMoves.add(validMovePair.getEnd());
+        }
+        Assertions.assertEquals(12, rookMoves.size());
+        Assertions.assertFalse(rookMoves.contains(new Coordinate(2,4)));
+
+    }
+
+
 }

@@ -3,6 +3,11 @@ package chess;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class KnightTest {
 
     @Test
@@ -30,6 +35,55 @@ public class KnightTest {
             }
         }
 
+
+    }
+
+    @Test
+    public void testConcreateValidMoves() {
+        Game newGame = new Game();
+        newGame.cleanTable();
+        Knight knight = new Knight('W', new Coordinate(1, 1), 3);
+        newGame.addFigures(knight);
+        newGame.finalValidMoves(true);
+        int numberOfMoves = newGame.getValidmoves().size();
+        Assertions.assertEquals(2, numberOfMoves);
+        List<Coordinate> knightMoves = new ArrayList<>();
+        for (ValidMovePair validMovePair : newGame.getValidmoves()) {
+            knightMoves.add(validMovePair.getEnd());
+        }
+        Assertions.assertTrue(knightMoves.contains(new Coordinate(2,3)));
+        Assertions.assertTrue(knightMoves.contains(new Coordinate(3,2)));
+
+
+        //change the location to C3
+        knight.setActualPosition(new Coordinate(3, 3));
+        newGame.finalValidMoves(true);
+        numberOfMoves = newGame.getValidmoves().size();
+        Assertions.assertEquals(8, numberOfMoves);
+
+        //put an enemy figure to the table
+        Knight knight2 = new Knight('B', new Coordinate(1, 2), 3);
+        newGame.addFigures(knight2);
+        newGame.finalValidMoves(true);
+        knightMoves = new ArrayList<>();
+        for (ValidMovePair validMovePair : newGame.getValidmoves()) {
+            if (validMovePair.getStart().equals(knight.getActualPosition()))
+                knightMoves.add(validMovePair.getEnd());
+        }
+        Assertions.assertEquals(8, knightMoves.size());
+
+        //put a friendly unit to the table;
+        newGame.getFigures().remove(knight2);
+        Knight knight3 = new Knight('W', new Coordinate(1, 2), 3);
+        newGame.addFigures(knight3);
+        newGame.finalValidMoves(true);
+        knightMoves = new ArrayList<>();
+        for (ValidMovePair validMovePair : newGame.getValidmoves()) {
+            if (validMovePair.getStart().equals(knight.getActualPosition()))
+                knightMoves.add(validMovePair.getEnd());
+        }
+        Assertions.assertEquals(7, knightMoves.size());
+        Assertions.assertFalse(knightMoves.contains(new Coordinate(1,2)));
 
     }
 }

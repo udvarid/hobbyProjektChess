@@ -1,7 +1,6 @@
 package chess;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+
 
 public class King extends Figure {
 
@@ -10,7 +9,7 @@ public class King extends Figure {
     private boolean alredyCastled;
 
     public King(char color, Coordinate startingPosition, int value) {
-        super("King", 'K', color, startingPosition, 0);
+        super("King", 'K', color, startingPosition, value);
         this.inChess = false;
         this.wasAlreadyInChess = false;
         this.alredyCastled = false;

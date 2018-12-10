@@ -3,6 +3,7 @@ package chess;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Figure implements Cloneable{
 
@@ -27,7 +28,7 @@ public class Figure implements Cloneable{
         this.actualPosition = startingPosition;
         this.value = value;
         this.promoted = promoted;
-        validMoves = new HashSet<ValidMove>();
+        validMoves = new HashSet<>();
     }
 
     public Figure(String name, char sign, char color, Coordinate startingPosition, int value) {
@@ -91,7 +92,7 @@ public class Figure implements Cloneable{
         this.validMoves.add(validMove);
     }
 
-    public HashSet<ValidMove> getValidMoves() {
+    public Set<ValidMove> getValidMoves() {
 
         HashSet<ValidMove> modifiedSet = new HashSet<>();
         for (ValidMove validmove : this.validMoves) {
@@ -122,15 +123,10 @@ public class Figure implements Cloneable{
         int moveX = validmove.getCoordinate().getX();
         int moveY = validmove.getCoordinate().getY();
 
-        if (actX + moveX >= 1 && actX + moveX <= 8 &&
-                actY + moveY >= 1 && actY + moveY <= 8)
-            return true;
+        return (actX + moveX >= 1 && actX + moveX <= 8 &&
+                actY + moveY >= 1 && actY + moveY <= 8);
 
-        return false;
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
+
 }
