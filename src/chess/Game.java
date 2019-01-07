@@ -1,75 +1,35 @@
 package chess;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class Game {
 
     private Set<Figure> figures;
-    private int round;
-    private int chessLastTime;
     private Board board; //TODO meggondolni, hogy ez kell e egyáltalán
-    private String version;
-    private Player playerWhite;
-    private Player playerBlack;
     private Set<ValidMovePair> validmoves;
     private Set<ValidMovePair> validmovesForCalculate;
 
 
-    public Game(String version, Player playerWhite, Player playerBlack) {
+    public Game() {
         this.figures = new HashSet<>();
-        this.round = 0;
-        this.chessLastTime = 0;
         this.board = new Board();
-        this.version = version;
-        this.playerWhite = playerWhite;
-        this.playerBlack = playerBlack;
         this.validmoves = new HashSet<>();
         this.validmovesForCalculate = new HashSet<>();
-        if (this.version.equals("Normal"))
-            setFigures();
+        setFigures();
     }
 
 
-    public Game(Player playerWhite, Player playerBlack) {
-        this("Normal", playerWhite, playerBlack);
-    }
-
-    public Game() {
-        this("Normal", new Player('W', "Human"), new Player('B', "Human"));
-    }
-
-    public Game(String version) {
-        this(version, new Player('W', "Human"), new Player('B', "Human"));
-    }
 
 
     public Set<Figure> getFigures() {
         return figures;
     }
 
-    public int getRound() {
-        return round;
-    }
-
-    public int getChessLastTime() {
-        return chessLastTime;
-    }
 
     public Board getBoard() {
         return board;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public Player getPlayerWhite() {
-        return playerWhite;
-    }
-
-    public Player getPlayerBlack() {
-        return playerBlack;
     }
 
 
@@ -266,7 +226,8 @@ public class Game {
 
         for (Figure figure : figures) {
             if (figure.getColor() == thisFigure.getColor() &&
-                    figure.getActualPosition().equals(coordinateRook)) {
+                    figure.getActualPosition().equals(coordinateRook) &&
+                    figure.getSign() == 'R') {
                 King king = (King) thisFigure;
                 if (!king.isAlredyCastled() &&
                         !king.isInChess() &&
@@ -364,11 +325,70 @@ public class Game {
             Figure pufferEnd = removeEndFigure(validMovePair);
             Figure pufferStart = moveStartFigure(validMovePair);
             finalValidMoves(false);
-            flagValidMove(validMovePair); //először csak jelölni, majd törölni
+            flagValidMove(validMovePair);
             takeBackFigure(pufferEnd, validMovePair.getEnd());
             takeBackFigure(pufferStart, validMovePair.getStart());
 
+            freeCastlingValidation(validMovePair);
+        }
+        finalCleanFromChessRelatedMoves();
 
+    }
+
+    private void freeCastlingValidation(ValidMovePair validMovePair) {
+
+        //ha ez egy király és sáncol éppen
+        Figure thisFigure = getFigureToCheckCastlingValidation(validMovePair);
+        if (thisFigure != null) {
+            Coordinate coordinatePuffer = new Coordinate(validMovePair.getStart().getX(), (validMovePair.getEnd().getY() + validMovePair.getStart().getY()) / 2);
+            for (ValidMovePair validMovePairToCheck : validmoves) {
+                if (validMovePairToCheck.getEnd().equals(coordinatePuffer) && getColor(validMovePairToCheck) != thisFigure.getColor() && getColor(validMovePairToCheck) != 'X') {
+                    validMovePair.setChessTest(true);
+                }
+                //ha éppen a királyt támadják, akkor sem lehet sáncolni
+                if (validMovePairToCheck.getEnd().equals(validMovePair.getStart())) {
+                    validMovePair.setChessTest(true);
+                }
+            }
+        }
+
+
+    }
+
+    private char getColor(ValidMovePair validMovePairToCheck) {
+        for (Figure figure : figures) {
+            if (figure.getActualPosition().equals(validMovePairToCheck.getStart())) {
+                return figure.getColor();
+            }
+        }
+        return 'X';
+    }
+
+    private Figure getFigureToCheckCastlingValidation(ValidMovePair validMovePair) {
+
+        Figure figureResult = null;
+
+        for (Figure figure : figures) {
+            if (figure.getActualPosition().equals(validMovePair.getStart())
+                    && figure.getSign() == 'K'
+                    && Math.abs(validMovePair.getStart().getY() - validMovePair.getEnd().getY()) == 2) {
+                figureResult = figure;
+                break;
+            }
+        }
+
+        return figureResult;
+    }
+
+    private void finalCleanFromChessRelatedMoves() {
+
+
+        Iterator<ValidMovePair> it = validmoves.iterator();
+        while (it.hasNext()) {
+            ValidMovePair validMovePair = it.next();
+            if (validMovePair.isChessTest()) {
+                it.remove();
+            }
         }
 
     }
@@ -391,7 +411,7 @@ public class Game {
             }
         }
         //ha a validmovepair-ok között van olyan, aminél az ellenfél tud ide (a királyhoz) lépni
-        //azt jelölni, később törölni
+        //azt jelölni
         for (ValidMovePair validMovePairForCheck : validmovesForCalculate) {
             if (validMovePairForCheck.getEnd().equals(kingsCoordinate)) {
                 validMovePair.setChessTest(true);

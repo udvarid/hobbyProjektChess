@@ -2,19 +2,19 @@ package chess;
 
 public class Player {
 
-    private char color;
-    private String type;
+    private Color color;
+    private PlayerType type;
 
-    public Player(char color, String type) {
+    public Player(Color color, PlayerType type) {
         this.color = color;
         this.type = type;
     }
 
-    public char getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public String getType() {
+    public PlayerType getType() {
         return type;
     }
 }
