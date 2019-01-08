@@ -6,7 +6,7 @@ import java.util.List;
 public class Rook extends Figure {
 
 
-    public Rook(char color, Coordinate startingPosition, int value) {
+    public Rook(Color color, Coordinate startingPosition, int value) {
         super("Rook", 'R', color, startingPosition, value);
         setValidMoves();
     }

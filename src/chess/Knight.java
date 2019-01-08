@@ -5,7 +5,7 @@ package chess;
 public class Knight extends Figure {
 
 
-    public Knight(char color, Coordinate startingPosition, int value) {
+    public Knight(Color color, Coordinate startingPosition, int value) {
         super("Knight", 'N', color, startingPosition, value);
         setValidMoves();
     }

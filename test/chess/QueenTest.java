@@ -15,7 +15,7 @@ public class QueenTest {
 
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
-                queen = new Queen('W', new Coordinate(i, j), 1);
+                queen = new Queen(Color.WHITE, new Coordinate(i, j), 1);
 
                 for (ValidMove validmove : queen.getValidMoves()) {
                     int getX = validmove.getCoordinate().getX();
@@ -40,7 +40,7 @@ public class QueenTest {
     public void testConcreateValidMoves() {
         Game newGame = new Game();
         newGame.cleanTable();
-        Queen queen = new Queen('W', new Coordinate(1, 1), 8);
+        Queen queen = new Queen(Color.WHITE, new Coordinate(1, 1), 8);
         newGame.addFigures(queen);
         newGame.finalValidMoves(true);
         int numberOfMoves = newGame.getValidmoves().size();
@@ -62,7 +62,7 @@ public class QueenTest {
         Assertions.assertEquals(27, numberOfMoves);
 
         //put an enemy to the position of C3
-        Queen queen2 = new Queen('B', new Coordinate(3, 3), 8);
+        Queen queen2 = new Queen(Color.BLACK, new Coordinate(3, 3), 8);
         newGame.addFigures(queen2);
         newGame.finalValidMoves(true);
         List<Coordinate> queenMoves = new ArrayList<>();
@@ -77,7 +77,7 @@ public class QueenTest {
 
         //change the enemy to a friend
         newGame.getFigures().remove(queen2);
-        Queen queen3 = new Queen('W', new Coordinate(3, 3), 8);
+        Queen queen3 = new Queen(Color.WHITE, new Coordinate(3, 3), 8);
         newGame.addFigures(queen3);
         newGame.finalValidMoves(true);
         queenMoves = new ArrayList<>();

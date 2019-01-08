@@ -37,35 +37,35 @@ public class Game {
 
         //pawns
         for (int i = 1; i <= 8; i++) {
-            figures.add(new Pawn('W', new Coordinate(2, i), 1));
-            figures.add(new Pawn('B', new Coordinate(7, i), 1));
+            figures.add(new Pawn(Color.WHITE, new Coordinate(2, i), 1));
+            figures.add(new Pawn(Color.BLACK, new Coordinate(7, i), 1));
         }
 
         //Rooks
-        figures.add(new Rook('W', new Coordinate(1, 1), 5));
-        figures.add(new Rook('W', new Coordinate(1, 8), 5));
-        figures.add(new Rook('B', new Coordinate(8, 1), 5));
-        figures.add(new Rook('B', new Coordinate(8, 8), 5));
+        figures.add(new Rook(Color.WHITE, new Coordinate(1, 1), 5));
+        figures.add(new Rook(Color.WHITE, new Coordinate(1, 8), 5));
+        figures.add(new Rook(Color.BLACK, new Coordinate(8, 1), 5));
+        figures.add(new Rook(Color.BLACK, new Coordinate(8, 8), 5));
 
         //Knights
-        figures.add(new Knight('W', new Coordinate(1, 2), 3));
-        figures.add(new Knight('W', new Coordinate(1, 7), 3));
-        figures.add(new Knight('B', new Coordinate(8, 2), 3));
-        figures.add(new Knight('B', new Coordinate(8, 7), 3));
+        figures.add(new Knight(Color.WHITE, new Coordinate(1, 2), 3));
+        figures.add(new Knight(Color.WHITE, new Coordinate(1, 7), 3));
+        figures.add(new Knight(Color.BLACK, new Coordinate(8, 2), 3));
+        figures.add(new Knight(Color.BLACK, new Coordinate(8, 7), 3));
 
         //Bishops
-        figures.add(new Bishop('W', new Coordinate(1, 3), 3));
-        figures.add(new Bishop('W', new Coordinate(1, 6), 3));
-        figures.add(new Bishop('B', new Coordinate(8, 3), 3));
-        figures.add(new Bishop('B', new Coordinate(8, 6), 3));
+        figures.add(new Bishop(Color.WHITE, new Coordinate(1, 3), 3));
+        figures.add(new Bishop(Color.WHITE, new Coordinate(1, 6), 3));
+        figures.add(new Bishop(Color.BLACK, new Coordinate(8, 3), 3));
+        figures.add(new Bishop(Color.BLACK, new Coordinate(8, 6), 3));
 
         //Queen
-        figures.add(new Queen('W', new Coordinate(1, 4), 8));
-        figures.add(new Queen('B', new Coordinate(8, 4), 8));
+        figures.add(new Queen(Color.WHITE, new Coordinate(1, 4), 8));
+        figures.add(new Queen(Color.BLACK, new Coordinate(8, 4), 8));
 
         //King
-        figures.add(new King('W', new Coordinate(1, 5), 0));
-        figures.add(new King('B', new Coordinate(8, 5), 0));
+        figures.add(new King(Color.WHITE, new Coordinate(1, 5), 0));
+        figures.add(new King(Color.BLACK, new Coordinate(8, 5), 0));
 
 
     }
@@ -202,7 +202,7 @@ public class Game {
     private boolean isKingAndRookPathEmpty(Figure thisFigure, ValidMove validMoveOfFigure) {
 
         int columnOfRook = validMoveOfFigure.getCoordinate().getY() == 7 ? 8 : 1;
-        int rowOfRook = thisFigure.getColor() == 'W' ? 1 : 8;
+        int rowOfRook = thisFigure.getColor().equals(Color.WHITE) ? 1 : 8;
 
         boolean foundAnybody = false;
         for (Figure figure : figures) {
@@ -221,7 +221,7 @@ public class Game {
     private boolean isKingAndRookAreReady(Figure thisFigure, ValidMove validMoveOfFigure) {
 
         int columnOfRook = validMoveOfFigure.getCoordinate().getY() == 7 ? 8 : 1;
-        int rowOfRook = thisFigure.getColor() == 'W' ? 1 : 8;
+        int rowOfRook = thisFigure.getColor().equals(Color.WHITE) ? 1 : 8;
         Coordinate coordinateRook = new Coordinate(rowOfRook, columnOfRook);
 
         for (Figure figure : figures) {
@@ -258,18 +258,18 @@ public class Game {
     }
 
     private boolean couldbeEnPassan(Figure thisFigure) {
-        return (thisFigure.getColor() == 'W' && thisFigure.getActualPosition().getX() == 5 ||
-                thisFigure.getColor() == 'B' && thisFigure.getActualPosition().getX() == 4);
+        return (thisFigure.getColor().equals(Color.WHITE) && thisFigure.getActualPosition().getX() == 5 ||
+                thisFigure.getColor().equals(Color.BLACK) && thisFigure.getActualPosition().getX() == 4);
     }
 
-    private boolean enPassan(Coordinate goalCoordinate, char color) {
-        char enemyColor = color == 'W' ? 'B' : 'W';
-        int enemyLine = color == 'W' ? 5 : 4;
+    private boolean enPassan(Coordinate goalCoordinate, Color color) {
+        Color enemyColor = color.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
+        int enemyLine = color.equals(Color.WHITE) ? 5 : 4;
         Coordinate enemyCoordinate = new Coordinate(enemyLine, goalCoordinate.getY());
 
         for (Figure figure : figures) {
             if (figure.getActualPosition().equals(enemyCoordinate) &&
-                    figure.getColor() == enemyColor &&
+                    figure.getColor().equals(enemyColor) &&
                     figure.getSign() == 'P') {
                 Pawn enemyPawn = (Pawn) figure;
                 if (enemyPawn.isLastMoveIsDoubleOpening()) {
@@ -309,7 +309,7 @@ public class Game {
     private void wrapToValidMovePairs(Figure figure, ValidMove validMoveOfFigure) {
         Coordinate startOfMove = new Coordinate(figure.getActualPosition().getX(), figure.getActualPosition().getY());
         Coordinate endOfMove = new Coordinate(validMoveOfFigure.getCoordinate().getX(), validMoveOfFigure.getCoordinate().getY());
-        this.validmovesForCalculate.add(new ValidMovePair(startOfMove, endOfMove));
+        this.validmovesForCalculate.add(new ValidMovePair(startOfMove, endOfMove, figure));
     }
 
     public void addFigures(Figure figure) {
@@ -342,7 +342,7 @@ public class Game {
         if (thisFigure != null) {
             Coordinate coordinatePuffer = new Coordinate(validMovePair.getStart().getX(), (validMovePair.getEnd().getY() + validMovePair.getStart().getY()) / 2);
             for (ValidMovePair validMovePairToCheck : validmoves) {
-                if (validMovePairToCheck.getEnd().equals(coordinatePuffer) && getColor(validMovePairToCheck) != thisFigure.getColor() && getColor(validMovePairToCheck) != 'X') {
+                if (validMovePairToCheck.getEnd().equals(coordinatePuffer) && getColor(validMovePairToCheck) != thisFigure.getColor() && getColor(validMovePairToCheck) != Color.UNDEFINED) {
                     validMovePair.setChessTest(true);
                 }
                 //ha éppen a királyt támadják, akkor sem lehet sáncolni
@@ -355,13 +355,13 @@ public class Game {
 
     }
 
-    private char getColor(ValidMovePair validMovePairToCheck) {
+    private Color getColor(ValidMovePair validMovePairToCheck) {
         for (Figure figure : figures) {
             if (figure.getActualPosition().equals(validMovePairToCheck.getStart())) {
                 return figure.getColor();
             }
         }
-        return 'X';
+        return Color.UNDEFINED;
     }
 
     private Figure getFigureToCheckCastlingValidation(ValidMovePair validMovePair) {
@@ -395,7 +395,7 @@ public class Game {
 
     private void flagValidMove(ValidMovePair validMovePair) {
         //kikeresni az aktuális figura színét
-        char color = 'X';
+        Color color = Color.UNDEFINED;
         for (Figure figure : figures) {
             if (figure.getActualPosition().equals(validMovePair.getEnd())) {
                 color = figure.getColor();

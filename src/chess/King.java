@@ -8,7 +8,7 @@ public class King extends Figure {
     private boolean wasAlreadyInChess;
     private boolean alredyCastled;
 
-    public King(char color, Coordinate startingPosition, int value) {
+    public King(Color color, Coordinate startingPosition, int value) {
         super("King", 'K', color, startingPosition, value);
         this.inChess = false;
         this.wasAlreadyInChess = false;

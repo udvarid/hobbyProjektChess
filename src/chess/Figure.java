@@ -9,7 +9,7 @@ public class Figure implements Cloneable{
 
     private String name;
     private char sign;
-    private char color;
+    private Color color;
     private boolean isAlive;
     private boolean stillInStartingPosition;
     private Coordinate startingPosition;
@@ -18,7 +18,7 @@ public class Figure implements Cloneable{
     private int value;
     private HashSet<ValidMove> validMoves;
 
-    public Figure(String name, char sign, char color, Coordinate startingPosition, int value, boolean promoted) {
+    public Figure(String name, char sign, Color color, Coordinate startingPosition, int value, boolean promoted) {
         this.name = name;
         this.sign = sign;
         this.color = color;
@@ -31,7 +31,7 @@ public class Figure implements Cloneable{
         validMoves = new HashSet<>();
     }
 
-    public Figure(String name, char sign, char color, Coordinate startingPosition, int value) {
+    public Figure(String name, char sign, Color color, Coordinate startingPosition, int value) {
         this(name, sign, color, startingPosition, value, false);
     }
 
@@ -39,7 +39,7 @@ public class Figure implements Cloneable{
         return name;
     }
 
-    public char getColor() {
+    public Color getColor() {
         return color;
     }
 

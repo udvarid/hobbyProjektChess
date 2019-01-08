@@ -15,7 +15,7 @@ public class RookTest {
 
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
-                rook = new Rook('W', new Coordinate(i, j), 1);
+                rook = new Rook(Color.WHITE, new Coordinate(i, j), 1);
 
                 for (ValidMove validmove : rook.getValidMoves()) {
                     int getX = validmove.getCoordinate().getX();
@@ -40,7 +40,7 @@ public class RookTest {
     public void testConcreateValidMoves() {
         Game newGame = new Game();
         newGame.cleanTable();
-        Rook rook = new Rook('W', new Coordinate(1, 1), 5);
+        Rook rook = new Rook(Color.WHITE, new Coordinate(1, 1), 5);
         newGame.addFigures(rook);
         newGame.finalValidMoves(true);
         int numberOfMoves = newGame.getValidmoves().size();
@@ -60,7 +60,7 @@ public class RookTest {
         Assertions.assertEquals(14, numberOfMoves);
 
         //put an enemy to the location of B4
-        Rook rook2 = new Rook('B', new Coordinate(2, 4), 5);
+        Rook rook2 = new Rook(Color.BLACK, new Coordinate(2, 4), 5);
         newGame.addFigures(rook2);
         newGame.finalValidMoves(true);
         rookMoves = new ArrayList<>();
@@ -74,7 +74,7 @@ public class RookTest {
 
         //change the enemy figure to friendly one
         newGame.getFigures().remove(rook2);
-        Rook rook3 = new Rook('W', new Coordinate(2, 4), 5);
+        Rook rook3 = new Rook(Color.WHITE, new Coordinate(2, 4), 5);
         newGame.addFigures(rook3);
         newGame.finalValidMoves(true);
         rookMoves = new ArrayList<>();

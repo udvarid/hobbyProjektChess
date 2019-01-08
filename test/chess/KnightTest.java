@@ -17,7 +17,7 @@ public class KnightTest {
 
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
-                knight = new Knight('W', new Coordinate(i, j), 1);
+                knight = new Knight(Color.WHITE, new Coordinate(i, j), 1);
 
                 for (ValidMove validmove : knight.getValidMoves()) {
                     int getX = validmove.getCoordinate().getX();
@@ -42,7 +42,7 @@ public class KnightTest {
     public void testConcreateValidMoves() {
         Game newGame = new Game();
         newGame.cleanTable();
-        Knight knight = new Knight('W', new Coordinate(1, 1), 3);
+        Knight knight = new Knight(Color.WHITE, new Coordinate(1, 1), 3);
         newGame.addFigures(knight);
         newGame.finalValidMoves(true);
         int numberOfMoves = newGame.getValidmoves().size();
@@ -62,7 +62,7 @@ public class KnightTest {
         Assertions.assertEquals(8, numberOfMoves);
 
         //put an enemy figure to the table
-        Knight knight2 = new Knight('B', new Coordinate(1, 2), 3);
+        Knight knight2 = new Knight(Color.BLACK, new Coordinate(1, 2), 3);
         newGame.addFigures(knight2);
         newGame.finalValidMoves(true);
         knightMoves = new ArrayList<>();
@@ -74,7 +74,7 @@ public class KnightTest {
 
         //put a friendly unit to the table;
         newGame.getFigures().remove(knight2);
-        Knight knight3 = new Knight('W', new Coordinate(1, 2), 3);
+        Knight knight3 = new Knight(Color.WHITE, new Coordinate(1, 2), 3);
         newGame.addFigures(knight3);
         newGame.finalValidMoves(true);
         knightMoves = new ArrayList<>();

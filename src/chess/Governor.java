@@ -1,6 +1,7 @@
 package chess;
 
 import java.util.Scanner;
+import java.util.Set;
 
 public class Governor {
 
@@ -46,8 +47,16 @@ public class Governor {
         }
 
         //get all of valid moves from Game object
-
+        game.finalValidMoves(true);
+        game.cleanFromChessRelatedMoves();
+        Set<ValidMovePair> validmovesForThisPlayer = filterValidMoves(game.getValidmoves(), whoIsNext.getColor());
         //if have any, asking a valid one from Player
+        if (!validmovesForThisPlayer.isEmpty()) {
+          ValidMovePair moveActual = askingValidmove(validmovesForThisPlayer);
+          makeMove(moveActual);
+          handlePromotingIfNecessery(moveActual);
+
+        }
 
         //make the move and making the necessery changes:
         // e.g.: move, capture, promote, administrating
@@ -65,6 +74,7 @@ public class Governor {
 
     private boolean endGameEvaluating() {
 
+        //TODO ezt még kiegészíteni
         return false;
     }
 

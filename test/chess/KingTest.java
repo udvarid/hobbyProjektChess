@@ -15,7 +15,7 @@ public class KingTest {
 
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
-                king = new King('W', new Coordinate(i, j), 0);
+                king = new King(Color.WHITE, new Coordinate(i, j), 0);
 
                 for (ValidMove validmove : king.getValidMoves()) {
                     int getX = validmove.getCoordinate().getX();
@@ -40,7 +40,7 @@ public class KingTest {
     public void testNormalMoves() {
         Game newGame = new Game();
         newGame.cleanTable();
-        King king = new King('W', new Coordinate(1, 5), 1);
+        King king = new King(Color.WHITE, new Coordinate(1, 5), 1);
         newGame.addFigures(king);
         newGame.finalValidMoves(true);
         int numberOfMoves = newGame.getValidmoves().size();
@@ -62,8 +62,8 @@ public class KingTest {
     public void testOfMovingInCaseOfBlock() {
         Game newGame = new Game();
         newGame.cleanTable();
-        King king = new King('W', new Coordinate(1, 5), 1);
-        Pawn pawn = new Pawn('W', new Coordinate(2, 5), 1);
+        King king = new King(Color.WHITE, new Coordinate(1, 5), 1);
+        Pawn pawn = new Pawn(Color.WHITE, new Coordinate(2, 5), 1);
         newGame.addFigures(king);
         newGame.addFigures(pawn);
         newGame.finalValidMoves(true);
@@ -74,7 +74,7 @@ public class KingTest {
             }
         }
         Assertions.assertEquals(4, numberOfMoves);
-        Pawn pawn2 = new Pawn('W', new Coordinate(1, 4), 1);
+        Pawn pawn2 = new Pawn(Color.WHITE, new Coordinate(1, 4), 1);
         newGame.addFigures(pawn2);
         newGame.finalValidMoves(true);
         numberOfMoves = 0;
@@ -91,8 +91,8 @@ public class KingTest {
     public void testNormalCastling() {
         Game newGame = new Game();
         newGame.cleanTable();
-        King king = new King('W', new Coordinate(1, 5), 1);
-        Pawn pawn = new Pawn('W', new Coordinate(1, 8), 1);
+        King king = new King(Color.WHITE, new Coordinate(1, 5), 1);
+        Pawn pawn = new Pawn(Color.WHITE, new Coordinate(1, 8), 1);
         newGame.addFigures(king);
         newGame.addFigures(pawn);
         newGame.finalValidMoves(true);
@@ -106,8 +106,8 @@ public class KingTest {
 
         //change the pawn to a Rook
         newGame.getFigures().remove(pawn);
-        Rook rook = new Rook('W', new Coordinate(1, 8), 5);
-        Rook rook2 = new Rook('W', new Coordinate(1, 1), 5);
+        Rook rook = new Rook(Color.WHITE, new Coordinate(1, 8), 5);
+        Rook rook2 = new Rook(Color.WHITE, new Coordinate(1, 1), 5);
         newGame.addFigures(rook);
         newGame.addFigures(rook2);
         newGame.finalValidMoves(true);
@@ -130,10 +130,10 @@ public class KingTest {
     public void testCastlingWhenThePathIsNotClear() {
         Game newGame = new Game();
         newGame.cleanTable();
-        King king = new King('W', new Coordinate(1, 5), 1);
-        Rook rook = new Rook('W', new Coordinate(1, 8), 5);
-        Rook rook2 = new Rook('W', new Coordinate(1, 1), 5);
-        Pawn pawn = new Pawn('W', new Coordinate(1, 3), 1);
+        King king = new King(Color.WHITE, new Coordinate(1, 5), 1);
+        Rook rook = new Rook(Color.WHITE, new Coordinate(1, 8), 5);
+        Rook rook2 = new Rook(Color.WHITE, new Coordinate(1, 1), 5);
+        Pawn pawn = new Pawn(Color.WHITE, new Coordinate(1, 3), 1);
         newGame.addFigures(king);
         newGame.addFigures(rook);
         newGame.addFigures(rook2);
@@ -148,7 +148,7 @@ public class KingTest {
             }
         }
         Assertions.assertEquals(6, numberOfMoves);
-        Pawn pawn2 = new Pawn('W', new Coordinate(1, 7), 1);
+        Pawn pawn2 = new Pawn(Color.WHITE, new Coordinate(1, 7), 1);
         newGame.addFigures(pawn2);
         newGame.finalValidMoves(true);
         numberOfMoves = 0;
@@ -168,10 +168,10 @@ public class KingTest {
     public void TestKingMovementIntoChess() {
         Game newGame = new Game();
         newGame.cleanTable();
-        King king = new King('W', new Coordinate(1, 5), 1);
-        Rook rook = new Rook('W', new Coordinate(1, 8), 5);
-        Rook rook2 = new Rook('W', new Coordinate(1, 1), 5);
-        Rook rook3 = new Rook('B', new Coordinate(2, 1), 5);
+        King king = new King(Color.WHITE, new Coordinate(1, 5), 1);
+        Rook rook = new Rook(Color.WHITE, new Coordinate(1, 8), 5);
+        Rook rook2 = new Rook(Color.WHITE, new Coordinate(1, 1), 5);
+        Rook rook3 = new Rook(Color.BLACK, new Coordinate(2, 1), 5);
         newGame.addFigures(king);
         newGame.addFigures(rook);
         newGame.addFigures(rook2);
@@ -194,10 +194,10 @@ public class KingTest {
     public void testCastlingWhenThePathIsAttacked() {
         Game newGame = new Game();
         newGame.cleanTable();
-        King king = new King('W', new Coordinate(1, 5), 1);
-        Rook rook = new Rook('W', new Coordinate(1, 8), 5);
-        Rook rook2 = new Rook('W', new Coordinate(1, 1), 5);
-        Rook rook3 = new Rook('B', new Coordinate(8, 3), 5);
+        King king = new King(Color.WHITE, new Coordinate(1, 5), 1);
+        Rook rook = new Rook(Color.WHITE, new Coordinate(1, 8), 5);
+        Rook rook2 = new Rook(Color.WHITE, new Coordinate(1, 1), 5);
+        Rook rook3 = new Rook(Color.BLACK, new Coordinate(8, 3), 5);
         newGame.addFigures(king);
         newGame.addFigures(rook);
         newGame.addFigures(rook2);
@@ -214,7 +214,7 @@ public class KingTest {
         }
         Assertions.assertEquals(6, numberOfMoves);
 
-        Bishop bishop = new Bishop('B', new Coordinate(3, 8), 3);
+        Bishop bishop = new Bishop(Color.BLACK, new Coordinate(3, 8), 3);
         newGame.addFigures(bishop);
         newGame.finalValidMoves(true);
         newGame.cleanFromChessRelatedMoves();
@@ -233,10 +233,10 @@ public class KingTest {
     public void testCastlingWhenKingInChess() {
         Game newGame = new Game();
         newGame.cleanTable();
-        King king = new King('W', new Coordinate(1, 5), 1);
-        Rook rook = new Rook('W', new Coordinate(1, 8), 5);
-        Rook rook2 = new Rook('W', new Coordinate(1, 1), 5);
-        Rook rook3 = new Rook('B', new Coordinate(8, 5), 5);
+        King king = new King(Color.WHITE, new Coordinate(1, 5), 1);
+        Rook rook = new Rook(Color.WHITE, new Coordinate(1, 8), 5);
+        Rook rook2 = new Rook(Color.WHITE, new Coordinate(1, 1), 5);
+        Rook rook3 = new Rook(Color.BLACK, new Coordinate(8, 5), 5);
         newGame.addFigures(king);
         newGame.addFigures(rook);
         newGame.addFigures(rook2);

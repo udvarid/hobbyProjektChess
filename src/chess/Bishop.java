@@ -7,7 +7,7 @@ public class Bishop extends Figure {
 
 
 
-    public Bishop(char color, Coordinate startingPosition, int value) {
+    public Bishop(Color color, Coordinate startingPosition, int value) {
         super("Bishop", 'B', color, startingPosition,  value);
         setValidMoves();
     }

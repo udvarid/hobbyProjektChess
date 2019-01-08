@@ -15,7 +15,7 @@ public class PawnTest {
 
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
-                pawn = new Pawn('W', new Coordinate(i, j), 1);
+                pawn = new Pawn(Color.WHITE, new Coordinate(i, j), 1);
 
                 for (ValidMove validmove : pawn.getValidMoves()) {
                     int getX = validmove.getCoordinate().getX();
@@ -42,13 +42,13 @@ public class PawnTest {
     public void testConcreateValidMoves() {
         Game newGame = new Game();
         newGame.cleanTable();
-        Pawn pawn = new Pawn('W', new Coordinate(2, 2), 1);
+        Pawn pawn = new Pawn(Color.WHITE, new Coordinate(2, 2), 1);
         newGame.addFigures(pawn);
         newGame.finalValidMoves(true);
         int numberOfMoves = newGame.getValidmoves().size();
         Assertions.assertEquals(2, numberOfMoves);
         //ha ez a kezdő lépése és van előtte valaki
-        Pawn pawn0 = new Pawn('W', new Coordinate(3, 2), 1);
+        Pawn pawn0 = new Pawn(Color.WHITE, new Coordinate(3, 2), 1);
         newGame.addFigures(pawn0);
         newGame.finalValidMoves(true);
         List<Coordinate> pawnMoves = new ArrayList<>();
@@ -74,7 +74,7 @@ public class PawnTest {
         Assertions.assertTrue( pawnMoves.contains(new Coordinate(4,2)));
 
         //ha van előtte egy ellenség
-        Pawn pawn2 = new Pawn('B', new Coordinate(4, 2), 1);
+        Pawn pawn2 = new Pawn(Color.BLACK, new Coordinate(4, 2), 1);
         newGame.addFigures(pawn2);
         newGame.finalValidMoves(true);
         pawnMoves = new ArrayList<>();
@@ -87,7 +87,7 @@ public class PawnTest {
 
         //ha van előtte egy barát
         newGame.getFigures().remove(pawn2);
-        Pawn pawn3 = new Pawn('W', new Coordinate(4, 2), 1);
+        Pawn pawn3 = new Pawn(Color.WHITE, new Coordinate(4, 2), 1);
         newGame.addFigures(pawn3);
         newGame.finalValidMoves(true);
         pawnMoves = new ArrayList<>();
@@ -99,7 +99,7 @@ public class PawnTest {
         Assertions.assertEquals(0, pawnMoves.size());
 
         //van srégen ellenség
-        Pawn pawn4 = new Pawn('B', new Coordinate(4, 3), 1);
+        Pawn pawn4 = new Pawn(Color.BLACK, new Coordinate(4, 3), 1);
         newGame.addFigures(pawn4);
         newGame.finalValidMoves(true);
         pawnMoves = new ArrayList<>();
@@ -112,7 +112,7 @@ public class PawnTest {
         Assertions.assertTrue(pawnMoves.contains(new Coordinate(4,3)));
 
         //másik srégen is van ellenség
-        Pawn pawn5 = new Pawn('B', new Coordinate(4, 1), 1);
+        Pawn pawn5 = new Pawn(Color.BLACK, new Coordinate(4, 1), 1);
         newGame.addFigures(pawn5);
         newGame.finalValidMoves(true);
         pawnMoves = new ArrayList<>();
@@ -127,7 +127,7 @@ public class PawnTest {
 
         //egyik srégen van ellenség, másikon barát
         newGame.getFigures().remove(pawn5);
-        Pawn pawn6 = new Pawn('W', new Coordinate(4, 1), 1);
+        Pawn pawn6 = new Pawn(Color.WHITE, new Coordinate(4, 1), 1);
         newGame.addFigures(pawn6);
         newGame.finalValidMoves(true);
         pawnMoves = new ArrayList<>();
@@ -142,8 +142,8 @@ public class PawnTest {
         //en passan - white
         newGame = new Game();
         newGame.cleanTable();
-        pawn = new Pawn('W', new Coordinate(5, 2), 1);
-        pawn2 = new Pawn('B', new Coordinate(5, 3), 1);
+        pawn = new Pawn(Color.WHITE, new Coordinate(5, 2), 1);
+        pawn2 = new Pawn(Color.BLACK, new Coordinate(5, 3), 1);
         pawn.setStillInStartingPosition(false);
         pawn2.setStillInStartingPosition(false);
 

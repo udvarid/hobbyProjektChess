@@ -16,7 +16,7 @@ public class BishopTest {
 
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
-                bishop = new Bishop('W', new Coordinate(i, j), 1);
+                bishop = new Bishop(Color.WHITE, new Coordinate(i, j), 1);
 
                 for (ValidMove validmove : bishop.getValidMoves()) {
                     int getX = validmove.getCoordinate().getX();
@@ -42,7 +42,7 @@ public class BishopTest {
 
         Game newGame = new Game();
         newGame.cleanTable();
-        Bishop bishop = new Bishop('W', new Coordinate(1, 1), 3);
+        Bishop bishop = new Bishop(Color.WHITE, new Coordinate(1, 1), 3);
         newGame.addFigures(bishop);
         newGame.finalValidMoves(true);
         int numberOfMoves = newGame.getValidmoves().size();
@@ -67,7 +67,7 @@ public class BishopTest {
         Assertions.assertTrue(bishopMoves.contains(new Coordinate(2,2)));
 
         //put one friendly figure to B2
-        Knight knight = new Knight('W', new Coordinate(2, 2), 3);
+        Knight knight = new Knight(Color.WHITE, new Coordinate(2, 2), 3);
         newGame.addFigures(knight);
         newGame.finalValidMoves(true);
         numberOfMoves = 0;
@@ -84,10 +84,10 @@ public class BishopTest {
         //put an enemy figure to B2
         newGame = new Game();
         newGame.cleanTable();
-        bishop = new Bishop('W', new Coordinate(3, 3), 3);
+        bishop = new Bishop(Color.WHITE, new Coordinate(3, 3), 3);
         newGame.addFigures(bishop);
 
-        knight = new Knight('B', new Coordinate(2, 2), 3);
+        knight = new Knight(Color.BLACK, new Coordinate(2, 2), 3);
         newGame.addFigures(knight);
 
         newGame.finalValidMoves(true);

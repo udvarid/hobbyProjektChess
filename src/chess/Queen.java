@@ -6,7 +6,7 @@ import java.util.List;
 public class Queen extends Figure {
 
 
-    public Queen(char color, Coordinate startingPosition, int value) {
+    public Queen(Color color, Coordinate startingPosition, int value) {
         super("Queen", 'Q', color, startingPosition, value);
         setValidMoves();
     }
