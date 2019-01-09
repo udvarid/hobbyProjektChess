@@ -33,4 +33,8 @@ public class ValidMovePair {
     public void setChessTest(boolean chessTest) {
         this.chessTest = chessTest;
     }
+
+    public void setFigure(Figure figure) {
+        this.figure = figure;
+    }
 }

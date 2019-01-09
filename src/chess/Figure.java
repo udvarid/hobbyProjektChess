@@ -39,6 +39,10 @@ public class Figure implements Cloneable{
         return name;
     }
 
+    public void setPromoted(boolean promoted) {
+        this.promoted = promoted;
+    }
+
     public Color getColor() {
         return color;
     }

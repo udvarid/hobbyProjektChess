@@ -21,8 +21,6 @@ public class Game {
     }
 
 
-
-
     public Set<Figure> getFigures() {
         return figures;
     }
@@ -92,8 +90,10 @@ public class Game {
     private String lookingForFigures(int coordinateX, int coordinateY) {
         for (Figure figure : this.figures) {
             if (figure.getActualPosition().getX() == coordinateX &&
-                    figure.getActualPosition().getY() == coordinateY)
-                return "" + figure.getColor() + figure.getSign();
+                    figure.getActualPosition().getY() == coordinateY) {
+                char figureColor = figure.getColor().equals(Color.WHITE) ? 'W' : 'B';
+                return "" + figureColor + figure.getSign();
+            }
         }
         return "  ";
     }
@@ -110,7 +110,8 @@ public class Game {
             String figureSign = "";
             for (Figure figureToPrint : this.figures) {
                 if (figureToPrint.getActualPosition().equals(validMovesToPrint.getStart())) {
-                    figureSign = "" + figureToPrint.getColor() + figureToPrint.getSign();
+                    char figureColor = figureToPrint.getColor().equals(Color.WHITE) ? 'W' : 'B';
+                    figureSign = "" + figureColor + figureToPrint.getSign();
                     break;
                 }
 
@@ -451,12 +452,47 @@ public class Game {
         return null;
     }
 
+    public boolean deleteFigure(Coordinate end) {
 
-    //TODO two player give order (from->to), this has to translate to coordinates with a initial validation
+        Iterator<Figure> iterator = this.figures.iterator();
+        while (iterator.hasNext()) {
+            Figure figure = iterator.next();
+            if (figure.getActualPosition().equals(end)) {
+                iterator.remove();
+                return true;
+            }
+        }
 
-    //TODO promotion feature
+        return false;
+    }
 
-    //TODO Draw checking (similar board-set/no check within X round/no possible valid move)
+    public void promote(ValidMovePair moveActual, char promoteSign) {
+
+        deleteFigure(moveActual.getEnd());
+        Color colorToSet = moveActual.getFigure().getColor();
+        Figure figure = null;
+        switch (promoteSign) {
+            case 'r':
+                figure = new Rook(colorToSet, moveActual.getEnd(), 5);
+                break;
+            case 'k':
+                figure = new Knight(colorToSet, moveActual.getEnd(), 3);
+                break;
+            case 'b':
+                figure = new Bishop(colorToSet, moveActual.getEnd(), 3);
+                break;
+            case 'q':
+                figure = new Queen(colorToSet, moveActual.getEnd(), 3);
+                break;
+        }
+        figure.setStillInStartingPosition(false);
+        figure.setPromoted(true);
+
+        this.figures.add(figure);
+
+
+    }
+
 
     //TODO actual board evaluation (material, area, weakness/strenght)
 

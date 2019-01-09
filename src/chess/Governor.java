@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -28,20 +29,24 @@ public class Governor {
 
     public void startGame() {
         boolean endGame = false;
+        boolean wasMove = false;
         Player whoIsNext = playerA;
         while (!endGame) {
+
             printActualStatus();
 
-            actualPlayerIsMoving(whoIsNext);
-
-            nextPlayerSet(whoIsNext);
+            wasMove = actualPlayerIsMoving(whoIsNext);
 
             endGame = endGameEvaluating();
+
+            whoIsNext = nextPlayerSet(whoIsNext);
+
         }
     }
 
-    private void actualPlayerIsMoving(Player whoIsNext) {
+    private boolean actualPlayerIsMoving(Player whoIsNext) {
 
+        boolean result = false;
         if (whoIsNext.getColor().equals(Color.WHITE)) {
             this.round++;
         }
@@ -52,22 +57,172 @@ public class Governor {
         Set<ValidMovePair> validmovesForThisPlayer = filterValidMoves(game.getValidmoves(), whoIsNext.getColor());
         //if have any, asking a valid one from Player
         if (!validmovesForThisPlayer.isEmpty()) {
-          ValidMovePair moveActual = askingValidmove(validmovesForThisPlayer);
-          makeMove(moveActual);
-          handlePromotingIfNecessery(moveActual);
+            ValidMovePair moveActual = askingValidmove(validmovesForThisPlayer, whoIsNext);
+            makeMove(moveActual);
+            result = true;
+            if (moveActual.getFigure().getSign() == 'P') {
+                this.pawnMovedLastTime = this.round;
+            }
+            handlePromotingIfNecessery(moveActual);
 
         }
 
-        //make the move and making the necessery changes:
-        // e.g.: move, capture, promote, administrating
+
+        return result;
 
     }
 
-    private void nextPlayerSet(Player whoIsNext) {
-        if (whoIsNext.getColor().equals(Color.WHITE)) {
-            whoIsNext = playerB;
+    private void handlePromotingIfNecessery(ValidMovePair moveActual) {
+        if (canPromote(moveActual)) {
+            boolean goodPromoteFormat = false;
+            String toPromote = null;
+            while (!goodPromoteFormat) {
+                System.out.println("What type would you want promote to? Only one character: R/K/B/Q");
+                toPromote = scanner.nextLine();
+                if (toPromote.length() == 1 && toPromote.matches("[rkbqRKBQ]")) {
+                    goodPromoteFormat = true;
+                }
+            }
+            game.promote(moveActual, toPromote.toLowerCase().charAt(0));
+
+
+        }
+    }
+
+    private boolean canPromote(ValidMovePair moveActual) {
+
+        if (moveActual.getFigure().getSign() == 'P') {
+            if (moveActual.getFigure().getColor().equals(Color.WHITE) && moveActual.getEnd().getX() == 8 ||
+                    moveActual.getFigure().getColor().equals(Color.BLACK) && moveActual.getEnd().getX() == 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    private void makeMove(ValidMovePair moveActual) {
+
+        if (game.deleteFigure(moveActual.getEnd())) {
+            this.figureCapturedLastTime = round;
+        }
+        ;
+
+        moveActual.getFigure().getActualPosition().setX(moveActual.getEnd().getX());
+        moveActual.getFigure().getActualPosition().setY(moveActual.getEnd().getY());
+
+
+    }
+
+    private ValidMovePair askingValidmove(Set<ValidMovePair> validmovesForThisPlayer, Player whoIsNext) {
+
+        ValidMovePair result = null;
+        Coordinate start = null;
+        Coordinate end = null;
+
+        if (whoIsNext.getType().equals(PlayerType.HUMAN)) {
+            boolean validMoveAlreadyGiven = false;
+            while (!validMoveAlreadyGiven) {
+                System.out.println("Give me a valid move separated by '-', e.g: 'e2-e4'");
+                String[] order = scanner.nextLine().split("-");
+                try {
+                    start = convertToCoordinate(order[0]);
+                    end = convertToCoordinate(order[1]);
+                } catch (Exception e) {
+                }
+                result = new ValidMovePair(start, end, null);
+                validMoveAlreadyGiven = orderOnTheListOfValidMoves(validmovesForThisPlayer, result);
+            }
+        }
+
+        return result;
+
+    }
+
+    private boolean orderOnTheListOfValidMoves(Set<ValidMovePair> validmovesForThisPlayer, ValidMovePair result) {
+
+        if (result.getStart() != null & result.getEnd() != null) {
+            for (ValidMovePair validMovePair : validmovesForThisPlayer) {
+                if (validMovePair.getStart().equals(result.getStart()) && validMovePair.getEnd().equals(result.getEnd())) {
+                    result.setFigure(validMovePair.getFigure());
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private Coordinate convertToCoordinate(String s) {
+        Coordinate result = null;
+
+        int x = 0;
+        int y = 0;
+
+        if (s.length() == 2) {
+            switch (s.charAt(0)) {
+                case 'a':
+                    x = 1;
+                    break;
+                case 'b':
+                    x = 2;
+                    break;
+                case 'c':
+                    x = 3;
+                    break;
+                case 'd':
+                    x = 4;
+                    break;
+                case 'e':
+                    x = 5;
+                    break;
+                case 'f':
+                    x = 6;
+                    break;
+                case 'g':
+                    x = 7;
+                    break;
+                case 'h':
+                    x = 8;
+                    break;
+
+            }
+
+
+            try {
+                y = Integer.parseInt(s.substring(1, 2));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+
+            if (x >= 1 && y >= 1 && y <= 8) {
+                result = new Coordinate(y, x);
+            }
+        }
+
+        return result;
+    }
+
+    private Set<ValidMovePair> filterValidMoves(Set<ValidMovePair> validmoves, Color color) {
+
+        Set<ValidMovePair> result = new HashSet<>();
+
+        for (ValidMovePair validMovePair : validmoves) {
+            if (validMovePair.getFigure().getColor().equals(color)) {
+                result.add(validMovePair);
+            }
+        }
+
+        return result;
+
+    }
+
+    private Player nextPlayerSet(Player whoIsNext) {
+        if (whoIsNext == playerA) {
+            return playerB;
         } else {
-            whoIsNext = playerA;
+            return playerA;
         }
     }
 
@@ -77,8 +232,6 @@ public class Governor {
         //TODO ezt még kiegészíteni
         return false;
     }
-
-
 
 
     private void printActualStatus() {
