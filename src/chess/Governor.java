@@ -31,17 +31,81 @@ public class Governor {
         boolean endGame = false;
         boolean wasMove = false;
         Player whoIsNext = playerA;
+        game.finalValidMoves(true);
+        game.cleanFromChessRelatedMoves();
         while (!endGame) {
 
             printActualStatus();
 
             wasMove = actualPlayerIsMoving(whoIsNext);
 
-            endGame = endGameEvaluating();
+            endGame = endGameEvaluating(wasMove, whoIsNext);
 
             whoIsNext = nextPlayerSet(whoIsNext);
 
         }
+    }
+
+    private boolean endGameEvaluating(boolean wasMove, Player whoIsNext) {
+
+        boolean result = false;
+        if (!wasMove && enemyKingInChess(whoIsNext)) {
+            System.out.println("Checkmate");
+            result = true;
+        } else if (!wasMove) {
+            System.out.println("No valid move, this is a Stalemate");
+            result = true;
+        } else if (thisIsADraw()) {
+            System.out.println("This is a draw");
+            result = true;
+        }
+
+        return result;
+    }
+
+    private boolean enemyKingInChess(Player whoIsNext) {
+        game.finalValidMoves(true);
+        game.cleanFromChessRelatedMoves();
+        Figure enemyKing = findingEnemyKing(whoIsNext);
+        return enemyKingIsAttacked(enemyKing);
+    }
+
+    private boolean enemyKingIsAttacked(Figure enemyKing) {
+        boolean result = false;
+
+        for (ValidMovePair validMovePair : game.getValidmoves()) {
+            if (validMovePair.getEnd().equals(enemyKing.getActualPosition())) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    private Figure findingEnemyKing(Player whoIsNext) {
+        Figure result = null;
+        for (Figure figure : game.getFigures()) {
+            if (figure.getSign() == 'K' && figure.getColor() == whoIsNext.getColor()) {
+                result = figure;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private boolean thisIsADraw() {
+
+        boolean result = false;
+
+        if (this.figureCapturedLastTime - this.round >= 50 ||
+                this.pawnMovedLastTime - this.round >= 50) {
+            result = true;
+        }
+
+        //TODO ha nincs lehetőség matt adásra
+        //TODO accepcted draw
+        return result;
     }
 
     private boolean actualPlayerIsMoving(Player whoIsNext) {
@@ -124,7 +188,7 @@ public class Governor {
         if (whoIsNext.getType().equals(PlayerType.HUMAN)) {
             boolean validMoveAlreadyGiven = false;
             while (!validMoveAlreadyGiven) {
-                System.out.println("Give me a valid move separated by '-', e.g: 'e2-e4'");
+                System.out.println(whoIsNext.getColor().toString() + " player, give me a valid move separated by '-', e.g: 'e2-e4'");
                 String[] order = scanner.nextLine().split("-");
                 try {
                     start = convertToCoordinate(order[0]);
@@ -227,18 +291,9 @@ public class Governor {
     }
 
 
-    private boolean endGameEvaluating() {
-
-        //TODO ezt még kiegészíteni
-        return false;
-    }
-
-
     private void printActualStatus() {
         game.printBoard();
-        game.finalValidMoves(true);
-        game.cleanFromChessRelatedMoves();
-        game.printValidMoves();
+        //game.printValidMoves();
     }
 
     public Player getPlayerA() {
