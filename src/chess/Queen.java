@@ -28,13 +28,13 @@ public class Queen extends Figure {
             for (int j = 1; j < i; j++) {
                 coordinatesOfEmptyCellsUpRight.add(new Coordinate(j, j));
                 coordinatesOfEmptyCellsUpLeft.add(new Coordinate(j, -j));
-                coordinatesOfEmptyCellsDownRigth.add(new Coordinate(-j,j));
-                coordinatesOfEmptyCellsDownLeft.add(new Coordinate(-j,  - j));
+                coordinatesOfEmptyCellsDownRigth.add(new Coordinate(-j, j));
+                coordinatesOfEmptyCellsDownLeft.add(new Coordinate(-j, -j));
 
                 coordinatesOfEmptyCellsUp.add(new Coordinate(j, 0));
                 coordinatesOfEmptyCellsDown.add(new Coordinate(-j, 0));
-                coordinatesOfEmptyCellsRigth.add(new Coordinate(0,j));
-                coordinatesOfEmptyCellsLeft.add(new Coordinate(0,  - j));
+                coordinatesOfEmptyCellsRigth.add(new Coordinate(0, j));
+                coordinatesOfEmptyCellsLeft.add(new Coordinate(0, -j));
             }
             setValidMoves(new ValidMove(new Coordinate(i, i), coordinatesOfEmptyCellsUpRight));
             setValidMoves(new ValidMove(new Coordinate(i, -i), coordinatesOfEmptyCellsUpLeft));

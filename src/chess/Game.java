@@ -7,14 +7,12 @@ import java.util.Set;
 public class Game {
 
     private Set<Figure> figures;
-    private Board board; //TODO meggondolni, hogy ez kell e egyáltalán
     private Set<ValidMovePair> validmoves;
     private Set<ValidMovePair> validmovesForCalculate;
 
 
     public Game() {
         this.figures = new HashSet<>();
-        this.board = new Board();
         this.validmoves = new HashSet<>();
         this.validmovesForCalculate = new HashSet<>();
         setFigures();
@@ -25,10 +23,6 @@ public class Game {
         return figures;
     }
 
-
-    public Board getBoard() {
-        return board;
-    }
 
 
     private void setFigures() {
@@ -493,6 +487,9 @@ public class Game {
 
     }
 
+
+    //TODO - Refactory1: Figure enum type
+    //TODO - Refactory2: Special movement type to enum
 
     //TODO actual board evaluation (material, area, weakness/strenght)
 

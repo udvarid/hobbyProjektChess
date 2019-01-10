@@ -22,8 +22,8 @@ public class Rook extends Figure {
             for (int j = 1; j < i; j++) {
                 coordinatesOfEmptyCellsUp.add(new Coordinate(j, 0));
                 coordinatesOfEmptyCellsDown.add(new Coordinate(-j, 0));
-                coordinatesOfEmptyCellsRigth.add(new Coordinate(0,j));
-                coordinatesOfEmptyCellsLeft.add(new Coordinate(0,  - j));
+                coordinatesOfEmptyCellsRigth.add(new Coordinate(0, j));
+                coordinatesOfEmptyCellsLeft.add(new Coordinate(0, -j));
             }
             setValidMoves(new ValidMove(new Coordinate(i, 0), coordinatesOfEmptyCellsUp));
             setValidMoves(new ValidMove(new Coordinate(-i, 0), coordinatesOfEmptyCellsDown));

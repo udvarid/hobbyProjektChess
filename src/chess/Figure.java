@@ -10,7 +10,6 @@ public class Figure implements Cloneable{
     private String name;
     private char sign;
     private Color color;
-    private boolean isAlive;
     private boolean stillInStartingPosition;
     private Coordinate startingPosition;
     private Coordinate actualPosition;
@@ -22,7 +21,6 @@ public class Figure implements Cloneable{
         this.name = name;
         this.sign = sign;
         this.color = color;
-        this.isAlive = true;
         this.stillInStartingPosition = true;
         this.startingPosition = startingPosition;
         this.actualPosition = startingPosition;
@@ -47,10 +45,6 @@ public class Figure implements Cloneable{
         return color;
     }
 
-    public boolean isAlive() {
-        return isAlive;
-    }
-
     public char getSign() {
         return sign;
     }
@@ -65,11 +59,6 @@ public class Figure implements Cloneable{
 
     public Coordinate getStartingPosition() {
         return startingPosition;
-    }
-
-    public void setAlive(boolean alive) {
-        if (isAlive && !alive)
-            isAlive = alive;
     }
 
     public int getValue() {

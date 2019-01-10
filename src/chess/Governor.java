@@ -176,6 +176,8 @@ public class Governor {
         moveActual.getFigure().getActualPosition().setX(moveActual.getEnd().getX());
         moveActual.getFigure().getActualPosition().setY(moveActual.getEnd().getY());
 
+        //TODO - speciális mozgásokat jelölni (Pawn esetén a dobule mozgás ki/be kapcsolása; minden esetben starting positon kapcsolása; King esetén a castles ill. chess jelölők kapcsolása
+
 
     }
 
@@ -257,7 +259,7 @@ public class Governor {
             try {
                 y = Integer.parseInt(s.substring(1, 2));
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+
             }
 
             if (x >= 1 && y >= 1 && y <= 8) {

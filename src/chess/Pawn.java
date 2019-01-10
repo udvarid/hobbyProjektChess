@@ -9,7 +9,7 @@ public class Pawn extends Figure {
 
 
     public Pawn(Color color, Coordinate startingPosition, int value) {
-        super("Pawn", 'P', color, startingPosition,  value);
+        super("Pawn", 'P', color, startingPosition, value);
         this.lastMoveIsDoubleOpening = false;
         setValidMoves();
     }
@@ -25,8 +25,7 @@ public class Pawn extends Figure {
 
     private void setValidMoves() {
 
-        int colorModifier = getColor().equals(Color.BLACK) ? -1: 1;
-
+        int colorModifier = getColor().equals(Color.BLACK) ? -1 : 1;
 
         //szimpla ütés
         setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, 1), true, "Pawn hit"));

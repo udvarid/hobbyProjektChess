@@ -6,9 +6,8 @@ import java.util.List;
 public class Bishop extends Figure {
 
 
-
     public Bishop(Color color, Coordinate startingPosition, int value) {
-        super("Bishop", 'B', color, startingPosition,  value);
+        super("Bishop", 'B', color, startingPosition, value);
         setValidMoves();
     }
 
@@ -23,8 +22,8 @@ public class Bishop extends Figure {
             for (int j = 1; j < i; j++) {
                 coordinatesOfEmptyCellsUpRight.add(new Coordinate(j, j));
                 coordinatesOfEmptyCellsUpLeft.add(new Coordinate(j, -j));
-                coordinatesOfEmptyCellsDownRigth.add(new Coordinate(-j,j));
-                coordinatesOfEmptyCellsDownLeft.add(new Coordinate(-j,  - j));
+                coordinatesOfEmptyCellsDownRigth.add(new Coordinate(-j, j));
+                coordinatesOfEmptyCellsDownLeft.add(new Coordinate(-j, -j));
             }
             setValidMoves(new ValidMove(new Coordinate(i, i), coordinatesOfEmptyCellsUpRight));
             setValidMoves(new ValidMove(new Coordinate(i, -i), coordinatesOfEmptyCellsUpLeft));
