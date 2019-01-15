@@ -9,7 +9,7 @@ public class Pawn extends Figure {
 
 
     public Pawn(Color color, Coordinate startingPosition, int value) {
-        super("Pawn", 'P', color, startingPosition, value);
+        super(FigureType.PAWN, color, startingPosition, value);
         this.lastMoveIsDoubleOpening = false;
         setValidMoves();
     }
@@ -28,8 +28,8 @@ public class Pawn extends Figure {
         int colorModifier = getColor().equals(Color.BLACK) ? -1 : 1;
 
         //szimpla ütés
-        setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, 1), true, "Pawn hit"));
-        setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, -1), true, "Pawn hit"));
+        setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, 1), true, MoveType.PAWN_HIT));
+        setValidMoves(new ValidMove(new Coordinate(1 * colorModifier, -1), true, MoveType.PAWN_HIT));
 
         //előre 1 lépés
         List<Coordinate> coordinatesOfEmptyCells = new ArrayList<>();
@@ -39,7 +39,7 @@ public class Pawn extends Figure {
         coordinatesOfEmptyCells = new ArrayList<>();
         coordinatesOfEmptyCells.add(new Coordinate(1 * colorModifier, 0));
         coordinatesOfEmptyCells.add(new Coordinate(2 * colorModifier, 0));
-        setValidMoves(new ValidMove(new Coordinate(2 * colorModifier, 0), coordinatesOfEmptyCells, true, "Pawn double move"));
+        setValidMoves(new ValidMove(new Coordinate(2 * colorModifier, 0), coordinatesOfEmptyCells, true, MoveType.PAWN_DOUBLE));
 
 
     }

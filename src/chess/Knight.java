@@ -5,7 +5,7 @@ public class Knight extends Figure {
 
 
     public Knight(Color color, Coordinate startingPosition, int value) {
-        super("Knight", 'N', color, startingPosition, value);
+        super(FigureType.KNIGHT, color, startingPosition, value);
         setValidMoves();
     }
 

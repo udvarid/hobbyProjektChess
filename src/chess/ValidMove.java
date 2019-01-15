@@ -8,9 +8,9 @@ public class ValidMove {
     private Coordinate coordinate;
     private List<Coordinate> emptyCells;
     private boolean specialMove;
-    private String specialMoveType;
+    private MoveType specialMoveType;
 
-    public ValidMove(Coordinate coordinate, List<Coordinate> emptyCells, boolean specialMove, String specialMoveType) {
+    public ValidMove(Coordinate coordinate, List<Coordinate> emptyCells, boolean specialMove, MoveType specialMoveType) {
         this.coordinate = coordinate;
         this.emptyCells = emptyCells;
         this.specialMove = specialMove;
@@ -21,7 +21,7 @@ public class ValidMove {
         this(coordinate, emptyCells, false, null);
     }
 
-    public ValidMove(Coordinate coordinate, boolean specialMove, String specialMoveType) {
+    public ValidMove(Coordinate coordinate, boolean specialMove, MoveType specialMoveType) {
         this(coordinate, new ArrayList<Coordinate>(), specialMove, specialMoveType);
     }
 
@@ -42,7 +42,7 @@ public class ValidMove {
         return specialMove;
     }
 
-    public String getSpecialMoveType() {
+    public MoveType getSpecialMoveType() {
         return specialMoveType;
     }
 }

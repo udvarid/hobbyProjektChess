@@ -7,7 +7,7 @@ public class Rook extends Figure {
 
 
     public Rook(Color color, Coordinate startingPosition, int value) {
-        super("Rook", 'R', color, startingPosition, value);
+        super(FigureType.ROOK, color, startingPosition, value);
         setValidMoves();
     }
 

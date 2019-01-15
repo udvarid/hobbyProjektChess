@@ -7,7 +7,7 @@ public class Queen extends Figure {
 
 
     public Queen(Color color, Coordinate startingPosition, int value) {
-        super("Queen", 'Q', color, startingPosition, value);
+        super(FigureType.QUEEN, color, startingPosition, value);
         setValidMoves();
     }
 

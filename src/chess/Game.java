@@ -86,7 +86,7 @@ public class Game {
             if (figure.getActualPosition().getX() == coordinateX &&
                     figure.getActualPosition().getY() == coordinateY) {
                 char figureColor = figure.getColor().equals(Color.WHITE) ? 'W' : 'B';
-                return "" + figureColor + figure.getSign();
+                return "" + figureColor + figure.getFigureType().toString().charAt(0);
             }
         }
         return "  ";
@@ -105,7 +105,7 @@ public class Game {
             for (Figure figureToPrint : this.figures) {
                 if (figureToPrint.getActualPosition().equals(validMovesToPrint.getStart())) {
                     char figureColor = figureToPrint.getColor().equals(Color.WHITE) ? 'W' : 'B';
-                    figureSign = "" + figureColor + figureToPrint.getSign();
+                    figureSign = "" + figureColor + figureToPrint.getFigureType().toString().charAt(0);
                     break;
                 }
 
@@ -176,11 +176,11 @@ public class Game {
 
     private boolean specialCaseAndValid(Figure figure, ValidMove validMoveOfFigure) {
         switch (validMoveOfFigure.getSpecialMoveType()) {
-            case "Castling":
+            case CASTLING:
                 return isCastlingOk(figure, validMoveOfFigure);
-            case "Pawn hit":
+            case PAWN_HIT:
                 return isPawnHitOk(figure, validMoveOfFigure); //this is checking the En Passan case as well
-            case "Pawn double move":
+            case PAWN_DOUBLE:
                 return isDoubleMoveOk(figure, validMoveOfFigure);
             default:
                 return false;
@@ -222,7 +222,7 @@ public class Game {
         for (Figure figure : figures) {
             if (figure.getColor() == thisFigure.getColor() &&
                     figure.getActualPosition().equals(coordinateRook) &&
-                    figure.getSign() == 'R') {
+                    figure.getFigureType() == FigureType.ROOK) {
                 King king = (King) thisFigure;
                 if (!king.isAlredyCastled() &&
                         !king.isInChess() &&
@@ -265,7 +265,7 @@ public class Game {
         for (Figure figure : figures) {
             if (figure.getActualPosition().equals(enemyCoordinate) &&
                     figure.getColor().equals(enemyColor) &&
-                    figure.getSign() == 'P') {
+                    figure.getFigureType() == FigureType.PAWN) {
                 Pawn enemyPawn = (Pawn) figure;
                 if (enemyPawn.isLastMoveIsDoubleOpening()) {
                     return true;
@@ -365,7 +365,7 @@ public class Game {
 
         for (Figure figure : figures) {
             if (figure.getActualPosition().equals(validMovePair.getStart())
-                    && figure.getSign() == 'K'
+                    && figure.getFigureType() == FigureType.KING
                     && Math.abs(validMovePair.getStart().getY() - validMovePair.getEnd().getY()) == 2) {
                 figureResult = figure;
                 break;
@@ -400,7 +400,7 @@ public class Game {
         //megkeresni az ehhez a színhez tartozó királyt és annak koordinátáját
         Coordinate kingsCoordinate = null;
         for (Figure figure : figures) {
-            if (figure.getColor() == color && figure.getSign() == 'K') {
+            if (figure.getColor() == color && figure.getFigureType() == FigureType.KING) {
                 kingsCoordinate = figure.getActualPosition();
                 break;
             }
@@ -487,9 +487,6 @@ public class Game {
 
     }
 
-
-    //TODO - Refactory1: Figure enum type
-    //TODO - Refactory2: Special movement type to enum
 
     //TODO actual board evaluation (material, area, weakness/strenght)
 

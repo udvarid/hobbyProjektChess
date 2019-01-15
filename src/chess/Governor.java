@@ -86,7 +86,7 @@ public class Governor {
     private Figure findingEnemyKing(Player whoIsNext) {
         Figure result = null;
         for (Figure figure : game.getFigures()) {
-            if (figure.getSign() == 'K' && figure.getColor() == whoIsNext.getColor()) {
+            if (figure.getFigureType() == FigureType.KING && figure.getColor() == whoIsNext.getColor()) {
                 result = figure;
                 break;
             }
@@ -124,7 +124,7 @@ public class Governor {
             ValidMovePair moveActual = askingValidmove(validmovesForThisPlayer, whoIsNext);
             makeMove(moveActual);
             result = true;
-            if (moveActual.getFigure().getSign() == 'P') {
+            if (moveActual.getFigure().getFigureType() == FigureType.PAWN) {
                 this.pawnMovedLastTime = this.round;
             }
             handlePromotingIfNecessery(moveActual);
@@ -155,7 +155,7 @@ public class Governor {
 
     private boolean canPromote(ValidMovePair moveActual) {
 
-        if (moveActual.getFigure().getSign() == 'P') {
+        if (moveActual.getFigure().getFigureType() == FigureType.PAWN) {
             if (moveActual.getFigure().getColor().equals(Color.WHITE) && moveActual.getEnd().getX() == 8 ||
                     moveActual.getFigure().getColor().equals(Color.BLACK) && moveActual.getEnd().getX() == 1) {
                 return true;

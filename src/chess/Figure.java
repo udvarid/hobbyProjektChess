@@ -7,8 +7,7 @@ import java.util.Set;
 
 public class Figure implements Cloneable{
 
-    private String name;
-    private char sign;
+    private FigureType figureType;
     private Color color;
     private boolean stillInStartingPosition;
     private Coordinate startingPosition;
@@ -17,9 +16,7 @@ public class Figure implements Cloneable{
     private int value;
     private HashSet<ValidMove> validMoves;
 
-    public Figure(String name, char sign, Color color, Coordinate startingPosition, int value, boolean promoted) {
-        this.name = name;
-        this.sign = sign;
+    public Figure(FigureType figureType, Color color, Coordinate startingPosition, int value, boolean promoted) {
         this.color = color;
         this.stillInStartingPosition = true;
         this.startingPosition = startingPosition;
@@ -27,15 +24,13 @@ public class Figure implements Cloneable{
         this.value = value;
         this.promoted = promoted;
         validMoves = new HashSet<>();
+        this.figureType = figureType;
     }
 
-    public Figure(String name, char sign, Color color, Coordinate startingPosition, int value) {
-        this(name, sign, color, startingPosition, value, false);
+    public Figure(FigureType figureType, Color color, Coordinate startingPosition, int value) {
+        this(figureType, color, startingPosition, value, false);
     }
 
-    public String getName() {
-        return name;
-    }
 
     public void setPromoted(boolean promoted) {
         this.promoted = promoted;
@@ -43,10 +38,6 @@ public class Figure implements Cloneable{
 
     public Color getColor() {
         return color;
-    }
-
-    public char getSign() {
-        return sign;
     }
 
     public boolean isStillInStartingPosition() {
@@ -78,8 +69,6 @@ public class Figure implements Cloneable{
         if (this.stillInStartingPosition && !stillInStartingPosition)
             this.stillInStartingPosition = stillInStartingPosition;
     }
-
-
 
     public void setValidMoves(ValidMove validMove) {
         this.validMoves.add(validMove);
@@ -121,5 +110,7 @@ public class Figure implements Cloneable{
 
     }
 
-
+    public FigureType getFigureType() {
+        return figureType;
+    }
 }

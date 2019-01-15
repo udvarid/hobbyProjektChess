@@ -9,7 +9,7 @@ public class King extends Figure {
     private boolean alredyCastled;
 
     public King(Color color, Coordinate startingPosition, int value) {
-        super("King", 'K', color, startingPosition, value);
+        super(FigureType.KING, color, startingPosition, value);
         this.inChess = false;
         this.wasAlreadyInChess = false;
         this.alredyCastled = false;
@@ -52,8 +52,8 @@ public class King extends Figure {
         setValidMoves(new ValidMove(new Coordinate(-1, -1)));
         setValidMoves(new ValidMove(new Coordinate(-1, 0)));
         setValidMoves(new ValidMove(new Coordinate(-1, 1)));
-        setValidMoves(new ValidMove(new Coordinate(0, 2),true,"Castling"));
-        setValidMoves(new ValidMove(new Coordinate(0, -2),true,"Castling"));
+        setValidMoves(new ValidMove(new Coordinate(0, 2),true,MoveType.CASTLING));
+        setValidMoves(new ValidMove(new Coordinate(0, -2),true,MoveType.CASTLING));
 
 
     }
