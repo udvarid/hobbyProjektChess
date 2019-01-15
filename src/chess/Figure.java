@@ -67,7 +67,7 @@ public class Figure implements Cloneable{
 
     public void setStillInStartingPosition(boolean stillInStartingPosition) {
         if (this.stillInStartingPosition && !stillInStartingPosition)
-            this.stillInStartingPosition = stillInStartingPosition;
+            this.stillInStartingPosition = false;
     }
 
     public void setValidMoves(ValidMove validMove) {
@@ -112,5 +112,11 @@ public class Figure implements Cloneable{
 
     public FigureType getFigureType() {
         return figureType;
+    }
+
+    @Override
+    public String toString() {
+        char figureColor = this.color.equals(Color.WHITE) ? 'W' : 'B';
+        return "" + figureColor + this.figureType.toString().charAt(0);
     }
 }

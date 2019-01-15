@@ -171,13 +171,27 @@ public class Governor {
         if (game.deleteFigure(moveActual.getEnd())) {
             this.figureCapturedLastTime = round;
         }
-        ;
+
 
         moveActual.getFigure().getActualPosition().setX(moveActual.getEnd().getX());
         moveActual.getFigure().getActualPosition().setY(moveActual.getEnd().getY());
 
-        //TODO - speciális mozgásokat jelölni (Pawn esetén a dobule mozgás ki/be kapcsolása; minden esetben starting positon kapcsolása; King esetén a castles ill. chess jelölők kapcsolása
+        moveActual.getFigure().setStillInStartingPosition(false);
+        if (moveActual.getFigure().getFigureType() == FigureType.PAWN) {
+            Pawn pawn = (Pawn) moveActual.getFigure();
+            if (Math.abs(moveActual.getEnd().getX() - moveActual.getStart().getX()) == 2) {
+                pawn.setLastMoveIsDoubleOpening(true);
+            } else {
+                pawn.setLastMoveIsDoubleOpening(false);
+            }
+        }
 
+        if (moveActual.getFigure().getFigureType() == FigureType.KING) {
+            King king = (King) moveActual.getFigure();
+            if (Math.abs(moveActual.getEnd().getY() - moveActual.getStart().getY()) == 2) {
+                king.setAlredyCastled(true);
+            }
+        }
 
     }
 
@@ -295,7 +309,7 @@ public class Governor {
 
     private void printActualStatus() {
         game.printBoard();
-        //game.printValidMoves();
+        game.printValidMoves();
     }
 
     public Player getPlayerA() {

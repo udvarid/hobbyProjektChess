@@ -5,13 +5,11 @@ package chess;
 public class King extends Figure {
 
     private boolean inChess;
-    private boolean wasAlreadyInChess;
     private boolean alredyCastled;
 
     public King(Color color, Coordinate startingPosition, int value) {
         super(FigureType.KING, color, startingPosition, value);
         this.inChess = false;
-        this.wasAlreadyInChess = false;
         this.alredyCastled = false;
         setValidMoves();
     }
@@ -24,14 +22,6 @@ public class King extends Figure {
         this.inChess = inChess;
     }
 
-    public boolean isWasAlreadyInChess() {
-        return wasAlreadyInChess;
-    }
-
-    public void setWasAlreadyInChess(boolean wasAlreadyInChess) {
-        if (!this.wasAlreadyInChess && wasAlreadyInChess)
-            this.wasAlreadyInChess = wasAlreadyInChess;
-    }
 
     public boolean isAlredyCastled() {
         return alredyCastled;
@@ -39,7 +29,7 @@ public class King extends Figure {
 
     public void setAlredyCastled(boolean alredyCastled) {
         if (!this.alredyCastled && alredyCastled)
-            this.alredyCastled = alredyCastled;
+            this.alredyCastled = true;
     }
 
     private void setValidMoves() {

@@ -24,7 +24,6 @@ public class Game {
     }
 
 
-
     private void setFigures() {
 
         //pawns
@@ -69,7 +68,7 @@ public class Game {
         for (int i = 8; i >= 1; i--) {
             System.out.print(i + "|");
             for (int j = 1; j <= 8; j++) {
-                String cellCode = lookingForFigures(i, j);
+                String cellCode = lookingForFigures(new Coordinate(i, j));
                 System.out.print(cellCode + "|");
             }
             System.out.println();
@@ -81,18 +80,15 @@ public class Game {
     }
 
 
-    private String lookingForFigures(int coordinateX, int coordinateY) {
+    private String lookingForFigures(Coordinate coordinate) {
         for (Figure figure : this.figures) {
-            if (figure.getActualPosition().getX() == coordinateX &&
-                    figure.getActualPosition().getY() == coordinateY) {
-                char figureColor = figure.getColor().equals(Color.WHITE) ? 'W' : 'B';
-                return "" + figureColor + figure.getFigureType().toString().charAt(0);
+            if (figure.getActualPosition().equals(coordinate)) {
+                return figure.toString();
             }
         }
         return "  ";
     }
 
-    //TODO this method is only for testing purpuse
     public void printValidMoves() {
 
 
@@ -101,16 +97,7 @@ public class Game {
             int yStart = validMovesToPrint.getStart().getY();
             int xEnd = validMovesToPrint.getEnd().getX();
             int yEnd = validMovesToPrint.getEnd().getY();
-            String figureSign = "";
-            for (Figure figureToPrint : this.figures) {
-                if (figureToPrint.getActualPosition().equals(validMovesToPrint.getStart())) {
-                    char figureColor = figureToPrint.getColor().equals(Color.WHITE) ? 'W' : 'B';
-                    figureSign = "" + figureColor + figureToPrint.getFigureType().toString().charAt(0);
-                    break;
-                }
-
-            }
-
+            String figureSign = validMovesToPrint.getFigure().toString();
             System.out.println(figureSign + " : " + translateFromNumber(yStart) + xStart + " -> " +
                     translateFromNumber(yEnd) + xEnd + " : " + validMovesToPrint.isChessTest());
         }
@@ -144,7 +131,6 @@ public class Game {
         this.figures = new HashSet<>();
     }
 
-
     public void finalValidMoves(boolean isNormal) {
 
         //for calculation making the reset
@@ -173,6 +159,30 @@ public class Game {
 
     }
 
+    private boolean normalCaseAndValid(Figure thisFigure, ValidMove validMoveOfFigure) {
+
+        Coordinate goalCoordinate = validMoveOfFigure.getCoordinate();
+        //validaton of aim cell - not the same color standing on the aim cell
+        for (Figure figure : this.figures) {
+            if (figure.getColor() == thisFigure.getColor() && figure.getActualPosition().equals(goalCoordinate))
+                return false;
+        }
+        //validaton of empty cells
+        for (Coordinate emptyCoordinate : validMoveOfFigure.getEmptyCells()) {
+            for (Figure figure : this.figures) {
+                if (figure.getActualPosition().equals(emptyCoordinate))
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void wrapToValidMovePairs(Figure figure, ValidMove validMoveOfFigure) {
+        Coordinate startOfMove = new Coordinate(figure.getActualPosition().getX(), figure.getActualPosition().getY());
+        Coordinate endOfMove = new Coordinate(validMoveOfFigure.getCoordinate().getX(), validMoveOfFigure.getCoordinate().getY());
+        this.validmovesForCalculate.add(new ValidMovePair(startOfMove, endOfMove, figure));
+    }
 
     private boolean specialCaseAndValid(Figure figure, ValidMove validMoveOfFigure) {
         switch (validMoveOfFigure.getSpecialMoveType()) {
@@ -194,29 +204,11 @@ public class Game {
         return kingAndRookAreReady && kingAndRookPathEmpty;
     }
 
-    private boolean isKingAndRookPathEmpty(Figure thisFigure, ValidMove validMoveOfFigure) {
-
-        int columnOfRook = validMoveOfFigure.getCoordinate().getY() == 7 ? 8 : 1;
-        int rowOfRook = thisFigure.getColor().equals(Color.WHITE) ? 1 : 8;
-
-        boolean foundAnybody = false;
-        for (Figure figure : figures) {
-            if (figure.getActualPosition().getX() == rowOfRook &&
-                    figure.getActualPosition().getY() > Math.min(columnOfRook, 5) &&
-                    figure.getActualPosition().getY() < Math.max(columnOfRook, 5)) {
-                foundAnybody = true;
-                break;
-            }
-
-        }
-
-        return !foundAnybody;
-    }
-
     private boolean isKingAndRookAreReady(Figure thisFigure, ValidMove validMoveOfFigure) {
 
         int columnOfRook = validMoveOfFigure.getCoordinate().getY() == 7 ? 8 : 1;
-        int rowOfRook = thisFigure.getColor().equals(Color.WHITE) ? 1 : 8;
+        int rowOfRook = thisFigure.getActualPosition().getX();
+
         Coordinate coordinateRook = new Coordinate(rowOfRook, columnOfRook);
 
         for (Figure figure : figures) {
@@ -235,6 +227,25 @@ public class Game {
 
         return false;
 
+    }
+
+    private boolean isKingAndRookPathEmpty(Figure thisFigure, ValidMove validMoveOfFigure) {
+
+        int columnOfRook = validMoveOfFigure.getCoordinate().getY() == 7 ? 8 : 1;
+        int rowOfRook = thisFigure.getActualPosition().getX();
+
+        boolean foundAnybody = false;
+        for (Figure figure : figures) {
+            if (figure.getActualPosition().getX() == rowOfRook &&
+                    figure.getActualPosition().getY() > Math.min(columnOfRook, 5) &&
+                    figure.getActualPosition().getY() < Math.max(columnOfRook, 5)) {
+                foundAnybody = true;
+                break;
+            }
+
+        }
+
+        return !foundAnybody;
     }
 
     private boolean isPawnHitOk(Figure thisFigure, ValidMove validMoveOfFigure) {
@@ -280,42 +291,16 @@ public class Game {
     private boolean isDoubleMoveOk(Figure figure, ValidMove validMoveOfFigure) {
 
         return normalCaseAndValid(figure, validMoveOfFigure) && figure.isStillInStartingPosition();
+
     }
 
-    private boolean normalCaseAndValid(Figure thisFigure, ValidMove validMoveOfFigure) {
 
-        Coordinate goalCoordinate = validMoveOfFigure.getCoordinate();
-        //validaton of aim cell
-        for (Figure figure : this.figures) {
-            if (figure.getColor() == thisFigure.getColor() && figure.getActualPosition().equals(goalCoordinate))
-                return false;
-        }
-        //validaton of empty cells
-        for (Coordinate emptyCoordinate : validMoveOfFigure.getEmptyCells()) {
-            for (Figure figure : this.figures) {
-                if (figure.getActualPosition().equals(emptyCoordinate))
-                    return false;
-            }
-        }
 
-        return true;
-    }
-
-    private void wrapToValidMovePairs(Figure figure, ValidMove validMoveOfFigure) {
-        Coordinate startOfMove = new Coordinate(figure.getActualPosition().getX(), figure.getActualPosition().getY());
-        Coordinate endOfMove = new Coordinate(validMoveOfFigure.getCoordinate().getX(), validMoveOfFigure.getCoordinate().getY());
-        this.validmovesForCalculate.add(new ValidMovePair(startOfMove, endOfMove, figure));
-    }
-
-    public void addFigures(Figure figure) {
-        this.figures.add(figure);
-    }
-
-    public Set<ValidMovePair> getValidmoves() {
-        return validmoves;
-    }
 
     public void cleanFromChessRelatedMoves() {
+
+        cleanKingsFromChess();
+
         for (ValidMovePair validMovePair : validmovesForCalculate) {
             Figure pufferEnd = removeEndFigure(validMovePair);
             Figure pufferStart = moveStartFigure(validMovePair);
@@ -330,86 +315,55 @@ public class Game {
 
     }
 
-    private void freeCastlingValidation(ValidMovePair validMovePair) {
-
-        //ha ez egy király és sáncol éppen
-        Figure thisFigure = getFigureToCheckCastlingValidation(validMovePair);
-        if (thisFigure != null) {
-            Coordinate coordinatePuffer = new Coordinate(validMovePair.getStart().getX(), (validMovePair.getEnd().getY() + validMovePair.getStart().getY()) / 2);
-            for (ValidMovePair validMovePairToCheck : validmoves) {
-                if (validMovePairToCheck.getEnd().equals(coordinatePuffer) && getColor(validMovePairToCheck) != thisFigure.getColor() && getColor(validMovePairToCheck) != Color.UNDEFINED) {
-                    validMovePair.setChessTest(true);
-                }
-                //ha éppen a királyt támadják, akkor sem lehet sáncolni
-                if (validMovePairToCheck.getEnd().equals(validMovePair.getStart())) {
-                    validMovePair.setChessTest(true);
-                }
-            }
-        }
-
-
-    }
-
-    private Color getColor(ValidMovePair validMovePairToCheck) {
+    private void cleanKingsFromChess() {
+        King king = null;
         for (Figure figure : figures) {
-            if (figure.getActualPosition().equals(validMovePairToCheck.getStart())) {
-                return figure.getColor();
+            if (figure.getFigureType() == FigureType.KING) {
+                king = (King) figure;
+                king.setInChess(false);
             }
         }
-        return Color.UNDEFINED;
     }
 
-    private Figure getFigureToCheckCastlingValidation(ValidMovePair validMovePair) {
-
-        Figure figureResult = null;
-
+    private Figure removeEndFigure(ValidMovePair validMovePair) {
         for (Figure figure : figures) {
-            if (figure.getActualPosition().equals(validMovePair.getStart())
-                    && figure.getFigureType() == FigureType.KING
-                    && Math.abs(validMovePair.getStart().getY() - validMovePair.getEnd().getY()) == 2) {
-                figureResult = figure;
-                break;
+            if (figure.getActualPosition().equals(validMovePair.getEnd())) {
+                figure.getActualPosition().setX(100);
+                figure.getActualPosition().setY(100);
+                return figure;
             }
         }
-
-        return figureResult;
+        return null;
     }
 
-    private void finalCleanFromChessRelatedMoves() {
-
-
-        Iterator<ValidMovePair> it = validmoves.iterator();
-        while (it.hasNext()) {
-            ValidMovePair validMovePair = it.next();
-            if (validMovePair.isChessTest()) {
-                it.remove();
-            }
-        }
-
+    private Figure moveStartFigure(ValidMovePair validMovePair) {
+        Figure figure = validMovePair.getFigure();
+        figure.getActualPosition().setX(validMovePair.getEnd().getX());
+        figure.getActualPosition().setY(validMovePair.getEnd().getY());
+        return figure;
     }
 
     private void flagValidMove(ValidMovePair validMovePair) {
         //kikeresni az aktuális figura színét
-        Color color = Color.UNDEFINED;
-        for (Figure figure : figures) {
-            if (figure.getActualPosition().equals(validMovePair.getEnd())) {
-                color = figure.getColor();
-                break;
-            }
-        }
+        Color color = validMovePair.getFigure().getColor();
+
         //megkeresni az ehhez a színhez tartozó királyt és annak koordinátáját
         Coordinate kingsCoordinate = null;
+        King king = null;
         for (Figure figure : figures) {
             if (figure.getColor() == color && figure.getFigureType() == FigureType.KING) {
                 kingsCoordinate = figure.getActualPosition();
+                king = (King) figure;
                 break;
             }
         }
+
         //ha a validmovepair-ok között van olyan, aminél az ellenfél tud ide (a királyhoz) lépni
         //azt jelölni
         for (ValidMovePair validMovePairForCheck : validmovesForCalculate) {
             if (validMovePairForCheck.getEnd().equals(kingsCoordinate)) {
                 validMovePair.setChessTest(true);
+                king.setInChess(true);
                 break;
             }
         }
@@ -423,27 +377,46 @@ public class Game {
         }
     }
 
-    private Figure moveStartFigure(ValidMovePair validMovePair) {
-        for (Figure figure : figures) {
-            if (figure.getActualPosition().equals(validMovePair.getStart())) {
-                figure.getActualPosition().setX(validMovePair.getEnd().getX());
-                figure.getActualPosition().setY(validMovePair.getEnd().getY());
-                return figure;
+    private void freeCastlingValidation(ValidMovePair validMovePair) {
+
+        //ha ez egy király és sáncol éppen
+        Figure thisFigure = getFigureToCheckCastlingValidation(validMovePair);
+        if (thisFigure != null) {
+            Coordinate coordinatePuffer = new Coordinate(validMovePair.getStart().getX(), (validMovePair.getEnd().getY() + validMovePair.getStart().getY()) / 2);
+            for (ValidMovePair validMovePairToCheck : validmoves) {
+                if (validMovePairToCheck.getEnd().equals(coordinatePuffer) && validMovePairToCheck.getFigure().getColor() != thisFigure.getColor()) {
+                    validMovePair.setChessTest(true);
+                }
+                //ha éppen a királyt támadják, akkor sem lehet sáncolni
+                if (validMovePairToCheck.getEnd().equals(thisFigure.getActualPosition())) {
+                    validMovePair.setChessTest(true);
+                }
             }
         }
 
+
+    }
+
+    private Figure getFigureToCheckCastlingValidation(ValidMovePair validMovePair) {
+
+        if (validMovePair.getFigure().getFigureType() == FigureType.KING &&
+                Math.abs(validMovePair.getStart().getY() - validMovePair.getEnd().getY()) == 2) {
+            return validMovePair.getFigure();
+        }
         return null;
     }
 
-    private Figure removeEndFigure(ValidMovePair validMovePair) {
-        for (Figure figure : figures) {
-            if (figure.getActualPosition().equals(validMovePair.getEnd())) {
-                figure.getActualPosition().setX(100);
-                figure.getActualPosition().setY(100);
-                return figure;
+    private void finalCleanFromChessRelatedMoves() {
+
+
+        Iterator<ValidMovePair> it = validmoves.iterator();
+        while (it.hasNext()) {
+            ValidMovePair validMovePair = it.next();
+            if (validMovePair.isChessTest()) {
+                it.remove();
             }
         }
-        return null;
+
     }
 
     public boolean deleteFigure(Coordinate end) {
@@ -485,6 +458,14 @@ public class Game {
         this.figures.add(figure);
 
 
+    }
+
+    public void addFigures(Figure figure) {
+        this.figures.add(figure);
+    }
+
+    public Set<ValidMovePair> getValidmoves() {
+        return validmoves;
     }
 
 

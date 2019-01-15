@@ -19,8 +19,7 @@ public class Pawn extends Figure {
     }
 
     public void setLastMoveIsDoubleOpening(boolean lastMoveIsDoubleOpening) {
-        if (!this.lastMoveIsDoubleOpening)
-            this.lastMoveIsDoubleOpening = lastMoveIsDoubleOpening;
+        this.lastMoveIsDoubleOpening = lastMoveIsDoubleOpening;
     }
 
     private void setValidMoves() {
