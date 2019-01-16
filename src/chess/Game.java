@@ -294,9 +294,6 @@ public class Game {
 
     }
 
-
-
-
     public void cleanFromChessRelatedMoves() {
 
         cleanKingsFromChess();
@@ -467,13 +464,6 @@ public class Game {
     public Set<ValidMovePair> getValidmoves() {
         return validmoves;
     }
-
-
-    //TODO actual board evaluation (material, area, weakness/strenght)
-
-    //TODO computer player
-
-    //TODO optimise the weight of change between the different evaluation method
 
 
 }
