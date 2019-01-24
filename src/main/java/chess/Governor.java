@@ -102,7 +102,7 @@ public class Governor {
             if (moveActual.getFigure().getFigureType() == FigureType.PAWN) {
                 this.pawnMovedLastTime = this.round;
             }
-            handlePromotingIfNecessery(moveActual);
+            //handlePromotingIfNecessery(moveActual);
 
         }
 

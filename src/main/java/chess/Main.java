@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Main extends Application {
     private Stage window;
-    private Scene scene1;
+    private Scene scene1, scene2;
     private Governor governor = null;
     private List<ValidMovePair> aims = new ArrayList<>();
 
@@ -83,17 +83,6 @@ public class Main extends Application {
             }
             printSet(tiles);
 
-            /*
-            Platform.runLater(() ->{
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                }
-                tiles[5][5].setGraphic(new ImageView("KingWhite.png"));
-            });
-            */
-
 
         });
 
@@ -105,11 +94,18 @@ public class Main extends Application {
         for (ValidMovePair validMovePair : aims) {
             if (validMovePair.getEnd().equals(new Coordinate(x, y))) {
                 moveHumanPlayer(validMovePair);
-                //TODO promotion handling
+
+                if (validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
+                        ((governor.getWhoIsNext().getColor() == Color.WHITE && x == 8) ||
+                                (governor.getWhoIsNext().getColor() == Color.BLACK && x == 1))) {
+                    String promoteSign = PromoteBox.display("Promotion", "Which type do you choose?", governor.getWhoIsNext().getColor());
+                    governor.getGame().promote(validMovePair, promoteSign.charAt(0));
+                }
+                governor.nextPlayerSet();
                 printSet(tiles);
                 validMoveSet = true;
                 if (governor.getWhoIsNext().getType() == PlayerType.COMPUTER) {
-                    Platform.runLater(() ->{
+                    Platform.runLater(() -> {
                         try {
                             Thread.sleep(1000);
                             moveComputerPlayer(tiles);
@@ -131,9 +127,7 @@ public class Main extends Application {
 
                     int aimX = 8 - validMovePair.getEnd().getX();
                     int aimY = validMovePair.getEnd().getY() - 1;
-                    Coordinate startCoordinate = new Coordinate(x, y);
-                    Coordinate endCoordinate = new Coordinate(validMovePair.getEnd().getX(), validMovePair.getEnd().getY());
-                    aims.add(new ValidMovePair(startCoordinate, endCoordinate, null));
+                    aims.add(validMovePair);
                     tiles[aimX][aimY].setStyle(" -fx-background-color:rgba(152,251,43,0.88);");
                 }
             }
@@ -153,7 +147,6 @@ public class Main extends Application {
     private void moveHumanPlayer(ValidMovePair validMovePair) {
         boolean wasMove = governor.actualPlayerIsMoving(governor.getWhoIsNext(), validMovePair);
         governor.endGameEvaluating(wasMove, governor.getWhoIsNext());
-        governor.nextPlayerSet();
         governor.getGame().finalValidMoves(true);
         governor.getGame().cleanFromChessRelatedMoves();
     }
@@ -180,6 +173,7 @@ public class Main extends Application {
             }
         }
     }
+
     private void clearImage(Button[][] tiles) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

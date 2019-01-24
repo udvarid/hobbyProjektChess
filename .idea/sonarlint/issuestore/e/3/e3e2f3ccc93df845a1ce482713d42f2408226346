@@ -1,9 +1,9 @@
 
-csquid:S11920"FDefine a constant instead of duplicating this literal "white" 3 times.(Á–”8É½—ä‡-
-Isquid:S1481ž"*Remove this unused "color" local variable.(­õšá8¬“˜ä‡-
-nsquid:S1192"PDefine a constant instead of duplicating this literal "Human vs. Human" 3 times.(Ôÿ¦ñ8¬æ¸Ô‡-
-ssquid:S1450"URemove the "window" field and declare it as a local variable in the relevant methods.(…Öý 8ŽýÌ×‡-
-isquid:CommentedOutCodeLineV"<This block of commented-out lines of code should be removed.(ÃÉþ©8ÀÒÔ‡-
-Wsquid:S1854 "9Remove this useless assignment to local variable "color".(Á–”8¬“˜ä‡-
-Xsquid:S1854¢"9Remove this useless assignment to local variable "color".(Óðõ¦8¬“˜ä‡-
-ssquid:S1450"URemove the "scene1" field and declare it as a local variable in the relevant methods.(Î§±¿8ãâÎÑ‡-
+ssquid:S1450"URemove the "window" field and declare it as a local variable in the relevant methods.(…Öý 8ŽýÌ×‡-
+nsquid:S1192"PDefine a constant instead of duplicating this literal "Human vs. Human" 3 times.(Ôÿ¦ñ8¬æ¸Ô‡-
+xsquid:S1450"URemove the "scene1" field and declare it as a local variable in the relevant methods.(è«øùÿÿÿÿ8ãâÎÑ‡-
+dsquid:S2142i"FEither re-interrupt this method or rethrow the "InterruptedException".(‘í†8ýø÷‡-
+Gsquid:S1659"$Declare "scene2" on a separate line.(è«øùÿÿÿÿ8”ÿþú‡-
+Fsquid:S1148j"#Use a logger to log this exception.(Âþÿâûÿÿÿÿ8ýø÷‡-
+Msquid:S1068"*Remove this unused "scene2" private field.(è«øùÿÿÿÿ8”ÿþú‡-
+psquid:S3776\"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(è­«Æ8ýø÷‡-

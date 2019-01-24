@@ -57,3 +57,13 @@ O
 src/main/java/chess/Knight.java,8\5\85d09d29ca5a198e68ef91d46063e048fdac751c
 M
 src/main/java/chess/Rook.java,5\f\5f60c58ccbf62143e0a9c1c153a79e2e6142738e
+S
+#src/main/java/chess/FigureType.java,8\6\86280a36554bcd57027a2fc5b963450888070958
+Q
+!src/main/java/chess/MoveType.java,a\b\ab72e0b99e26399db838bd502f1dae05dc900a2f
+S
+#src/main/java/chess/PlayerType.java,f\1\f1646c89b4aa4b8ab13dd916a865995410f67851
+R
+"src/main/java/chess/ValidMove.java,f\d\fd6d54f444c746e22f1d648242ba022d9e056459
+S
+#src/main/java/chess/PromoteBox.java,0\2\0226e87a6885fdf7638a7d33321d835ffc3b76e1
