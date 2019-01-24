@@ -19,7 +19,6 @@ public class Governor {
     private int round;
     private int pawnMovedLastTime;
     private int figureCapturedLastTime;
-    //TODO - a 3szori ismétlődés ellenőrzéséhez elvileg minden kör állását el kellene mentni és körönként csekkolni
 
     private Game game;
 
@@ -92,7 +91,7 @@ public class Governor {
                 moveActual = askingValidmove(validmovesForThisPlayer, whoIsNext);
             } else {
                 moveActual = vpFromFX;
-                for (Figure figure : game.getFigures()){
+                for (Figure figure : game.getFigures()) {
                     if (figure.getActualPosition().equals(moveActual.getStart())) {
                         moveActual.setFigure(figure);
                     }
@@ -264,13 +263,18 @@ public class Governor {
         if (canPromote(moveActual)) {
             boolean goodPromoteFormat = false;
             String toPromote = null;
-            while (!goodPromoteFormat) {
-                System.out.println("What type would you want promote to? Only one character: R/K/B/Q");
-                toPromote = scanner.nextLine();
-                if (toPromote.length() == 1 && toPromote.matches("[rkbqRKBQ]")) {
-                    goodPromoteFormat = true;
+            if (whoIsNext.getType() == PlayerType.COMPUTER) {
+                toPromote = "q";
+            } else {
+                while (!goodPromoteFormat) {
+                    System.out.println("What type would you want promote to? Only one character: R/K/B/Q");
+                    toPromote = scanner.nextLine();
+                    if (toPromote.length() == 1 && toPromote.matches("[rkbqRKBQ]")) {
+                        goodPromoteFormat = true;
+                    }
                 }
             }
+
             game.promote(moveActual, toPromote.toLowerCase().charAt(0));
 
         }

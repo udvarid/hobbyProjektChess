@@ -59,7 +59,13 @@ public class Player {
                 figureToMove.getActualPosition().setX(validMovePair.getEnd().getX());
                 figureToMove.getActualPosition().setY(validMovePair.getEnd().getY());
 
-                //TODO ezt majd később finomítani, ha több szempont alapján akarunk értékelni
+
+                if (figureToMove.getFigureType() == FigureType.PAWN &&
+                        ((this.color == Color.BLACK && validMovePair.getEnd().getX() == 1) ||
+                                (this.color == Color.WHITE && validMovePair.getEnd().getX() == 8))) {
+                    gameCopy.promote(validMovePair, 'q');
+                }
+
                 int own = Evaluator.evaluateBasedValue(this.color, gameCopy);
                 int enemy = Evaluator.evaluateBasedValue(this.enemyColor, gameCopy);
                 vmsThis.setScore(own - enemy);
