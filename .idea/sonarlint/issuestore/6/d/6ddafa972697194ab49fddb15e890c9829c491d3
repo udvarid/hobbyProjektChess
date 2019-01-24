@@ -1,0 +1,13 @@
+
+Nsquid:S00108Á")Either remove or fill this block of code.(é–³öûÿÿÿÿ8›ıÉÛ‡-
+fsquid:S2259¾"GA "NullPointerException" could be thrown; "enemyKing" is nullable here.(ÂÚ¥8›ıÉÛ‡-
+fsquid:S1126ç"BReplace this if-then-else statement by a single method invocation.(é¢¦Ÿúÿÿÿÿ8›ıÉÛ‡-
+…squid:S2178Ï"fCorrect this "&" to "&&" and extract the right operand to a variable if it should always be evaluated.(«ïÔ®8›ıÉÛ‡-
+X"squid:SwitchLastCaseIsDefaultCheck¢""Add a default case to this switch.(Õ‘ø8›ıÉÛ‡-
+Isquid:S00108")Either remove or fill this block of code.(”ı¾8›ıÉÛ‡-
+nsquid:CommentedOutCodeLine?"<This block of commented-out lines of code should be removed.(¾òıÿÿÿÿ8›ıÉÛ‡-
+hsquid:UselessImportCheck"8Remove this unused import 'javafx.scene.control.Button'.(Ë Í‹øÿÿÿÿ8áâ¾Í‡-
+Nsquid:S1066›"/Merge this if statement with the enclosing one.(ûÆšÏ8›ıÉÛ‡-
+isquid:UselessImportCheck"9Remove this unused import 'javafx.scene.image.ImageView'.(áÿ®Ãüÿÿÿÿ8„–ª²‡-
+fsquid:S2259„"BA "NullPointerException" could be thrown; "rook" is nullable here.(£‹‚şøÿÿÿÿ8›ıÉÛ‡-
+`squid:S1126ò"AReplace this if-then-else statement by a single return statement.(Ø½ó8›ıÉÛ‡-

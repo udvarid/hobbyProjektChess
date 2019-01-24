@@ -1,0 +1,9 @@
+
+csquid:S11920"FDefine a constant instead of duplicating this literal "white" 3 times.(Á–”8É½—ä‡-
+Isquid:S1481ž"*Remove this unused "color" local variable.(­õšá8¬“˜ä‡-
+nsquid:S1192"PDefine a constant instead of duplicating this literal "Human vs. Human" 3 times.(Ôÿ¦ñ8¬æ¸Ô‡-
+ssquid:S1450"URemove the "window" field and declare it as a local variable in the relevant methods.(…Öý 8ŽýÌ×‡-
+isquid:CommentedOutCodeLineV"<This block of commented-out lines of code should be removed.(ÃÉþ©8ÀÒÔ‡-
+Wsquid:S1854 "9Remove this useless assignment to local variable "color".(Á–”8¬“˜ä‡-
+Xsquid:S1854¢"9Remove this useless assignment to local variable "color".(Óðõ¦8¬“˜ä‡-
+ssquid:S1450"URemove the "scene1" field and declare it as a local variable in the relevant methods.(Î§±¿8ãâÎÑ‡-

@@ -1,0 +1,4 @@
+
+usquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(œµÏ§üÿÿÿÿ8Ïç¿À†-
+psquid:S1450"RRemove the "vms" field and declare it as a local variable in the relevant methods.(ÌÞ²˜8¥ëú·†-
+msquid:S2259;"JA "NullPointerException" could be thrown; "figureToMove" is nullable here.(åðÔƒýÿÿÿÿ8´ß¯À†-
