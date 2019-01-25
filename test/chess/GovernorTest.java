@@ -7,25 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GovernorTest {
 
-    @Test
-    public void testConvertToCoordinate() {
-        Governor governor = new Governor();
-        Coordinate aim = new Coordinate(2, 2);
-        Coordinate converted = governor.convertToCoordinate("b2");
-        assertTrue(aim.equals(converted));
 
-        aim = new Coordinate(4, 4);
-        converted = governor.convertToCoordinate("d4");
-        assertTrue(aim.equals(converted));
-
-        aim = new Coordinate(7, 5);
-        converted = governor.convertToCoordinate("e7");
-        assertTrue(aim.equals(converted));
-
-        aim = new Coordinate(7, 8);
-        converted = governor.convertToCoordinate("h7");
-        assertTrue(aim.equals(converted));
-    }
 
     @Test
     public void testMakeMovePawn() {
@@ -77,27 +59,7 @@ public class GovernorTest {
         assertFalse(governor.canPromote(vp2));
     }
 
-    @Test
-    public void testEnemyKingInChess() {
-        Governor governor = new Governor();
-        governor.getGame().cleanTable();
-        Pawn pawnWhite = new Pawn(Color.WHITE, new Coordinate(7, 4), 1);
-        Pawn pawnBlack = new Pawn(Color.BLACK, new Coordinate(4, 1), 1);
-        King kingWhite = new King(Color.WHITE, new Coordinate(3, 1), 1);
-        King kingBlack = new King(Color.BLACK, new Coordinate(8, 5), 1);
-        governor.getGame().addFigures(pawnWhite);
-        governor.getGame().addFigures(pawnBlack);
-        governor.getGame().addFigures(kingWhite);
-        governor.getGame().addFigures(kingBlack);
 
-        governor.getGame().finalValidMoves(true);
-        governor.getGame().cleanFromChessRelatedMoves();
-
-
-        assertFalse(governor.enemyKingInChess(governor.getPlayerA()));
-        assertTrue(governor.enemyKingInChess(governor.getPlayerB()));
-
-    }
 
     @Test
     public void testNotEnoughMaterialVersion1() {

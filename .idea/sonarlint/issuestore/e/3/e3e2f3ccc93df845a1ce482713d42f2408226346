@@ -1,13 +1,12 @@
 
-Gsquid:S1659"$Declare "scene2" on a separate line.(è«øùÿÿÿÿ8”ÿşú‡-
-xsquid:S1450"URemove the "scene1" field and declare it as a local variable in the relevant methods.(è«øùÿÿÿÿ8ãâÎÑ‡-
-Psquid:S1481³",Remove this unused "message" local variable.(ƒô‰ùÿÿÿÿ8Ë±øˆ-
-ssquid:S1450"URemove the "window" field and declare it as a local variable in the relevant methods.(…Öı 8ıÌ×‡-
-esquid:S2142›"FEither re-interrupt this method or rethrow the "InterruptedException".(‘í†8Ş˜Ê‚ˆ-
-nsquid:S1192#"PDefine a constant instead of duplicating this literal "Human vs. Human" 3 times.(Ôÿ¦ñ8¬æ¸Ô‡-
-Osquid:S1172d",Remove this unused method parameter "label".(¼şí®ıÿÿÿÿ8”ú›…ˆ-
-Msquid:S1068"*Remove this unused "scene2" private field.(è«øùÿÿÿÿ8”ÿşú‡-
-Psquid:S1481»",Remove this unused "message" local variable.(ƒô‰ùÿÿÿÿ8ŠÅ™…ˆ-
-Gsquid:S1148œ"#Use a logger to log this exception.(Âşÿâûÿÿÿÿ8Ş˜Ê‚ˆ-
-_squid:S1854³";Remove this useless assignment to local variable "message".(ƒô‰ùÿÿÿÿ8Ë±øˆ-
-_squid:S1854»";Remove this useless assignment to local variable "message".(ƒô‰ùÿÿÿÿ8ŠÅ™…ˆ-
+Msquid:S1068"*Remove this unused "scene2" private field.(è«øùÿÿÿÿ8”ÿşú‡-
+Psquid:S1481Õ",Remove this unused "message" local variable.(ƒô‰ùÿÿÿÿ8àĞ»®ˆ-
+Osquid:S1172h",Remove this unused method parameter "label".(…‚­Áúÿÿÿÿ8”ú›…ˆ-
+esquid:S2142½"FEither re-interrupt this method or rethrow the "InterruptedException".(‘í†8àĞ»®ˆ-
+_squid:S1854Õ";Remove this useless assignment to local variable "message".(ƒô‰ùÿÿÿÿ8àĞ»®ˆ-
+ssquid:S1450"URemove the "window" field and declare it as a local variable in the relevant methods.(…Öı 8ıÌ×‡-
+Gsquid:S1659"$Declare "scene2" on a separate line.(è«øùÿÿÿÿ8”ÿşú‡-
+Psquid:S1481İ",Remove this unused "message" local variable.(ƒô‰ùÿÿÿÿ8àĞ»®ˆ-
+_squid:S1854İ";Remove this useless assignment to local variable "message".(ƒô‰ùÿÿÿÿ8àĞ»®ˆ-
+Gsquid:S1148¾"#Use a logger to log this exception.(Âşÿâûÿÿÿÿ8àĞ»®ˆ-
+xsquid:S1450"URemove the "scene1" field and declare it as a local variable in the relevant methods.(è«øùÿÿÿÿ8ãâÎÑ‡-

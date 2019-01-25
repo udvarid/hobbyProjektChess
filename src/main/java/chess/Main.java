@@ -9,13 +9,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static javafx.scene.text.TextAlignment.RIGHT;
 
 
 public class Main extends Application {
@@ -50,7 +50,6 @@ public class Main extends Application {
         bp.setBottom(label);
 
         Label label2 = new Label();
-        label2.setTextAlignment(TextAlignment.LEFT);
         bp.setRight(label2);
 
         Button[][] tiles = new Button[8][8];
@@ -81,7 +80,7 @@ public class Main extends Application {
         bp.setCenter(root);
 
 
-        scene1 = new Scene(bp, 700, 700);
+        scene1 = new Scene(bp, 725, 700);
         window.setScene(scene1);
         window.setTitle("Chessboard");
         window.show();
@@ -101,11 +100,11 @@ public class Main extends Application {
 
     }
 
-    private void showValidMoves(Button[][] tiles, Integer x, Integer y, Label label, Label label2) {
+    private void showValidMoves(Button[][] tiles, Integer x, Integer y, Label label1, Label label2) {
         boolean validMoveSet = false;
         for (ValidMovePair validMovePair : aims) {
             if (validMovePair.getEnd().equals(new Coordinate(x, y))) {
-                moveHumanPlayer(validMovePair);
+                EndGameType endGameType = moveHumanPlayer(validMovePair);
 
                 if (validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
                         ((governor.getWhoIsNext().getColor() == Color.WHITE && x == 8) ||
@@ -114,17 +113,18 @@ public class Main extends Application {
                     governor.getGame().promote(validMovePair, promoteSign.charAt(0));
                 }
                 MoveHistory moveHistory = governor.getMoveHistory().get(governor.getMoveHistory().size() - 1);
-                moveHistory.setGiveChess(enemyKingInChess(governor.getWhoIsNext().getEnemyColor()));
+                moveHistory.setGiveChess(governor.enemyKingInChess(governor.getWhoIsNext().getEnemyColor()));
                 governor.nextPlayerSet();
+                if (endGameType != EndGameType.NOEND) {
+                    label1.setText(endGameType.getDisplayName());
+                    governor.setGameIsOn(false);
+                }
                 printSet(tiles);
                 validMoveSet = true;
-                //TODO game end chess
-                String movements = printHistory();
-                label2.setText(movements);
-                computerEnemyMoving(tiles, label2);
+                label2.setText(printHistory());
+                computerEnemyMoving(tiles, label1, label2);
 
 
-                //TODO game end chess
                 break;
             }
         }
@@ -155,29 +155,22 @@ public class Main extends Application {
         return result.toString();
     }
 
-    private boolean enemyKingInChess(Color color) {
-        King king = null;
-        for (Figure figure : governor.getGame().getFigures()) {
-            if (figure.getFigureType() == FigureType.KING && figure.getColor() == color) {
-                king = (King) figure;
-                return king.isInChess();
-            }
-        }
-        return false;
-    }
 
-    private void computerEnemyMoving(Button[][] tiles, Label label2) {
+    private void computerEnemyMoving(Button[][] tiles, Label label1, Label label2) {
         if (governor.getWhoIsNext().getType() == PlayerType.COMPUTER) {
             Platform.runLater(() -> {
                 try {
                     Thread.sleep(1000);
-                    moveComputerPlayer();
+                    EndGameType endGameType = moveComputerPlayer();
                     MoveHistory moveHistory = governor.getMoveHistory().get(governor.getMoveHistory().size() - 1);
-                    moveHistory.setGiveChess(enemyKingInChess(governor.getWhoIsNext().getEnemyColor()));
+                    moveHistory.setGiveChess(governor.enemyKingInChess(governor.getWhoIsNext().getEnemyColor()));
                     governor.nextPlayerSet();
                     printSet(tiles);
-                    String movements = printHistory();
-                    label2.setText(movements);
+                    if (endGameType != EndGameType.NOEND) {
+                        label1.setText(endGameType.getDisplayName());
+                        governor.setGameIsOn(false);
+                    }
+                    label2.setText(printHistory());
                     int x = moveHistory.getStartCoordinate().getX();
                     int y = moveHistory.getStartCoordinate().getY();
                     tiles[8 - x][y - 1].setStyle(" -fx-background-color:rgba(29,252,220,0.86);");
@@ -208,20 +201,32 @@ public class Main extends Application {
         }
     }
 
-    private void moveHumanPlayer(ValidMovePair validMovePair) {
+    private EndGameType moveHumanPlayer(ValidMovePair validMovePair) {
         boolean wasMove = governor.actualPlayerIsMoving(governor.getWhoIsNext(), validMovePair);
-        String message = governor.endGameEvaluating(wasMove, governor.getWhoIsNext());
         governor.getGame().finalValidMoves(true);
         governor.getGame().cleanFromChessRelatedMoves();
-
+        return checkGameStatus();
     }
 
-    private void moveComputerPlayer() {
+    private EndGameType moveComputerPlayer() {
         boolean wasMove = governor.actualPlayerIsMoving(governor.getWhoIsNext(), null);
-        String message = governor.endGameEvaluating(wasMove, governor.getWhoIsNext());
         governor.getGame().finalValidMoves(true);
         governor.getGame().cleanFromChessRelatedMoves();
+        return checkGameStatus();
+    }
 
+    private EndGameType checkGameStatus() {
+        EndGameType endGameType = EndGameType.NOEND;
+        if (governor.enemyInMate(governor.getWhoIsNext().getEnemyColor())) {
+            endGameType = EndGameType.MATE;
+        } else if (governor.enemyHasNoValidMoves(governor.getWhoIsNext().getEnemyColor())) {
+            endGameType = EndGameType.NOVALIDMOVES;
+        } else if (governor.thisIsADraw()) {
+            endGameType = EndGameType.PASSIVGAME;
+        } else if (governor.notEnoughMaterial()) {
+            endGameType = EndGameType.UNSUFFICIENTMATERIAL;
+        }
+        return endGameType;
     }
 
     private void printSet(Button[][] tiles) {

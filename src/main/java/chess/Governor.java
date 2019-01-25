@@ -101,56 +101,6 @@ public class Governor {
     }
 
 
-    Coordinate convertToCoordinate(String s) {
-        Coordinate result = null;
-
-        int x = 0;
-        int y = 0;
-
-        if (s.length() == 2) {
-            switch (s.charAt(0)) {
-                case 'a':
-                    x = 1;
-                    break;
-                case 'b':
-                    x = 2;
-                    break;
-                case 'c':
-                    x = 3;
-                    break;
-                case 'd':
-                    x = 4;
-                    break;
-                case 'e':
-                    x = 5;
-                    break;
-                case 'f':
-                    x = 6;
-                    break;
-                case 'g':
-                    x = 7;
-                    break;
-                case 'h':
-                    x = 8;
-                    break;
-
-            }
-
-
-            try {
-                y = Integer.parseInt(s.substring(1, 2));
-            } catch (NumberFormatException e) {
-
-            }
-
-            if (x >= 1 && y >= 1 && y <= 8) {
-                result = new Coordinate(y, x);
-            }
-        }
-
-        return result;
-    }
-
 
     boolean makeMove(ValidMovePair moveActual) {
 
@@ -215,44 +165,9 @@ public class Governor {
         return false;
     }
 
-    String endGameEvaluating(boolean wasMove, Player whoIsNext) {
 
-        String result = "OK";
-        if (!wasMove && enemyKingInChess(whoIsNext)) {
-            result = "Checkmate";
-        } else if (!wasMove) {
-            result = "No valid move, this is a Stalemate";
-        } else if (thisIsADraw()) {
-            result = "This is a draw";
-        }
 
-        if (!result.equals("OK")) {
-            this.gameIsOn = false;
-        }
-
-        return result;
-    }
-
-    boolean enemyKingInChess(Player whoIsNext) {
-        game.finalValidMoves(true);
-        game.cleanFromChessRelatedMoves();
-        King enemyKing = (King) findingEnemyKing(whoIsNext);
-
-        return enemyKing.isInChess();
-    }
-
-    private Figure findingEnemyKing(Player whoIsNext) {
-        Figure result = null;
-        for (Figure figure : game.getFigures()) {
-            if (figure.getFigureType() == FigureType.KING && figure.getColor() == whoIsNext.getColor()) {
-                result = figure;
-                break;
-            }
-        }
-        return result;
-    }
-
-    private boolean thisIsADraw() {
+    boolean thisIsADraw() {
 
         boolean result = false;
 
@@ -260,8 +175,6 @@ public class Governor {
                 this.pawnMovedLastTime - this.round >= 50) {
             return true;
         }
-
-        result = notEnoughMaterial();
 
         return result;
     }
@@ -306,6 +219,26 @@ public class Governor {
         }
     }
 
+    boolean enemyKingInChess(Color color) {
+        King king = null;
+        for (Figure figure : game.getFigures()) {
+            if (figure.getFigureType() == FigureType.KING && figure.getColor() == color) {
+                king = (King) figure;
+                return king.isInChess();
+            }
+        }
+        return false;
+    }
+
+    public boolean enemyHasNoValidMoves(Color enemyColor) {
+        return filterValidMoves(game.getValidmoves(), enemyColor).isEmpty();
+    }
+
+    public boolean enemyInMate(Color enemyColor) {
+        return enemyKingInChess(enemyColor) && enemyHasNoValidMoves(enemyColor);
+    }
+
+
     public Player getPlayerA() {
         return playerA;
     }
@@ -332,5 +265,9 @@ public class Governor {
 
     public List<MoveHistory> getMoveHistory() {
         return moveHistory;
+    }
+
+    public void setGameIsOn(boolean gameIsOn) {
+        this.gameIsOn = gameIsOn;
     }
 }
