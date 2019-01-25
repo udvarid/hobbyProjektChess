@@ -1,12 +1,12 @@
 
-W"squid:SwitchLastCaseIsDefaultChecko""Add a default case to this switch.(Õ‘ø8ò­ ˆ-
-Hsquid:S1068"+Remove this unused "scanner" private field.(·¸ã8ù›‚ˆ-
 fsquid:S1126ª"BReplace this if-then-else statement by a single method invocation.(é¢¦Ÿúÿÿÿÿ8ò­ ˆ-
-usquid:S3776+"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Õıã‚ûÿÿÿÿ8®¬‚ ˆ-
+Hsquid:S1068"+Remove this unused "scanner" private field.(·¸ã8ù›‚ˆ-
 isquid:UselessImportCheck"9Remove this unused import 'javafx.scene.image.ImageView'.(áÿ®Ãüÿÿÿÿ8„–ª²‡-
-fsquid:S2259É"BA "NullPointerException" could be thrown; "rook" is nullable here.(£‹‚şøÿÿÿÿ8ò­ ˆ-
-hsquid:UselessImportCheck"8Remove this unused import 'javafx.scene.control.Button'.(Ë Í‹øÿÿÿÿ8áâ¾Í‡-
+usquid:S3776+"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Õıã‚ûÿÿÿÿ8®¬‚ ˆ-
+W"squid:SwitchLastCaseIsDefaultChecko""Add a default case to this switch.(Õ‘ø8ò­ ˆ-
+Nsquid:S1066Ñ"/Merge this if statement with the enclosing one.(ûÆšÏ8ò­ ˆ-
 Nsquid:S00108")Either remove or fill this block of code.(é–³öûÿÿÿÿ8ò­ ˆ-
+hsquid:UselessImportCheck"8Remove this unused import 'javafx.scene.control.Button'.(Ë Í‹øÿÿÿÿ8áâ¾Í‡-
 `squid:S1126¥"AReplace this if-then-else statement by a single return statement.(Ø½ó8ò­ ˆ-
 fsquid:S2259ñ"GA "NullPointerException" could be thrown; "enemyKing" is nullable here.(ÂÚ¥8ò­ ˆ-
-Nsquid:S1066Ñ"/Merge this if statement with the enclosing one.(ûÆšÏ8ò­ ˆ-
+fsquid:S2259É"BA "NullPointerException" could be thrown; "rook" is nullable here.(£‹‚şøÿÿÿÿ8ò­ ˆ-

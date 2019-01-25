@@ -9,10 +9,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static javafx.scene.text.TextAlignment.RIGHT;
 
 
 public class Main extends Application {
@@ -32,9 +35,9 @@ public class Main extends Application {
 
         HBox topMenu = new HBox();
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
-        choiceBox.getItems().add("Human vs. Human");
         choiceBox.getItems().add("Human vs. Computer");
-        choiceBox.setValue("Human vs. Human");
+        choiceBox.getItems().add("Human vs. Human");
+        choiceBox.setValue("Human vs. Computer");
 
         Button buttonStart = new Button("Start game");
         topMenu.getChildren().addAll(choiceBox, buttonStart);
@@ -47,8 +50,8 @@ public class Main extends Application {
         bp.setBottom(label);
 
         Label label2 = new Label();
+        label2.setTextAlignment(TextAlignment.LEFT);
         bp.setRight(label2);
-        //TODO history of moves should be printed to the right
 
         Button[][] tiles = new Button[8][8];
 
@@ -69,7 +72,7 @@ public class Main extends Application {
                 Integer intY = col + 1;
                 tiles[row][col].setOnAction(e -> {
                     if (governor != null && governor.isGameIsOn()) {
-                        showValidMoves(tiles, intX, intY, label);
+                        showValidMoves(tiles, intX, intY, label, label2);
                     }
                 });
             }
@@ -78,7 +81,7 @@ public class Main extends Application {
         bp.setCenter(root);
 
 
-        scene1 = new Scene(bp, 800, 800);
+        scene1 = new Scene(bp, 700, 700);
         window.setScene(scene1);
         window.setTitle("Chessboard");
         window.show();
@@ -91,13 +94,14 @@ public class Main extends Application {
             }
             printSet(tiles);
             label.setText("");
+            label2.setText("");
 
         });
 
 
     }
 
-    private void showValidMoves(Button[][] tiles, Integer x, Integer y, Label label) {
+    private void showValidMoves(Button[][] tiles, Integer x, Integer y, Label label, Label label2) {
         boolean validMoveSet = false;
         for (ValidMovePair validMovePair : aims) {
             if (validMovePair.getEnd().equals(new Coordinate(x, y))) {
@@ -115,8 +119,9 @@ public class Main extends Application {
                 printSet(tiles);
                 validMoveSet = true;
                 //TODO game end chess
-                System.out.println(governor.getMoveHistory().get(governor.getMoveHistory().size()-1));
-                computerEnemyMoving(tiles);
+                String movements = printHistory();
+                label2.setText(movements);
+                computerEnemyMoving(tiles, label2);
 
 
                 //TODO game end chess
@@ -130,6 +135,26 @@ public class Main extends Application {
 
     }
 
+    private String printHistory() {
+        StringBuilder result = new StringBuilder();
+        int roundNumber = 1;
+        for (MoveHistory moveHistory : governor.getMoveHistory()) {
+            if (roundNumber % 2 == 1) {
+                result.append(moveHistory.getRound()).append(". ");
+            }
+            result.append(moveHistory.toString());
+            roundNumber++;
+            if (roundNumber %2 == 0) {
+                result.append(" - ");
+            } else {
+                result.append("\r");
+            }
+
+
+        }
+        return result.toString();
+    }
+
     private boolean enemyKingInChess(Color color) {
         King king = null;
         for (Figure figure : governor.getGame().getFigures()) {
@@ -141,7 +166,7 @@ public class Main extends Application {
         return false;
     }
 
-    private void computerEnemyMoving(Button[][] tiles) {
+    private void computerEnemyMoving(Button[][] tiles, Label label2) {
         if (governor.getWhoIsNext().getType() == PlayerType.COMPUTER) {
             Platform.runLater(() -> {
                 try {
@@ -151,7 +176,16 @@ public class Main extends Application {
                     moveHistory.setGiveChess(enemyKingInChess(governor.getWhoIsNext().getEnemyColor()));
                     governor.nextPlayerSet();
                     printSet(tiles);
-                    System.out.println(governor.getMoveHistory().get(governor.getMoveHistory().size()-1));
+                    String movements = printHistory();
+                    label2.setText(movements);
+                    int x = moveHistory.getStartCoordinate().getX();
+                    int y = moveHistory.getStartCoordinate().getY();
+                    tiles[8 - x][y - 1].setStyle(" -fx-background-color:rgba(29,252,220,0.86);");
+
+                    x = moveHistory.getEndCoordinate().getX();
+                    y = moveHistory.getEndCoordinate().getY();
+                    tiles[8 - x][y - 1].setStyle(" -fx-background-color:rgba(76,46,150,0.86);");
+
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
