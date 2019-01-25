@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 
 public class PromoteBox {
 
-    //Create variable
     static String answer;
 
     public static String display(String title, String message, Color color) {
@@ -22,7 +21,10 @@ public class PromoteBox {
         Label label = new Label();
         label.setText(message);
 
-        //Create two buttons
+        window.setOnCloseRequest(e -> {
+            e.consume(); //Ezzel átvettem a Close event kezelését, enélkül mindenképpen bezárná az ablakot
+        });
+
         Button queenButton = new Button();
         if (color == Color.WHITE) {
             queenButton.setGraphic(new ImageView("QueenWhite.png"));
@@ -51,7 +53,6 @@ public class PromoteBox {
             knightButton.setGraphic(new ImageView("KnightBlack.png"));
         }
 
-        //Clicking will set answer and close window
         queenButton.setOnAction(e -> {
             answer = "q";
             window.close();
@@ -72,14 +73,12 @@ public class PromoteBox {
 
         VBox layout = new VBox(10);
 
-        //Add buttons
         layout.getChildren().addAll(label, queenButton, rookButton, bishopButton, knightButton);
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
 
-        //Make sure to return answer
         return answer;
     }
 }

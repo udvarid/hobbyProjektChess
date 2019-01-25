@@ -1,13 +1,12 @@
 
+W"squid:SwitchLastCaseIsDefaultChecko""Add a default case to this switch.(Õ‘ø8ò­ ˆ-
+Hsquid:S1068"+Remove this unused "scanner" private field.(·¸ã8ù›‚ˆ-
+fsquid:S1126ª"BReplace this if-then-else statement by a single method invocation.(é¢¦Ÿúÿÿÿÿ8ò­ ˆ-
+usquid:S3776+"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Õýã‚ûÿÿÿÿ8®¬‚ ˆ-
 isquid:UselessImportCheck"9Remove this unused import 'javafx.scene.image.ImageView'.(áÿ®Ãüÿÿÿÿ8„–ª²‡-
-nsquid:CommentedOutCodeLine>"<This block of commented-out lines of code should be removed.(¾òŽýÿÿÿÿ8›ýÉÛ‡-
-fsquid:S2259Á"GA "NullPointerException" could be thrown; "enemyKing" is nullable here.(ÂÚ¥8›ýÉÛ‡-
-Nsquid:S1066ž"/Merge this if statement with the enclosing one.(ûÆšÏ8›ýÉÛ‡-
-Nsquid:S00108¿")Either remove or fill this block of code.(é–³öûÿÿÿÿ8›ýÉÛ‡-
-`squid:S1126õ"AReplace this if-then-else statement by a single return statement.(Ø½ó8›ýÉÛ‡-
-fsquid:S1126å"BReplace this if-then-else statement by a single method invocation.(é¢¦Ÿúÿÿÿÿ8›ýÉÛ‡-
-X"squid:SwitchLastCaseIsDefaultCheck ""Add a default case to this switch.(Õ‘ø8›ýÉÛ‡-
-…squid:S2178Í"fCorrect this "&" to "&&" and extract the right operand to a variable if it should always be evaluated.(«ïÔ®8›ýÉÛ‡-
-Isquid:S00108Œ")Either remove or fill this block of code.(”ý¾8›ýÉÛ‡-
+fsquid:S2259É"BA "NullPointerException" could be thrown; "rook" is nullable here.(£‹‚þøÿÿÿÿ8ò­ ˆ-
 hsquid:UselessImportCheck"8Remove this unused import 'javafx.scene.control.Button'.(Ë Í‹øÿÿÿÿ8áâ¾Í‡-
-fsquid:S2259‚"BA "NullPointerException" could be thrown; "rook" is nullable here.(£‹‚þøÿÿÿÿ8›ýÉÛ‡-
+Nsquid:S00108Ž")Either remove or fill this block of code.(é–³öûÿÿÿÿ8ò­ ˆ-
+`squid:S1126¥"AReplace this if-then-else statement by a single return statement.(Ø½ó8ò­ ˆ-
+fsquid:S2259ñ"GA "NullPointerException" could be thrown; "enemyKing" is nullable here.(ÂÚ¥8ò­ ˆ-
+Nsquid:S1066Ñ"/Merge this if statement with the enclosing one.(ûÆšÏ8ò­ ˆ-

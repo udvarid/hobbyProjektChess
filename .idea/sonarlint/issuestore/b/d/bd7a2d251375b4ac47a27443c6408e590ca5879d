@@ -1,6 +1,6 @@
 
-vsquid:S3776Š"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¯ˆñûÿÿÿÿ8³ñ®‡-
-Msquid:S1481ç")Remove this unused "king" local variable.(Ñ÷ÑÌûÿÿÿÿ8áÃ€÷‡-
-\squid:S1854ë"8Remove this useless assignment to local variable "king".(õ¹åéşÿÿÿÿ8âÃ€÷‡-
-hsquid:S2259Í"DA "NullPointerException" could be thrown; "figure" is nullable here.(”¢‰Ìøÿÿÿÿ8³ñ®‡-
-]"squid:SwitchLastCaseIsDefaultCheck¿""Add a default case to this switch.(”µ‡Åıÿÿÿÿ8³ñ®‡-
+hsquid:S2259”"DA "NullPointerException" could be thrown; "figure" is nullable here.(”¢‰Ìøÿÿÿÿ8³ñ®‡-
+usquid:S3776Q"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¯ˆñûÿÿÿÿ8³ñ®‡-
+]"squid:SwitchLastCaseIsDefaultCheck†""Add a default case to this switch.(”µ‡Åıÿÿÿÿ8³ñ®‡-
+\squid:S1854²"8Remove this useless assignment to local variable "king".(õ¹åéşÿÿÿÿ8âÃ€÷‡-
+Msquid:S1481®")Remove this unused "king" local variable.(Ñ÷ÑÌûÿÿÿÿ8áÃ€÷‡-

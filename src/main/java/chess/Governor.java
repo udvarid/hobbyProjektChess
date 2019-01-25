@@ -3,9 +3,7 @@ package chess;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Governor {
 
@@ -21,6 +19,8 @@ public class Governor {
     private int figureCapturedLastTime;
 
     private Game game;
+
+    private List<MoveHistory> moveHistory = new ArrayList<>();
 
     public Governor() {
         this(PlayerType.HUMAN, PlayerType.HUMAN);
@@ -39,39 +39,6 @@ public class Governor {
         game.cleanFromChessRelatedMoves();
     }
 
-    public void startGame() {
-        boolean endGame = false;
-        boolean wasMove = false;
-        while (!endGame) {
-
-            printActualStatus();
-
-
-            wasMove = actualPlayerIsMoving(whoIsNext, null);
-
-            endGame = endGameEvaluating(wasMove, whoIsNext);
-
-            nextPlayerSet();
-
-        }
-    }
-
-    private void printActualStatus() {
-        game.printBoard();
-        printEvaluations();
-        //game.printValidMoves();
-    }
-
-    private void printEvaluations() {
-        System.out.println("White Evaluation");
-        System.out.println("White's value: " + Evaluator.evaluateBasedValue(Color.WHITE, this.game));
-        System.out.println("------------------------------");
-        System.out.println();
-        System.out.println("Black Evaluation");
-        System.out.println("Black's value: " + Evaluator.evaluateBasedValue(Color.BLACK, this.game));
-        System.out.println("------------------------------");
-
-    }
 
     boolean actualPlayerIsMoving(Player whoIsNext, ValidMovePair vpFromFX) {
 
@@ -88,7 +55,8 @@ public class Governor {
         if (!validmovesForThisPlayer.isEmpty()) {
             ValidMovePair moveActual = null;
             if (vpFromFX == null) {
-                moveActual = askingValidmove(validmovesForThisPlayer, whoIsNext);
+                //in the JavaFX version this can happen onyl, when the player is computer
+                moveActual = whoIsNext.giveMove(this.game);
             } else {
                 moveActual = vpFromFX;
                 for (Figure figure : game.getFigures()) {
@@ -97,12 +65,21 @@ public class Governor {
                     }
                 }
             }
-            makeMove(moveActual);
+            boolean thereWasAHit = makeMove(moveActual);
+
+
+            MoveHistory thisMove = new MoveHistory();
+            thisMove.setRound(this.round);
+            thisMove.setColor(whoIsNext.getColor() == Color.WHITE ? Color.WHITE : Color.BLACK);
+            thisMove.setStartCoordinate(new Coordinate(moveActual.getStart().getX(), moveActual.getStart().getY()));
+            thisMove.setEndCoordinate(new Coordinate(moveActual.getEnd().getX(), moveActual.getEnd().getY()));
+            thisMove.setHitEnemy(thereWasAHit);
+            moveHistory.add(thisMove);
+
             result = true;
             if (moveActual.getFigure().getFigureType() == FigureType.PAWN) {
                 this.pawnMovedLastTime = this.round;
             }
-            //handlePromotingIfNecessery(moveActual);
 
         }
 
@@ -123,32 +100,6 @@ public class Governor {
 
     }
 
-    private ValidMovePair askingValidmove(Set<ValidMovePair> validmovesForThisPlayer, Player whoIsNext) {
-
-        ValidMovePair result = null;
-        Coordinate start = null;
-        Coordinate end = null;
-
-        if (whoIsNext.getType().equals(PlayerType.HUMAN)) {
-            boolean validMoveAlreadyGiven = false;
-            while (!validMoveAlreadyGiven) {
-                System.out.println(whoIsNext.getColor().toString() + " player, give me a valid move separated by '-', e.g: 'e2-e4'");
-                String[] order = scanner.nextLine().split("-");
-                try {
-                    start = convertToCoordinate(order[0]);
-                    end = convertToCoordinate(order[1]);
-                } catch (Exception e) {
-                }
-                result = new ValidMovePair(start, end, null);
-                validMoveAlreadyGiven = orderOnTheListOfValidMoves(validmovesForThisPlayer, result);
-            }
-        } else {
-            result = whoIsNext.giveMove(this.game);
-        }
-
-        return result;
-
-    }
 
     Coordinate convertToCoordinate(String s) {
         Coordinate result = null;
@@ -200,24 +151,14 @@ public class Governor {
         return result;
     }
 
-    private boolean orderOnTheListOfValidMoves(Set<ValidMovePair> validmovesForThisPlayer, ValidMovePair result) {
 
-        if (result.getStart() != null & result.getEnd() != null) {
-            for (ValidMovePair validMovePair : validmovesForThisPlayer) {
-                if (validMovePair.getStart().equals(result.getStart()) && validMovePair.getEnd().equals(result.getEnd())) {
-                    result.setFigure(validMovePair.getFigure());
-                    return true;
-                }
-            }
-        }
+    boolean makeMove(ValidMovePair moveActual) {
 
-        return false;
-    }
-
-    void makeMove(ValidMovePair moveActual) {
+        boolean result = false;
 
         if (game.deleteFigure(moveActual.getEnd())) {
             this.figureCapturedLastTime = round;
+            result = true;
         }
 
         moveActual.getFigure().getActualPosition().setX(moveActual.getEnd().getX());
@@ -241,6 +182,8 @@ public class Governor {
             }
         }
 
+        return result;
+
     }
 
     private void moveTheRook(ValidMovePair moveActual) {
@@ -259,26 +202,6 @@ public class Governor {
 
     }
 
-    private void handlePromotingIfNecessery(ValidMovePair moveActual) {
-        if (canPromote(moveActual)) {
-            boolean goodPromoteFormat = false;
-            String toPromote = null;
-            if (whoIsNext.getType() == PlayerType.COMPUTER) {
-                toPromote = "q";
-            } else {
-                while (!goodPromoteFormat) {
-                    System.out.println("What type would you want promote to? Only one character: R/K/B/Q");
-                    toPromote = scanner.nextLine();
-                    if (toPromote.length() == 1 && toPromote.matches("[rkbqRKBQ]")) {
-                        goodPromoteFormat = true;
-                    }
-                }
-            }
-
-            game.promote(moveActual, toPromote.toLowerCase().charAt(0));
-
-        }
-    }
 
     boolean canPromote(ValidMovePair moveActual) {
 
@@ -292,21 +215,18 @@ public class Governor {
         return false;
     }
 
-    boolean endGameEvaluating(boolean wasMove, Player whoIsNext) {
+    String endGameEvaluating(boolean wasMove, Player whoIsNext) {
 
-        boolean result = false;
+        String result = "OK";
         if (!wasMove && enemyKingInChess(whoIsNext)) {
-            System.out.println("Checkmate");
-            result = true;
+            result = "Checkmate";
         } else if (!wasMove) {
-            System.out.println("No valid move, this is a Stalemate");
-            result = true;
+            result = "No valid move, this is a Stalemate";
         } else if (thisIsADraw()) {
-            System.out.println("This is a draw");
-            result = true;
+            result = "This is a draw";
         }
 
-        if (result) {
+        if (!result.equals("OK")) {
             this.gameIsOn = false;
         }
 
@@ -398,14 +318,6 @@ public class Governor {
         return round;
     }
 
-    public int getPawnMovedLastTime() {
-        return pawnMovedLastTime;
-    }
-
-    public int getFigureCapturedLastTime() {
-        return figureCapturedLastTime;
-    }
-
     public Game getGame() {
         return game;
     }
@@ -418,7 +330,7 @@ public class Governor {
         return gameIsOn;
     }
 
-    public void setGameIsOn(boolean gameIsOn) {
-        this.gameIsOn = gameIsOn;
+    public List<MoveHistory> getMoveHistory() {
+        return moveHistory;
     }
 }

@@ -18,6 +18,10 @@ public class Player {
         this.type = type;
     }
 
+    public Color getEnemyColor() {
+        return enemyColor;
+    }
+
     public Color getColor() {
         return color;
     }

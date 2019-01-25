@@ -61,25 +61,6 @@ public class Game {
 
     }
 
-    public void printBoard() {
-
-
-        System.out.println(" -------------------------");
-
-        for (int i = 8; i >= 1; i--) {
-            System.out.print(i + "|");
-            for (int j = 1; j <= 8; j++) {
-                String cellCode = lookingForFigures(new Coordinate(i, j));
-                System.out.print(cellCode + "|");
-
-            }
-            System.out.println();
-            System.out.println(" -------------------------");
-
-        }
-        System.out.println("   A  B  C  D  E  F  G  H  ");
-
-    }
 
     String lookingForFigures(Coordinate coordinate) {
         for (Figure figure : this.figures) {
@@ -92,44 +73,6 @@ public class Game {
 
 
 
-
-    public void printValidMoves() {
-
-
-        for (ValidMovePair validMovesToPrint : this.validmoves) {
-            int xStart = validMovesToPrint.getStart().getX();
-            int yStart = validMovesToPrint.getStart().getY();
-            int xEnd = validMovesToPrint.getEnd().getX();
-            int yEnd = validMovesToPrint.getEnd().getY();
-            String figureSign = validMovesToPrint.getFigure().toString();
-            System.out.println(figureSign + " : " + translateFromNumber(yStart) + xStart + " -> " +
-                    translateFromNumber(yEnd) + xEnd + " : " + validMovesToPrint.isChessTest());
-        }
-    }
-
-    public char translateFromNumber(int number) {
-        switch (number) {
-            case 1:
-                return 'A';
-            case 2:
-                return 'B';
-            case 3:
-                return 'C';
-            case 4:
-                return 'D';
-            case 5:
-                return 'E';
-            case 6:
-                return 'F';
-            case 7:
-                return 'G';
-            case 8:
-                return 'H';
-            default:
-                return 'X';
-        }
-
-    }
 
     public void cleanTable() {
         this.figures = new HashSet<>();

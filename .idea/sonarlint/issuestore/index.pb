@@ -67,3 +67,5 @@ R
 "src/main/java/chess/ValidMove.java,f\d\fd6d54f444c746e22f1d648242ba022d9e056459
 S
 #src/main/java/chess/PromoteBox.java,0\2\0226e87a6885fdf7638a7d33321d835ffc3b76e1
+T
+$src/main/java/chess/MoveHistory.java,5\2\5234a698a37b2a06b49ff54571659f761c9f003a

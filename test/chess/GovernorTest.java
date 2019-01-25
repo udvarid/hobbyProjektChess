@@ -8,21 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GovernorTest {
 
     @Test
-    public void testConvertToCoordinate(){
+    public void testConvertToCoordinate() {
         Governor governor = new Governor();
-        Coordinate aim = new Coordinate(2,2);
+        Coordinate aim = new Coordinate(2, 2);
         Coordinate converted = governor.convertToCoordinate("b2");
         assertTrue(aim.equals(converted));
 
-         aim = new Coordinate(4,4);
-         converted = governor.convertToCoordinate("d4");
+        aim = new Coordinate(4, 4);
+        converted = governor.convertToCoordinate("d4");
         assertTrue(aim.equals(converted));
 
-        aim = new Coordinate(7,5);
+        aim = new Coordinate(7, 5);
         converted = governor.convertToCoordinate("e7");
         assertTrue(aim.equals(converted));
 
-        aim = new Coordinate(7,8);
+        aim = new Coordinate(7, 8);
         converted = governor.convertToCoordinate("h7");
         assertTrue(aim.equals(converted));
     }
@@ -71,8 +71,8 @@ public class GovernorTest {
         Pawn pawn2 = new Pawn(Color.WHITE, new Coordinate(6, 5), 1);
         governor.getGame().addFigures(pawn);
         governor.getGame().addFigures(pawn2);
-        ValidMovePair vp1 = new ValidMovePair(new Coordinate(7, 4), new Coordinate(8,4), pawn);
-        ValidMovePair vp2 = new ValidMovePair(new Coordinate(6, 5), new Coordinate(7,5), pawn2);
+        ValidMovePair vp1 = new ValidMovePair(new Coordinate(7, 4), new Coordinate(8, 4), pawn);
+        ValidMovePair vp2 = new ValidMovePair(new Coordinate(6, 5), new Coordinate(7, 5), pawn2);
         assertTrue(governor.canPromote(vp1));
         assertFalse(governor.canPromote(vp2));
     }
@@ -90,8 +90,12 @@ public class GovernorTest {
         governor.getGame().addFigures(kingWhite);
         governor.getGame().addFigures(kingBlack);
 
-        assertTrue(governor.enemyKingInChess(governor.getPlayerA()));
-        assertFalse(governor.enemyKingInChess(governor.getPlayerB()));
+        governor.getGame().finalValidMoves(true);
+        governor.getGame().cleanFromChessRelatedMoves();
+
+
+        assertFalse(governor.enemyKingInChess(governor.getPlayerA()));
+        assertTrue(governor.enemyKingInChess(governor.getPlayerB()));
 
     }
 
