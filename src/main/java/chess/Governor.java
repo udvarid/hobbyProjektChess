@@ -1,7 +1,5 @@
 package chess;
 
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 
 import java.util.*;
 
@@ -12,7 +10,6 @@ public class Governor {
     private Player whoIsNext;
     private boolean gameIsOn;
 
-    private static Scanner scanner = new Scanner(System.in);
 
     private int round;
     private int pawnMovedLastTime;
@@ -162,7 +159,7 @@ public class Governor {
 
     private void setLastDoubleMovesToFalse(Color color) {
         for (Figure figure : game.getFigures()) {
-            if (figure.getFigureType() == FigureType.PAWN) {
+            if (figure.getFigureType() == FigureType.PAWN && figure.getColor() == color) {
                 Pawn pawnToCheck = (Pawn) figure;
                 if (pawnToCheck.isLastMoveIsDoubleOpening()) {
                     pawnToCheck.setLastMoveIsDoubleOpening(false);
