@@ -69,3 +69,5 @@ S
 #src/main/java/chess/PromoteBox.java,0\2\0226e87a6885fdf7638a7d33321d835ffc3b76e1
 T
 $src/main/java/chess/MoveHistory.java,5\2\5234a698a37b2a06b49ff54571659f761c9f003a
+T
+$src/main/java/chess/EndGameType.java,2\c\2cebd9c6534adb80f0bc843b5b8a4adf570cd900

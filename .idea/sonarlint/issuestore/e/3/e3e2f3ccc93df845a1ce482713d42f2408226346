@@ -1,12 +1,13 @@
 
-Msquid:S1068"*Remove this unused "scene2" private field.(è«øùÿÿÿÿ8”ÿşú‡-
-Psquid:S1481Õ",Remove this unused "message" local variable.(ƒô‰ùÿÿÿÿ8àĞ»®ˆ-
-Osquid:S1172h",Remove this unused method parameter "label".(…‚­Áúÿÿÿÿ8”ú›…ˆ-
-esquid:S2142½"FEither re-interrupt this method or rethrow the "InterruptedException".(‘í†8àĞ»®ˆ-
-_squid:S1854Õ";Remove this useless assignment to local variable "message".(ƒô‰ùÿÿÿÿ8àĞ»®ˆ-
-ssquid:S1450"URemove the "window" field and declare it as a local variable in the relevant methods.(…Öı 8ıÌ×‡-
-Gsquid:S1659"$Declare "scene2" on a separate line.(è«øùÿÿÿÿ8”ÿşú‡-
-Psquid:S1481İ",Remove this unused "message" local variable.(ƒô‰ùÿÿÿÿ8àĞ»®ˆ-
-_squid:S1854İ";Remove this useless assignment to local variable "message".(ƒô‰ùÿÿÿÿ8àĞ»®ˆ-
-Gsquid:S1148¾"#Use a logger to log this exception.(Âşÿâûÿÿÿÿ8àĞ»®ˆ-
-xsquid:S1450"URemove the "scene1" field and declare it as a local variable in the relevant methods.(è«øùÿÿÿÿ8ãâÎÑ‡-
+Msquid:S1068"*Remove this unused "scene2" private field.(è«øùÿÿÿÿ8ÛĞ¼·ˆ-
+xsquid:S1450"URemove the "scene1" field and declare it as a local variable in the relevant methods.(è«øùÿÿÿÿ8ÛĞ¼·ˆ-
+esquid:S2142¶"FEither re-interrupt this method or rethrow the "InterruptedException".(‘í†8ÁËß·ˆ-
+Gsquid:S1148·"#Use a logger to log this exception.(Âşÿâûÿÿÿÿ8ÁËß·ˆ-
+Psquid:S1481Í",Remove this unused "wasMove" local variable.(¢ĞÊ„ûÿÿÿÿ8ÁËß·ˆ-
+Ksquid:S1481Ô",Remove this unused "wasMove" local variable.(ÉùëÉ8ÁËß·ˆ-
+lsquid:UselessImportCheck"<Remove this unused import 'javafx.scene.text.TextAlignment'.(ë¤ßıÿÿÿÿ8¶¨â·ˆ-
+Gsquid:S1659"$Declare "scene2" on a separate line.(è«øùÿÿÿÿ8ÛĞ¼·ˆ-
+Zsquid:S1854Ô";Remove this useless assignment to local variable "wasMove".(ÉùëÉ8ÁËß·ˆ-
+ssquid:S1450"URemove the "window" field and declare it as a local variable in the relevant methods.(…Öı 8ÛĞ¼·ˆ-
+`squid:UselessImportCheck"5Remove this unused import 'javafx.scene.paint.Paint'.(Ïæ©¼8Šæé·ˆ-
+_squid:S1854Í";Remove this useless assignment to local variable "wasMove".(¢ĞÊ„ûÿÿÿÿ8ÁËß·ˆ-

@@ -3,6 +3,7 @@ package chess;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -47,9 +48,11 @@ public class Main extends Application {
         bp.setTop(topMenu);
 
         Label label = new Label();
+        label.setStyle("-fx-font: 20 arial;");
         bp.setBottom(label);
 
         Label label2 = new Label();
+        label2.setStyle("-fx-font: 15 arial;");
         bp.setRight(label2);
 
         Button[][] tiles = new Button[8][8];
@@ -80,7 +83,7 @@ public class Main extends Application {
         bp.setCenter(root);
 
 
-        scene1 = new Scene(bp, 725, 700);
+        scene1 = new Scene(bp, 775, 700);
         window.setScene(scene1);
         window.setTitle("Chessboard");
         window.show();
