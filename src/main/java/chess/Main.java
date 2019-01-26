@@ -82,6 +82,8 @@ public class Main extends Application {
 
         bp.setCenter(root);
 
+        System.out.println("h");
+
 
         scene1 = new Scene(bp, 775, 700);
         window.setScene(scene1);
