@@ -3,15 +3,12 @@ package chess;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -21,7 +18,7 @@ import java.util.List;
 
 public class Main extends Application {
     private Stage window;
-    private Scene scene1, scene2;
+    private Scene scene1;
     private Governor governor = null;
     private List<ValidMovePair> aims = new ArrayList<>();
 
@@ -81,8 +78,6 @@ public class Main extends Application {
         }
 
         bp.setCenter(root);
-
-        System.out.println("h");
 
 
         scene1 = new Scene(bp, 775, 700);
@@ -207,14 +202,14 @@ public class Main extends Application {
     }
 
     private EndGameType moveHumanPlayer(ValidMovePair validMovePair) {
-        boolean wasMove = governor.actualPlayerIsMoving(governor.getWhoIsNext(), validMovePair);
+        governor.actualPlayerIsMoving(governor.getWhoIsNext(), validMovePair);
         governor.getGame().finalValidMoves(true);
         governor.getGame().cleanFromChessRelatedMoves();
         return checkGameStatus();
     }
 
     private EndGameType moveComputerPlayer() {
-        boolean wasMove = governor.actualPlayerIsMoving(governor.getWhoIsNext(), null);
+        governor.actualPlayerIsMoving(governor.getWhoIsNext(), null);
         governor.getGame().finalValidMoves(true);
         governor.getGame().cleanFromChessRelatedMoves();
         return checkGameStatus();

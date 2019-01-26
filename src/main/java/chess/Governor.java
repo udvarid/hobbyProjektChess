@@ -101,7 +101,6 @@ public class Governor {
     }
 
 
-
     boolean makeMove(ValidMovePair moveActual) {
 
         boolean result = false;
@@ -109,18 +108,26 @@ public class Governor {
         if (game.deleteFigure(moveActual.getEnd())) {
             this.figureCapturedLastTime = round;
             result = true;
+        } else {
+            Coordinate capturedDueToEnpassan = giveVictimDueToEnPassan(moveActual);
+            if (capturedDueToEnpassan != null && game.deleteFigure(capturedDueToEnpassan)) {
+                this.figureCapturedLastTime = round;
+                result = true;
+            }
         }
+
 
         moveActual.getFigure().getActualPosition().setX(moveActual.getEnd().getX());
         moveActual.getFigure().getActualPosition().setY(moveActual.getEnd().getY());
 
         moveActual.getFigure().setStillInStartingPosition(false);
+
+        setLastDoubleMovesToFalse(moveActual.getFigure().getColor());
+
         if (moveActual.getFigure().getFigureType() == FigureType.PAWN) {
             Pawn pawn = (Pawn) moveActual.getFigure();
             if (Math.abs(moveActual.getEnd().getX() - moveActual.getStart().getX()) == 2) {
                 pawn.setLastMoveIsDoubleOpening(true);
-            } else {
-                pawn.setLastMoveIsDoubleOpening(false);
             }
         }
 
@@ -134,6 +141,34 @@ public class Governor {
 
         return result;
 
+    }
+
+    private Coordinate giveVictimDueToEnPassan(ValidMovePair moveActual) {
+        Coordinate result = null;
+
+        if (moveActual.getFigure().getFigureType() == FigureType.PAWN &&
+                moveActual.getStart().getY() != moveActual.getEnd().getY()) {
+            if (moveActual.getFigure().getColor() == Color.WHITE &&
+                    moveActual.getStart().getX() == 5) {
+                result = new Coordinate(5, moveActual.getEnd().getY());
+            } else if (moveActual.getFigure().getColor() == Color.BLACK &&
+                    moveActual.getStart().getX() == 4) {
+                result = new Coordinate(4, moveActual.getEnd().getY());
+            }
+
+        }
+        return result;
+    }
+
+    private void setLastDoubleMovesToFalse(Color color) {
+        for (Figure figure : game.getFigures()) {
+            if (figure.getFigureType() == FigureType.PAWN) {
+                Pawn pawnToCheck = (Pawn) figure;
+                if (pawnToCheck.isLastMoveIsDoubleOpening()) {
+                    pawnToCheck.setLastMoveIsDoubleOpening(false);
+                }
+            }
+        }
     }
 
     private void moveTheRook(ValidMovePair moveActual) {
@@ -164,7 +199,6 @@ public class Governor {
 
         return false;
     }
-
 
 
     boolean thisIsADraw() {

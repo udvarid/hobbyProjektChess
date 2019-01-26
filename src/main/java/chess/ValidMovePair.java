@@ -48,6 +48,7 @@ public class ValidMovePair {
         this.mateTest = mateTest;
     }
 
+
     @Override
     public String toString() {
         return this.getStart().toString() + " -> " + this.getEnd().toString();
