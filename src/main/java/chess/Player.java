@@ -1,5 +1,8 @@
 package chess;
 
+import chess.evaluations.ControlledCenters;
+import chess.evaluations.Evaluate;
+import chess.evaluations.ValueBased;
 import com.rits.cloning.Cloner;
 
 import java.util.*;
@@ -11,11 +14,15 @@ public class Player {
     private PlayerType type;
     private List<ValidMovePairWithScore> vms = new ArrayList<>();
     private Random randomNumber = new Random();
+    private List<Evaluate> evaluates = new ArrayList<>();
 
     public Player(Color color, PlayerType type) {
         this.color = color;
         this.enemyColor = color == Color.BLACK ? Color.WHITE : Color.BLACK;
         this.type = type;
+
+        evaluates.add(new ValueBased(70));
+        evaluates.add(new ControlledCenters(30));
     }
 
     public Color getEnemyColor() {
@@ -33,7 +40,6 @@ public class Player {
     public ValidMovePair giveMove(Game game) {
         ValidMovePair result = null;
 
-        Evaluator.markMateMoves(this.color, game);
         for (ValidMovePair validMovePair : game.getValidmoves()) {
             if (validMovePair.isMateTest() && validMovePair.getFigure().getColor() == this.color) {
                 return validMovePair;
@@ -70,11 +76,17 @@ public class Player {
                     gameCopy.promote(validMovePair, 'q');
                 }
 
-                int own = Evaluator.evaluateBasedValue(this.color, gameCopy);
-                int enemy = Evaluator.evaluateBasedValue(this.enemyColor, gameCopy);
-                vmsThis.setScore(own - enemy);
-                if (maxScore < (own - enemy)) {
-                    maxScore = own - enemy;
+                gameCopy.finalValidMoves(true);
+                gameCopy.cleanFromChessRelatedMoves();
+
+                int scoreToSet = 0;
+                for (Evaluate evaluate : this.evaluates) {
+                    scoreToSet += evaluate.score(this.color, this.enemyColor, gameCopy) * evaluate.getWeight() / 100;
+                }
+                vmsThis.setScore(scoreToSet);
+
+                if (maxScore < scoreToSet) {
+                    maxScore = scoreToSet;
                 }
 
 
@@ -92,5 +104,9 @@ public class Player {
         result = vms.get(randomNumber.nextInt(vms.size())).getValidMovePair();
 
         return result;
+    }
+
+    public List<Evaluate> getEvaluates() {
+        return evaluates;
     }
 }

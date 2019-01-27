@@ -1,6 +1,5 @@
 package chess;
 
-import com.rits.cloning.Cloner;
 
 public class Evaluator {
 
@@ -8,77 +7,6 @@ public class Evaluator {
 
     }
 
-    public static int evaluateBasedValue(Color color, Game game) {
-
-        int result = 0;
-        for (Figure figure : game.getFigures()) {
-            if (figure.getColor() == color) {
-                result += figure.getValue();
-            }
-        }
-
-        return result;
-
-    }
-
-    public static void markMateMoves(Color color, Game game) {
-
-
-        Cloner cloner = new Cloner();
-
-
-        for (ValidMovePair validMovePair : game.getValidmoves()) {
-            if (validMovePair.getFigure().getColor() == color) {
-                Game gameCopy = cloner.deepClone(game);
-
-                gameCopy.deleteFigure(validMovePair.getEnd());
-
-                Figure figureToMove = null;
-                for (Figure figureSearched : gameCopy.getFigures()) {
-                    if (figureSearched.getActualPosition().equals(validMovePair.getStart())) {
-                        figureToMove = figureSearched;
-                        break;
-                    }
-                }
-                figureToMove.getActualPosition().setX(validMovePair.getEnd().getX());
-                figureToMove.getActualPosition().setY(validMovePair.getEnd().getY());
-
-                gameCopy.finalValidMoves(true);
-                gameCopy.cleanFromChessRelatedMoves();
-
-                //megnézni, hogy az ellenfél királya sakkban van e és hogy van e valid lépése
-                Color enemyColor = color == Color.WHITE ? Color.BLACK : Color.WHITE;
-                //kikeresni az ellenfél királyát
-                Figure enemyKing = null;
-                for (Figure figure : gameCopy.getFigures()) {
-                    if (figure.getColor() == enemyColor && figure.getFigureType() == FigureType.KING) {
-                        enemyKing = figure;
-                        break;
-                    }
-                }
-                //megszámolni, hogy az ellenfélnek mennyi valid lépése van
-                //és megnézni, hogy a saját bábuink valamelyike támadja e a királyt
-                int numberOfEnemyValidMoves = 0;
-                boolean attackingEnemyKing = false;
-                for (ValidMovePair vpToCheck : gameCopy.getValidmoves()) {
-                    if (vpToCheck.getFigure().getColor() == enemyColor) {
-                        numberOfEnemyValidMoves++;
-                    } else {
-                        if (vpToCheck.getEnd().equals(enemyKing.getActualPosition())) {
-                            attackingEnemyKing = true;
-                        }
-                    }
-                }
-
-                if (numberOfEnemyValidMoves == 0 && attackingEnemyKing) {
-                    validMovePair.setMateTest(true);
-                }
-
-
-            }
-        }
-
-    }
 
     public static int evaluateBasedValueWithUndefended(Color color, Game game) {
         return 0;
@@ -118,10 +46,6 @@ public class Evaluator {
     }
 
     public static int evaluateNumberOfControlledMainDiagonals(Color color, Game game) {
-        return 0;
-    }
-
-    public static int evaluateNumberOfControlledCenters(Color color, Game game) {
         return 0;
     }
 

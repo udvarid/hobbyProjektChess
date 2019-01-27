@@ -1,9 +1,5 @@
 
-Hsquid:S1068"+Remove this unused "scanner" private field.(·¸ã8ù›‚ˆ-
-usquid:S3776+"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Õıã‚ûÿÿÿÿ8®¬‚ ˆ-
-Nsquid:S1066Ÿ"/Merge this if statement with the enclosing one.(ûÆšÏ8ò­ ˆ-
-`squid:S1126Î"AReplace this if-then-else statement by a single return statement.(Ø½ó8ò­ ˆ-
-hsquid:UselessImportCheck"8Remove this unused import 'javafx.scene.control.Button'.(Ë Í‹øÿÿÿÿ8áâ¾Í‡-
-esquid:S1126x"BReplace this if-then-else statement by a single method invocation.(é¢¦Ÿúÿÿÿÿ8ò­ ˆ-
-isquid:UselessImportCheck"9Remove this unused import 'javafx.scene.image.ImageView'.(áÿ®Ãüÿÿÿÿ8„–ª²‡-
-fsquid:S2259—"BA "NullPointerException" could be thrown; "rook" is nullable here.(£‹‚şøÿÿÿÿ8ò­ ˆ-
+`squid:S1126í"AReplace this if-then-else statement by a single return statement.(Ø½ó8†“í×ˆ-
+Nsquid:S1066¿"/Merge this if statement with the enclosing one.(ûÆšÏ8†“í×ˆ-
+fsquid:S2259·"BA "NullPointerException" could be thrown; "rook" is nullable here.(£‹‚şøÿÿÿÿ8†“í×ˆ-
+usquid:S3776("RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Õıã‚ûÿÿÿÿ8®¬‚ ˆ-

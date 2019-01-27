@@ -409,6 +409,8 @@ public class Game {
 
     }
 
+
+
     public void addFigures(Figure figure) {
         this.figures.add(figure);
     }
