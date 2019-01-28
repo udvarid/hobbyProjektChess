@@ -1,37 +1,33 @@
 
-Jsquid:S1172–"&Remove these unused method parameters.(Νΐα‚όÿÿÿÿ8¤™οκ†-
-Xsquid:S3400"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Wsquid:S3400T"9Remove this method and declare a constant for this value.(”·³›8ω’°ϋ†-
-Wsquid:S3400u"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Dsquid:S1172S"&Remove these unused method parameters.(ιΡ8ω’°ϋ†-
-Wsquid:S3400h"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Xsquid:S3400"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Dsquid:S1172W"&Remove these unused method parameters.(Ι­›8ω½ϋ†-
-Jsquid:S1172"&Remove these unused method parameters.(λΒΊ«ψÿÿÿÿ8¤™οκ†-
-Dsquid:S1172c"&Remove these unused method parameters.(ς…Άξ8¤™οκ†-
-Wsquid:S3400d"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Isquid:S1172_"&Remove these unused method parameters.(®ζΧίϊÿÿÿÿ8¤™οκ†-
-Xsquid:S3400…"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-msquid:S2259+"JA "NullPointerException" could be thrown; "figureToMove" is nullable here.(επΤƒύÿÿÿÿ8θΝ³Α†-
-Esquid:S1172€"&Remove these unused method parameters.(ΧΊΊ½8¤™οκ†-
-Xsquid:S3400"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Wsquid:S3400}"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Wsquid:S3400l"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Dsquid:S1172o"&Remove these unused method parameters.(„”υι8¤™οκ†-
-Jsquid:S1172„"&Remove these unused method parameters.(υ΄‰ϋÿÿÿÿ8¤™οκ†-
-Dsquid:S1172g"&Remove these unused method parameters.(Η“ή8¤™οκ†-
-Esquid:S1172‘"&Remove these unused method parameters.(τΪ8¤™οκ†-
-Isquid:S1172|"&Remove these unused method parameters.(Οή΄‘ύÿÿÿÿ8¤™οκ†-
-Wsquid:S3400y"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Xsquid:S3400“"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Wsquid:S3400`"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Wsquid:S3400q"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Isquid:S1172k"&Remove these unused method parameters.(Φ°ϊÿÿÿÿ8¤™οκ†-
-Isquid:S1172["&Remove these unused method parameters.(ιΙ΅ύÿÿÿÿ8¤™οκ†-
-Wsquid:S3400X"9Remove this method and declare a constant for this value.(”·³›8ω½ϋ†-
-Dsquid:S1172t"&Remove these unused method parameters.(ι¥8¤™οκ†-
-Wsquid:S3400\"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-Xsquid:S3400‰"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
-usquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(¶Ώ°‰ÿÿÿÿÿ8„πΟΑ†-
-Isquid:S1172x"&Remove these unused method parameters.(½ΚΕύϋÿÿÿÿ8¤™οκ†-
-Esquid:S1172"&Remove these unused method parameters.(χό¨λ8¤™οκ†-
+Wsquid:S3400G"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Isquid:S11720"&Remove these unused method parameters.(½ΚΕύϋÿÿÿÿ8¤™οκ†-
+Dsquid:S1172'"&Remove these unused method parameters.(„”υι8¤™οκ†-
+Wsquid:S3400L"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Wsquid:S3400="9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Wsquid:S3400 "9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Isquid:S1172#"&Remove these unused method parameters.(Φ°ϊÿÿÿÿ8¤™οκ†-
+Dsquid:S1172"&Remove these unused method parameters.(ς…Άξ8¤™οκ†-
+Dsquid:S1172E"&Remove these unused method parameters.(τΪ8¤™οκ†-
+Wsquid:S3400"9Remove this method and declare a constant for this value.(”·³›8ω½ϋ†-
+Dsquid:S1172"&Remove these unused method parameters.(Ι­›8ω½ϋ†-
+Wsquid:S34005"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Dsquid:S11724"&Remove these unused method parameters.(ΧΊΊ½8¤™οκ†-
+Wsquid:S3400)"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Isquid:S1172<"&Remove these unused method parameters.(λΒΊ«ψÿÿÿÿ8¤™οκ†-
+Wsquid:S34001"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Wsquid:S3400$"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Dsquid:S1172@"&Remove these unused method parameters.(χό¨λ8¤™οκ†-
+Wsquid:S3400B"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Isquid:S11728"&Remove these unused method parameters.(υ΄‰ϋÿÿÿÿ8¤™οκ†-
+Wsquid:S3400"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Wsquid:S3400"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Dsquid:S1172,"&Remove these unused method parameters.(ι¥8¤™οκ†-
+Wsquid:S3400"9Remove this method and declare a constant for this value.(”·³›8ω’°ϋ†-
+Isquid:S1172"&Remove these unused method parameters.(ιΙ΅ύÿÿÿÿ8¤™οκ†-
+Wsquid:S3400"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Wsquid:S34009"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Isquid:S1172"&Remove these unused method parameters.(®ζΧίϊÿÿÿÿ8¤™οκ†-
+Isquid:S1172J"&Remove these unused method parameters.(Νΐα‚όÿÿÿÿ8¤™οκ†-
+Wsquid:S3400-"9Remove this method and declare a constant for this value.(”·³›8¤™οκ†-
+Dsquid:S1172"&Remove these unused method parameters.(ιΡ8ω’°ϋ†-
+Dsquid:S1172"&Remove these unused method parameters.(Η“ή8¤™οκ†-

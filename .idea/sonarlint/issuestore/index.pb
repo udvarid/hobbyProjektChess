@@ -19,8 +19,6 @@ L
 test/chess/GovernorTest.java,1\b\1b3335e2cf430cf3a77654d4bc0c1086d03fd34c
 N
 src/main/java/chess/Color.java,8\7\87310e661055bf9b42de30ac4e37a280d8141b48
-M
-test/chess/EvaluatorTest.java,b\4\b426dd9fb93d8bddb499ac15bc29fcae66219a95
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 M
@@ -71,3 +69,15 @@ T
 $src/main/java/chess/MoveHistory.java,5\2\5234a698a37b2a06b49ff54571659f761c9f003a
 T
 $src/main/java/chess/EndGameType.java,2\c\2cebd9c6534adb80f0bc843b5b8a4adf570cd900
+f
+6src/main/java/chess/evaluations/ControlledCenters.java,0\e\0eb005441f1d44f58ae0d6325cad036b49d8ed7c
+]
+-src/main/java/chess/evaluations/Evaluate.java,2\2\22f92264a364810264769aaffc07fe60eff3f266
+_
+/src/main/java/chess/evaluations/ValueBased.java,2\5\25aaf041d84e81b07930900f90b766f00143d51d
+T
+$src/main/java/chess/TrainerNote.java,e\d\ed67f84df6f57c49b677fc41d3dc3c375702a740
+a
+1src/main/java/chess/evaluations/CanGiveCheck.java,5\0\5087decfec8691ead2a1fc696bd0b602ec8df4ad
+P
+ src/main/java/chess/Trainer.java,b\1\b166758b9091a7a4f8a59f6af2bfcfd4889f040d

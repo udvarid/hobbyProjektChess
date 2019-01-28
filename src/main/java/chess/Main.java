@@ -160,7 +160,7 @@ public class Main extends Application {
         if (governor.getWhoIsNext().getType() == PlayerType.COMPUTER) {
             Platform.runLater(() -> {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(  0);
                     EndGameType endGameType = moveComputerPlayer();
                     MoveHistory moveHistory = governor.getMoveHistory().get(governor.getMoveHistory().size() - 1);
                     moveHistory.setGiveChess(governor.enemyKingInChess(governor.getWhoIsNext().getEnemyColor()));

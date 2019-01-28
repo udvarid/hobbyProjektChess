@@ -37,4 +37,8 @@ public class ValueBased implements Evaluate {
         return weight;
     }
 
+    @Override
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 }

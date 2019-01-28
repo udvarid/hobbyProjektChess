@@ -1,5 +1,7 @@
 
-`squid:S1126í"AReplace this if-then-else statement by a single return statement.(Ø½ó8†“í×ˆ-
-Nsquid:S1066¿"/Merge this if statement with the enclosing one.(ûÆšÏ8†“í×ˆ-
-fsquid:S2259·"BA "NullPointerException" could be thrown; "rook" is nullable here.(£‹‚şøÿÿÿÿ8†“í×ˆ-
-usquid:S3776("RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Õıã‚ûÿÿÿÿ8®¬‚ ˆ-
+Ksquid:S1066"/Merge this if statement with the enclosing one.(ûÆšÏ8†“í×ˆ-
+]squid:S1126"AReplace this if-then-else statement by a single return statement.(Ø½ó8†“í×ˆ-
+ksquid:S2259"JA "NullPointerException" could be thrown; "figureToMove" is nullable here.(åğÔƒıÿÿÿÿ8ìÆå‰‰-
+ssquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(¶¿°‰ÿÿÿÿÿ8ìÆå‰‰-
+ssquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Õıã‚ûÿÿÿÿ8®¬‚ ˆ-
+csquid:S2259"BA "NullPointerException" could be thrown; "rook" is nullable here.(£‹‚şøÿÿÿÿ8†“í×ˆ-

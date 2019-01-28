@@ -1,5 +1,6 @@
 package chess;
 
+import chess.evaluations.CanGiveCheck;
 import chess.evaluations.ControlledCenters;
 import chess.evaluations.Evaluate;
 import chess.evaluations.ValueBased;
@@ -21,8 +22,9 @@ public class Player {
         this.enemyColor = color == Color.BLACK ? Color.WHITE : Color.BLACK;
         this.type = type;
 
-        evaluates.add(new ValueBased(70));
-        evaluates.add(new ControlledCenters(30));
+        evaluates.add(new ValueBased(0));
+        evaluates.add(new ControlledCenters(0));
+        evaluates.add(new CanGiveCheck(100));
     }
 
     public Color getEnemyColor() {

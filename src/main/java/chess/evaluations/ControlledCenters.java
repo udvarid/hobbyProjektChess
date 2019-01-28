@@ -77,4 +77,9 @@ public class ControlledCenters implements Evaluate {
     public int getWeight() {
         return this.weight;
     }
+
+    @Override
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 }

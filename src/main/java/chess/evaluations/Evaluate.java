@@ -9,5 +9,7 @@ public interface Evaluate {
 
     int getWeight();
 
+    void setWeight(int weight);
+
 
 }

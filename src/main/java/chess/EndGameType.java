@@ -5,7 +5,8 @@ public enum EndGameType {
     NOVALIDMOVES("There is no more valid moves"),
     PASSIVGAME("The game is end due to passive game (in the last 50 turn there were no capture or pawn moves"),
     UNSUFFICIENTMATERIAL("Unsufficient material, neither of the player can win"),
-    NOEND("Show must go on!");
+    NOEND("Show must go on!"),
+    TOOLONG("This is tooooooo long!");
 
     private String displayName;
 
