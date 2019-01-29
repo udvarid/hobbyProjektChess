@@ -26,22 +26,22 @@ public class ControlledCenters implements Evaluate {
                     centersOwn.add(validMovePair.getStart());
                 }
                 if (isCenter(validMovePair.getEnd()) && validMovePair.getFigure().getFigureType() != FigureType.PAWN) {
-                    centersOwn.add(validMovePair.getStart());
+                    centersOwn.add(validMovePair.getEnd());
                 }
                 if (isCenter(validMovePair.getEnd()) && validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
                         validMovePair.getStart().getY() != validMovePair.getEnd().getY()) {
-                    centersOwn.add(validMovePair.getStart());
+                    centersOwn.add(validMovePair.getEnd());
                 }
             } else {
                 if (isCenter(validMovePair.getStart())) {
                     centersEnemy.add(validMovePair.getStart());
                 }
                 if (isCenter(validMovePair.getEnd()) && validMovePair.getFigure().getFigureType() != FigureType.PAWN) {
-                    centersEnemy.add(validMovePair.getStart());
+                    centersEnemy.add(validMovePair.getEnd());
                 }
                 if (isCenter(validMovePair.getEnd()) && validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
                         validMovePair.getStart().getY() != validMovePair.getEnd().getY()) {
-                    centersEnemy.add(validMovePair.getStart());
+                    centersEnemy.add(validMovePair.getEnd());
                 }
             }
         }

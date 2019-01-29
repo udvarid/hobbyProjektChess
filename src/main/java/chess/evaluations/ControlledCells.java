@@ -26,20 +26,20 @@ public class ControlledCells implements Evaluate {
                 cellsOwn.add(validMovePair.getStart());
 
                 if (validMovePair.getFigure().getFigureType() != FigureType.PAWN) {
-                    cellsOwn.add(validMovePair.getStart());
+                    cellsOwn.add(validMovePair.getEnd());
                 }
                 if (validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
                         validMovePair.getStart().getY() != validMovePair.getEnd().getY()) {
-                    cellsOwn.add(validMovePair.getStart());
+                    cellsOwn.add(validMovePair.getEnd());
                 }
             } else {
                 cellsEnemy.add(validMovePair.getStart());
                 if (validMovePair.getFigure().getFigureType() != FigureType.PAWN) {
-                    cellsEnemy.add(validMovePair.getStart());
+                    cellsEnemy.add(validMovePair.getEnd());
                 }
                 if (validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
                         validMovePair.getStart().getY() != validMovePair.getEnd().getY()) {
-                    cellsEnemy.add(validMovePair.getStart());
+                    cellsEnemy.add(validMovePair.getEnd());
                 }
             }
         }

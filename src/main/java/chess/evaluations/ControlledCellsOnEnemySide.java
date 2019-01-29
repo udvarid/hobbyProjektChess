@@ -27,22 +27,22 @@ public class ControlledCellsOnEnemySide implements Evaluate {
                     cellsOwn.add(validMovePair.getStart());
                 }
                 if (isOnEnemySide(validMovePair.getEnd(), colorOwn) && validMovePair.getFigure().getFigureType() != FigureType.PAWN) {
-                    cellsOwn.add(validMovePair.getStart());
+                    cellsOwn.add(validMovePair.getEnd());
                 }
                 if (isOnEnemySide(validMovePair.getEnd(), colorOwn) && validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
                         validMovePair.getStart().getY() != validMovePair.getEnd().getY()) {
-                    cellsOwn.add(validMovePair.getStart());
+                    cellsOwn.add(validMovePair.getEnd());
                 }
             } else {
                 if (isOnEnemySide(validMovePair.getStart(), colorEnemy)) {
                     cellsEnemy.add(validMovePair.getStart());
                 }
                 if (isOnEnemySide(validMovePair.getEnd(), colorEnemy) && validMovePair.getFigure().getFigureType() != FigureType.PAWN) {
-                    cellsEnemy.add(validMovePair.getStart());
+                    cellsEnemy.add(validMovePair.getEnd());
                 }
                 if (isOnEnemySide(validMovePair.getEnd(), colorEnemy) && validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
                         validMovePair.getStart().getY() != validMovePair.getEnd().getY()) {
-                    cellsEnemy.add(validMovePair.getStart());
+                    cellsEnemy.add(validMovePair.getEnd());
                 }
             }
         }
