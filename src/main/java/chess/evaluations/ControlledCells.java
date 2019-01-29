@@ -9,6 +9,10 @@ public class ControlledCells implements Evaluate {
 
     private int weight;
 
+    public ControlledCells(int weight) {
+        this.weight = weight;
+    }
+
     @Override
     public int score(Color colorOwn, Color colorEnemy, Game game) {
         int diff = 0;
@@ -41,17 +45,20 @@ public class ControlledCells implements Evaluate {
         }
 
         diff = cellsOwn.size() - cellsEnemy.size();
-        if (Math.abs(diff) < 5) {
-            result = 100 * diff / Math.abs(diff);
-        } else if (Math.abs(diff) < 10) {
-            result = 250 * diff / Math.abs(diff);
-        } else if (Math.abs(diff) < 15) {
-            result = 500 * diff / Math.abs(diff);
-        } else if (Math.abs(diff) < 20) {
-            result = 750 * diff / Math.abs(diff);
-        } else {
-            result = 1000 * diff / Math.abs(diff);
+        if (diff != 0) {
+            if (Math.abs(diff) < 5) {
+                result = 100 * diff / Math.abs(diff);
+            } else if (Math.abs(diff) < 10) {
+                result = 250 * diff / Math.abs(diff);
+            } else if (Math.abs(diff) < 15) {
+                result = 500 * diff / Math.abs(diff);
+            } else if (Math.abs(diff) < 20) {
+                result = 750 * diff / Math.abs(diff);
+            } else {
+                result = 1000 * diff / Math.abs(diff);
+            }
         }
+
 
         return result;
     }

@@ -16,7 +16,9 @@ public class ValueBased implements Evaluate {
     public int score(Color colorOwn, Color colorEnemy, Game game) {
         int resultOwn = 0;
         int resultEnemy = 0;
-        int score;
+        int diff = 0;
+
+        int result = 0;
         for (Figure figure : game.getFigures()) {
             if (figure.getColor() == colorOwn) {
                 resultOwn += figure.getValue();
@@ -25,11 +27,24 @@ public class ValueBased implements Evaluate {
             }
         }
 
-        //max score is 38
-        score = resultOwn - resultEnemy;
-        score = score * 1000 / 38;
+        diff = resultOwn - resultEnemy;
 
-        return score;
+        if (diff != 0) {
+            if (Math.abs(diff) < 3) {
+                result = 100 * diff / Math.abs(diff);
+            } else if (Math.abs(diff) < 6) {
+                result = 250 * diff / Math.abs(diff);
+            } else if (Math.abs(diff) < 11) {
+                result = 500 * diff / Math.abs(diff);
+            } else if (Math.abs(diff) < 20) {
+                result = 750 * diff / Math.abs(diff);
+            } else {
+                result = 1000 * diff / Math.abs(diff);
+            }
+        }
+
+
+        return result;
     }
 
     @Override

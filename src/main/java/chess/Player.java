@@ -1,9 +1,6 @@
 package chess;
 
-import chess.evaluations.CanGiveCheck;
-import chess.evaluations.ControlledCenters;
-import chess.evaluations.Evaluate;
-import chess.evaluations.ValueBased;
+import chess.evaluations.*;
 import com.rits.cloning.Cloner;
 
 import java.util.*;
@@ -22,9 +19,14 @@ public class Player {
         this.enemyColor = color == Color.BLACK ? Color.WHITE : Color.BLACK;
         this.type = type;
 
-        evaluates.add(new ValueBased(0));
-        evaluates.add(new ControlledCenters(0));
-        evaluates.add(new CanGiveCheck(100));
+        evaluates.add(new DevelopedLightOfficers(10));
+        evaluates.add(new ControlledCenters(10));
+        evaluates.add(new ControlledCells(10));
+        evaluates.add(new ControlledCellsOnEnemySide(10));
+        evaluates.add(new PassedPawn(10));
+        evaluates.add(new NumberOfSinglyPawns(10));
+        evaluates.add(new ValueBasedWithReattack(30));
+        evaluates.add(new CanGiveCheck(10));
     }
 
     public Color getEnemyColor() {
@@ -53,6 +55,7 @@ public class Player {
         int maxScore = Integer.MIN_VALUE;
         for (ValidMovePair validMovePair : game.getValidmoves()) {
             if (validMovePair.getFigure().getColor() == this.color) {
+
                 ValidMovePairWithScore vmsThis = new ValidMovePairWithScore(validMovePair);
                 vms.add(vmsThis);
 
@@ -70,6 +73,8 @@ public class Player {
 
                 figureToMove.getActualPosition().setX(validMovePair.getEnd().getX());
                 figureToMove.getActualPosition().setY(validMovePair.getEnd().getY());
+
+                figureToMove.setStillInStartingPosition(false);
 
 
                 if (figureToMove.getFigureType() == FigureType.PAWN &&
@@ -90,6 +95,7 @@ public class Player {
                 if (maxScore < scoreToSet) {
                     maxScore = scoreToSet;
                 }
+
 
 
             }

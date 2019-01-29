@@ -33,8 +33,6 @@ V
 &src/main/java/chess/ValidMovePair.java,6\b\6bdc90fccf33cfc7bc2f75255b14240fad163faf
 M
 src/main/java/chess/Game.java,b\d\bd7a2d251375b4ac47a27443c6408e590ca5879d
-R
-"src/main/java/chess/Evaluator.java,0\f\0ffc75613bbc0a6677c5b0491e87336238c279ea
 Q
 !src/main/java/chess/Governor.java,6\d\6ddafa972697194ab49fddb15e890c9829c491d3
 f
@@ -81,3 +79,15 @@ a
 1src/main/java/chess/evaluations/CanGiveCheck.java,5\0\5087decfec8691ead2a1fc696bd0b602ec8df4ad
 P
  src/main/java/chess/Trainer.java,b\1\b166758b9091a7a4f8a59f6af2bfcfd4889f040d
+h
+8src/main/java/chess/evaluations/NumberOfSinglyPawns.java,5\b\5bf086bd152d9cc3847281b2ba6e429deb976b1e
+_
+/src/main/java/chess/evaluations/PassedPawn.java,2\6\262fb4bf63ee8dbc747b45acde4cc17dd1260e4a
+k
+;src/main/java/chess/evaluations/DevelopedLightOfficers.java,4\3\4384507d8581fcb99df5d6e911857725e124695f
+d
+4src/main/java/chess/evaluations/ControlledCells.java,0\5\05a78d202794a2a7b1d86da769be3e7f52305dd1
+o
+?src/main/java/chess/evaluations/ControlledCellsOnEnemySide.java,8\2\829a31c09687a306e10afa59838ea0a4d466a836
+k
+;src/main/java/chess/evaluations/ValueBasedWithReattack.java,4\f\4f3f1f410cf6ddd7c0f6e58e00a501f560038c2c

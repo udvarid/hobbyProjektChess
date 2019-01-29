@@ -4,6 +4,10 @@ import chess.*;
 
 public class ValueBasedWithReattack implements Evaluate {
 
+    public ValueBasedWithReattack(int weight) {
+        this.weight = weight;
+    }
+
     private int weight;
 
     @Override
@@ -20,24 +24,27 @@ public class ValueBasedWithReattack implements Evaluate {
             if (figure.getColor() == colorOwn && notAttacked(figure.getActualPosition(), game)) {
                 valueOwn += figure.getValue();
             }
-            if (figure.getColor() == colorEnemy && notAttacked(figure.getActualPosition(), game)) {
+            if (figure.getColor() == colorEnemy) {
                 valueEnemy += figure.getValue();
             }
         }
 
         diff = valueOwn - valueEnemy;
 
-        if (Math.abs(diff) < 3) {
-            result = 100 * diff / Math.abs(diff);
-        } else if (Math.abs(diff) < 6) {
-            result = 250 * diff / Math.abs(diff);
-        } else if (Math.abs(diff) < 11) {
-            result = 500 * diff / Math.abs(diff);
-        } else if (Math.abs(diff) < 20) {
-            result = 750 * diff / Math.abs(diff);
-        } else {
-            result = 1000 * diff / Math.abs(diff);
+        if (diff != 0) {
+            if (Math.abs(diff) < 3) {
+                result = 100 * diff / Math.abs(diff);
+            } else if (Math.abs(diff) < 6) {
+                result = 250 * diff / Math.abs(diff);
+            } else if (Math.abs(diff) < 11) {
+                result = 500 * diff / Math.abs(diff);
+            } else if (Math.abs(diff) < 20) {
+                result = 750 * diff / Math.abs(diff);
+            } else {
+                result = 1000 * diff / Math.abs(diff);
+            }
         }
+
 
         return result;
     }
