@@ -91,3 +91,7 @@ o
 ?src/main/java/chess/evaluations/ControlledCellsOnEnemySide.java,8\2\829a31c09687a306e10afa59838ea0a4d466a836
 k
 ;src/main/java/chess/evaluations/ValueBasedWithReattack.java,4\f\4f3f1f410cf6ddd7c0f6e58e00a501f560038c2c
+Z
+*test/chess/evaluations/ValueBasedTest.java,b\0\b0d1dfe2981de5d237adaeec32d9b638ec00ff6a
+f
+6test/chess/evaluations/ValueBasedWithReattackTest.java,7\3\73e0794a5679f01b7a7a634313711cce175dc578

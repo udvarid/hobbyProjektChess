@@ -19,14 +19,8 @@ public class Player {
         this.enemyColor = color == Color.BLACK ? Color.WHITE : Color.BLACK;
         this.type = type;
 
-        evaluates.add(new DevelopedLightOfficers(10));
-        evaluates.add(new ControlledCenters(10));
-        evaluates.add(new ControlledCells(10));
-        evaluates.add(new ControlledCellsOnEnemySide(10));
-        evaluates.add(new PassedPawn(10));
-        evaluates.add(new NumberOfSinglyPawns(10));
-        evaluates.add(new ValueBasedWithReattack(30));
-        evaluates.add(new CanGiveCheck(10));
+        evaluates.add(new ValueBased(100));
+        evaluates.add(new ValueBasedWithReattack(0));
     }
 
     public Color getEnemyColor() {

@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Trainer {
 
-    public static final int NUMBER_OF_PLAYES = 2;
+    public static final int NUMBER_OF_PLAYES = 10;
     private Governor coach;
     private List<TrainerNote> notes = new ArrayList<>();
 
@@ -19,7 +19,7 @@ public class Trainer {
 
         int numberOfGames = 1;
 
-        for (int j = 0; j <= 100; j = j + 33) {
+        for (int j = 0; j <= 100; j = j + 10) {
 
 
             for (int i = 0; i < NUMBER_OF_PLAYES; i++) {
