@@ -29,9 +29,15 @@ public class ControlledCellsOnEnemySide implements Evaluate {
                 if (isOnEnemySide(validMovePair.getEnd(), colorOwn) && validMovePair.getFigure().getFigureType() != FigureType.PAWN) {
                     cellsOwn.add(validMovePair.getEnd());
                 }
-                if (isOnEnemySide(validMovePair.getEnd(), colorOwn) && validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
-                        validMovePair.getStart().getY() != validMovePair.getEnd().getY()) {
-                    cellsOwn.add(validMovePair.getEnd());
+                if (validMovePair.getFigure().getFigureType() == FigureType.PAWN) {
+                    Coordinate coord1 = new Coordinate(validMovePair.getStart().getX() + 1, validMovePair.getStart().getY() + 1);
+                    if (isOnEnemySide(coord1, colorOwn)) {
+                        cellsOwn.add(coord1);
+                    }
+                    Coordinate coord2 = new Coordinate(validMovePair.getStart().getX() + 1, validMovePair.getStart().getY() + 1);
+                    if (isOnEnemySide(coord2, colorOwn)) {
+                        cellsOwn.add(coord2);
+                    }
                 }
             } else {
                 if (isOnEnemySide(validMovePair.getStart(), colorEnemy)) {
@@ -40,9 +46,15 @@ public class ControlledCellsOnEnemySide implements Evaluate {
                 if (isOnEnemySide(validMovePair.getEnd(), colorEnemy) && validMovePair.getFigure().getFigureType() != FigureType.PAWN) {
                     cellsEnemy.add(validMovePair.getEnd());
                 }
-                if (isOnEnemySide(validMovePair.getEnd(), colorEnemy) && validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
-                        validMovePair.getStart().getY() != validMovePair.getEnd().getY()) {
-                    cellsEnemy.add(validMovePair.getEnd());
+                if (validMovePair.getFigure().getFigureType() == FigureType.PAWN) {
+                    Coordinate coord1 = new Coordinate(validMovePair.getStart().getX() - 1, validMovePair.getStart().getY() + 1);
+                    if (isOnEnemySide(coord1, colorEnemy)) {
+                        cellsEnemy.add(coord1);
+                    }
+                    Coordinate coord2 = new Coordinate(validMovePair.getStart().getX() - 1, validMovePair.getStart().getY() + 1);
+                    if (isOnEnemySide(coord2, colorEnemy)) {
+                        cellsEnemy.add(coord2);
+                    }
                 }
             }
         }
@@ -67,6 +79,10 @@ public class ControlledCellsOnEnemySide implements Evaluate {
     }
 
     private boolean isOnEnemySide(Coordinate coordinate, Color color) {
+
+        if (coordinate.getY() < 1 || coordinate.getY() > 8) {
+            return false;
+        }
 
         if (color == Color.WHITE && coordinate.getX() > 4 ||
             color == Color.BLACK && coordinate.getX() < 5) {

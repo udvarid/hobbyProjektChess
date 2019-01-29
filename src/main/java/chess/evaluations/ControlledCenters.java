@@ -28,9 +28,15 @@ public class ControlledCenters implements Evaluate {
                 if (isCenter(validMovePair.getEnd()) && validMovePair.getFigure().getFigureType() != FigureType.PAWN) {
                     centersOwn.add(validMovePair.getEnd());
                 }
-                if (isCenter(validMovePair.getEnd()) && validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
-                        validMovePair.getStart().getY() != validMovePair.getEnd().getY()) {
-                    centersOwn.add(validMovePair.getEnd());
+                if (validMovePair.getFigure().getFigureType() == FigureType.PAWN) {
+                    Coordinate coord1 = new Coordinate(validMovePair.getStart().getX() + 1, validMovePair.getStart().getY() + 1);
+                    if (isCenter(coord1)) {
+                        centersOwn.add(coord1);
+                    }
+                    Coordinate coord2 = new Coordinate(validMovePair.getStart().getX() + 1, validMovePair.getStart().getY() + 1);
+                    if (isCenter(coord2)) {
+                        centersOwn.add(coord2);
+                    }
                 }
             } else {
                 if (isCenter(validMovePair.getStart())) {
@@ -39,14 +45,22 @@ public class ControlledCenters implements Evaluate {
                 if (isCenter(validMovePair.getEnd()) && validMovePair.getFigure().getFigureType() != FigureType.PAWN) {
                     centersEnemy.add(validMovePair.getEnd());
                 }
-                if (isCenter(validMovePair.getEnd()) && validMovePair.getFigure().getFigureType() == FigureType.PAWN &&
-                        validMovePair.getStart().getY() != validMovePair.getEnd().getY()) {
-                    centersEnemy.add(validMovePair.getEnd());
+                if (validMovePair.getFigure().getFigureType() == FigureType.PAWN) {
+                    Coordinate coord1 = new Coordinate(validMovePair.getStart().getX() - 1, validMovePair.getStart().getY() + 1);
+                    if (isCenter(coord1)) {
+                        centersEnemy.add(coord1);
+                    }
+                    Coordinate coord2 = new Coordinate(validMovePair.getStart().getX() - 1, validMovePair.getStart().getY() + 1);
+                    if (isCenter(coord2)) {
+                        centersEnemy.add(coord2);
+                    }
                 }
             }
         }
 
         //max score is 4
+
+
         score = centersOwn.size() - centersEnemy.size();
         score = score * 1000 / 4;
 

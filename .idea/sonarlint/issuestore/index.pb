@@ -95,3 +95,9 @@ Z
 *test/chess/evaluations/ValueBasedTest.java,b\0\b0d1dfe2981de5d237adaeec32d9b638ec00ff6a
 f
 6test/chess/evaluations/ValueBasedWithReattackTest.java,7\3\73e0794a5679f01b7a7a634313711cce175dc578
+j
+:test/chess/evaluations/ControlledCellsOnEnemySideTest.java,0\6\06eeeb73a00972f5a19f3f8db67701fa947e6ac1
+_
+/test/chess/evaluations/ControlledCellsTest.java,a\f\afd0840cf87764d87eb8459d2cabce1c053a5b80
+a
+1test/chess/evaluations/ControlledCentersTest.java,f\4\f4ad0a93199635d04e33940c0900ddd12101d334
