@@ -101,3 +101,9 @@ _
 /test/chess/evaluations/ControlledCellsTest.java,a\f\afd0840cf87764d87eb8459d2cabce1c053a5b80
 a
 1test/chess/evaluations/ControlledCentersTest.java,f\4\f4ad0a93199635d04e33940c0900ddd12101d334
+f
+6test/chess/evaluations/DevelopedLightOfficersTest.java,d\1\d102c777736789f49b864a76bab1139174a2d574
+c
+3test/chess/evaluations/NumberOfSinglyPawnsTest.java,f\c\fc46ca5c92ac04d5cdcf24f39a6e9ce0a91cd043
+Z
+*test/chess/evaluations/PassedPawnTest.java,c\9\c99ef3a660bf758d90e6fb720dbde28749b6954c

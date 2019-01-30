@@ -20,10 +20,14 @@ public class Player {
         this.type = type;
 
         //evaluates.add(new ValueBased(0));
-        evaluates.add(new ValueBasedWithReattack(68));
-        evaluates.add(new CanGiveCheck(7));
-        evaluates.add(new ControlledCellsOnEnemySide(25));
-
+        //evaluates.add(new ControlledCenters(0));
+        //evaluates.add(new ControlledCells(0));
+        evaluates.add(new ValueBasedWithReattack(55));
+        evaluates.add(new CanGiveCheck(10));
+        evaluates.add(new ControlledCellsOnEnemySide(20));
+        evaluates.add(new DevelopedLightOfficers(5));
+        evaluates.add(new NumberOfSinglyPawns(5));
+        evaluates.add(new PassedPawn(5));
     }
 
     public Color getEnemyColor() {

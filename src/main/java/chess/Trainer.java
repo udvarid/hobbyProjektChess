@@ -1,12 +1,13 @@
 package chess;
 
 import chess.evaluations.Evaluate;
+import chess.evaluations.ValueBased;
 
 import java.util.*;
 
 public class Trainer {
 
-    public static final int NUMBER_OF_PLAYES = 10;
+    public static final int NUMBER_OF_PLAYES = 20;
     private Governor coach;
     private List<TrainerNote> notes = new ArrayList<>();
 
@@ -15,11 +16,13 @@ public class Trainer {
         trainer.startTraining();
     }
 
+
+
     public void startTraining() {
 
         int numberOfGames = 1;
 
-        for (int j = 0; j <= 100; j = j + 25) {
+        for (int j = 0; j <= 0; j = j + 10) {
 
 
             for (int i = 0; i < NUMBER_OF_PLAYES; i++) {
@@ -27,11 +30,15 @@ public class Trainer {
 
                 coach = new Governor(PlayerType.COMPUTER, PlayerType.COMPUTER);
 
+                /*
                 for (int k = 0; k < coach.getPlayerA().getEvaluates().size() - 1; k++) {
                     Evaluate evaluate = coach.getPlayerA().getEvaluates().get(k);
                     evaluate.setWeight(evaluate.getWeight() * j / 100);
                 }
                 coach.getPlayerA().getEvaluates().get(coach.getPlayerA().getEvaluates().size() - 1).setWeight(100 - j);
+                */
+                coach.getPlayerB().getEvaluates().clear();
+                coach.getPlayerB().getEvaluates().add(new ValueBased(100));
 
                 while (coach.isGameIsOn()) {
                     coach.actualPlayerIsMoving(coach.getWhoIsNext(), null);

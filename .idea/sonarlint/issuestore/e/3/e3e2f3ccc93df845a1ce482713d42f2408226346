@@ -1,5 +1,5 @@
 
 Gsquid:S1148·"#Use a logger to log this exception.(Âşÿâûÿÿÿÿ8Œ±İÖˆ-
-esquid:S2142¶"FEither re-interrupt this method or rethrow the "InterruptedException".(‘í†8Œ±İÖˆ-
 ssquid:S1450"URemove the "scene1" field and declare it as a local variable in the relevant methods.(Î§±¿8ÛĞ¼·ˆ-
+esquid:S2142¶"FEither re-interrupt this method or rethrow the "InterruptedException".(‘í†8Œ±İÖˆ-
 ssquid:S1450"URemove the "window" field and declare it as a local variable in the relevant methods.(…Öı 8ÛĞ¼·ˆ-
