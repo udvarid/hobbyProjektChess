@@ -22,9 +22,9 @@ public class Player {
         //evaluates.add(new ValueBased(0));
         //evaluates.add(new ControlledCenters(0));
         //evaluates.add(new ControlledCells(0));
-        evaluates.add(new ValueBasedWithReattack(60));
+        evaluates.add(new ValueBasedWithReattack(65));
         evaluates.add(new CanGiveCheck(5));
-        evaluates.add(new ControlledCellsOnEnemySide(20));
+        evaluates.add(new ControlledCellsOnEnemySide(15));
         evaluates.add(new DevelopedLightOfficers(5));
         evaluates.add(new NumberOfSinglyPawns(5));
         evaluates.add(new PassedPawn(5));
