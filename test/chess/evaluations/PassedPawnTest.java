@@ -35,6 +35,7 @@ public class PassedPawnTest {
         assertEquals(200, test.score(Color.WHITE, Color.BLACK, governor.getGame()));
 
         pawnB.getActualPosition().setX(4);
+        pawnW3.getActualPosition().setX(5);
         assertEquals(400, test.score(Color.WHITE, Color.BLACK, governor.getGame()));
 
         governor.getGame().getFigures().remove(pawnW2);

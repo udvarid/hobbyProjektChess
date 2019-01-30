@@ -18,10 +18,10 @@ public class NumberOfSinglyPawnsTest {
 
         governor.getGame().cleanTable();
 
-        Pawn pawnW = new Pawn(Color.WHITE, new Coordinate(2, 1), 1);
-        Pawn pawnW2 = new Pawn(Color.WHITE, new Coordinate(2, 2), 1);
-        Pawn pawnW3 = new Pawn(Color.WHITE, new Coordinate(2, 4), 1);
-        Pawn pawnW4 = new Pawn(Color.WHITE, new Coordinate(2, 8), 1);
+        Pawn pawnW = new Pawn(Color.WHITE, new Coordinate(5, 1), 1);
+        Pawn pawnW2 = new Pawn(Color.WHITE, new Coordinate(5, 2), 1);
+        Pawn pawnW3 = new Pawn(Color.WHITE, new Coordinate(5, 4), 1);
+        Pawn pawnW4 = new Pawn(Color.WHITE, new Coordinate(5, 8), 1);
         governor.getGame().getFigures().add(pawnW);
         governor.getGame().getFigures().add(pawnW2);
         governor.getGame().getFigures().add(pawnW3);
@@ -30,11 +30,16 @@ public class NumberOfSinglyPawnsTest {
         governor.getGame().cleanFromChessRelatedMoves();
         assertEquals(-400, test.score(Color.WHITE, Color.BLACK, governor.getGame()));
 
-        Pawn pawnB = new Pawn(Color.BLACK, new Coordinate(7, 1), 1);
+        Pawn pawnB = new Pawn(Color.BLACK, new Coordinate(7, 5), 1);
         governor.getGame().getFigures().add(pawnB);
         governor.getGame().finalValidMoves(true);
         governor.getGame().cleanFromChessRelatedMoves();
+        assertEquals(-400, test.score(Color.WHITE, Color.BLACK, governor.getGame()));
+
+        pawnB.getActualPosition().setX(3);
         assertEquals(-200, test.score(Color.WHITE, Color.BLACK, governor.getGame()));
+
+
 
         pawnW4.getActualPosition().setY(5);
         assertEquals(200, test.score(Color.WHITE, Color.BLACK, governor.getGame()));

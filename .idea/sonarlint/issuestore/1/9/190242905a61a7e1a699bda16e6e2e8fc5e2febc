@@ -1,5 +1,5 @@
 
-psquid:S1450"RRemove the "vms" field and declare it as a local variable in the relevant methods.(ÌŞ²˜8¥ëú·†-
+msquid:S2259K"JA "NullPointerException" could be thrown; "figureToMove" is nullable here.(åğÔƒıÿÿÿÿ8«ñÇ‰-
+usquid:S3776-"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(œµÏ§üÿÿÿÿ8âó¶ƒŠ-
+psquid:S1450"RRemove the "vms" field and declare it as a local variable in the relevant methods.(ÌŞ²˜8¹ƒ„Š-
 isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‹³…­8¯Å×Ë‰-
-usquid:S3776)"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(œµÏ§üÿÿÿÿ8«ñÇ‰-
-msquid:S2259G"JA "NullPointerException" could be thrown; "figureToMove" is nullable here.(åğÔƒıÿÿÿÿ8«ñÇ‰-

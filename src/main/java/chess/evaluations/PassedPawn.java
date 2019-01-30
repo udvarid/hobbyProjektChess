@@ -21,9 +21,9 @@ public class PassedPawn implements Evaluate {
         int score = 0;
 
         for (Figure figure : game.getFigures()) {
-            if (figure.getFigureType() == FigureType.PAWN && figure.getColor() == colorOwn && !hasPawnBeforehead(figure, colorOwn, game)) {
+            if (figure.getFigureType() == FigureType.PAWN && figure.getColor() == colorOwn && !hasPawnBeforehead(figure, colorOwn, game) && inTheEnemyTerritory(figure)) {
                 numberOwn++;
-            } else if (figure.getFigureType() == FigureType.PAWN && figure.getColor() == colorEnemy && !hasPawnBeforehead(figure, colorEnemy, game)) {
+            } else if (figure.getFigureType() == FigureType.PAWN && figure.getColor() == colorEnemy && !hasPawnBeforehead(figure, colorEnemy, game) && inTheEnemyTerritory(figure)) {
                 numberEnemy++;
             }
         }
@@ -40,6 +40,11 @@ public class PassedPawn implements Evaluate {
         }
 
         return score;
+    }
+
+    private boolean inTheEnemyTerritory(Figure figure) {
+        return  (figure.getColor() == Color.WHITE && figure.getActualPosition().getX() > 4) ||
+        (figure.getColor() == Color.BLACK && figure.getActualPosition().getX() < 5);
     }
 
     private boolean hasPawnBeforehead(Figure figure, Color colorOwn, Game game) {
