@@ -90,8 +90,77 @@ public class Player {
 
                 List<ValidMovePair> vpFromEnemy = movesFromEnemy(gameCopy);
 
+                int scoreToSet = 0;
+                //matt esetek ellenőrzése
+                if (containsMatt(vpFromEnemy)) {
+                    scoreToSet = -10000;
+                    vmsThis.setScore(scoreToSet);
+                } else {
+                    //ha nicns matt, akkor az összes eseten végigmegyünk és legjobb eseteknél
+                    List<Integer> scoreToAvg = new ArrayList<>();
+                    for (ValidMovePair vpEnemy : vpFromEnemy) {
+                        //klónozni az állást
+                        Game game2Copy = cloner.deepClone(gameCopy);
+                        //leléptetni az ellenfél lépését
+                        game2Copy.deleteFigure(vpEnemy.getEnd());
+
+                        Figure figureEnemyToMove = null;
+                        for (Figure figureSearched : game2Copy.getFigures()) {
+                            if (figureSearched.getActualPosition().equals(vpEnemy.getStart())) {
+                                figureEnemyToMove = figureSearched;
+                                break;
+                            }
+                        }
+                        figureEnemyToMove.getActualPosition().setX(vpEnemy.getEnd().getX());
+                        figureEnemyToMove.getActualPosition().setY(vpEnemy.getEnd().getY());
+
+                        figureEnemyToMove.setStillInStartingPosition(false);
+
+                        if (figureEnemyToMove.getFigureType() == FigureType.PAWN &&
+                                ((this.enemyColor == Color.BLACK && vpEnemy.getEnd().getX() == 1) ||
+                                        (this.enemyColor == Color.WHITE && vpEnemy.getEnd().getX() == 8))) {
+                            game2Copy.promote(vpEnemy, 'q');
+                        }
+
+                        game2Copy.finalValidMoves(true);
+                        game2Copy.cleanFromChessRelatedMoves();
+                        //majd az összes lehetésges lépésen végigmenni
+                        //klónozni
+                        //leléptetni
+                        //frissíteni
+                        //kiértékelni
+                        //legjobb scoret kimenteni
+
+
+
+                    }
+                    for (Integer score : scoreToAvg) {
+                        scoreToSet += score;
+                    }
+                    scoreToSet /= scoreToAvg.size();
+                }
+
+
+
+                vmsThis.setScore(scoreToSet);
+
+                if (maxScore < scoreToSet) {
+                    maxScore = scoreToSet;
+                }
+
+
             }
         }
+
+        Collections.sort(vms);
+        Iterator<ValidMovePairWithScore> iterator = vms.iterator();
+        while (iterator.hasNext()) {
+            ValidMovePairWithScore vmsToCheck = iterator.next();
+            if (vmsToCheck.getScore() < maxScore) {
+                iterator.remove();
+            }
+        }
+        result = vms.get(randomNumber.nextInt(vms.size())).getValidMovePair();
 
         //Végig megyünk az összes lehetséges lépéspáron DONE
         //Ha tudunk mattot adni, megadjuk DONE
@@ -99,10 +168,10 @@ public class Player {
         //Lelépjük DONE
 
         //Átadjuk (minden lépést) az ellenfélnek DONE
-        //Ha az (az ellenfél) tud mattot adni, visszad egy 1 elemű listát, jelölve, hogy ez matt
-        //Amúgy klónozza az állást
-        //Lelép minden lépést, kiértékel
-        //A legjobbak közül 3-at (max) visszaad
+        //Ha az (az ellenfél) tud mattot adni, visszad egy 1 elemű listát, jelölve, hogy ez matt DONE
+        //Amúgy klónozza az állást DONE
+        //Lelép minden lépést, kiértékel DONE
+        //A legjobbak közül 3-at (max) visszaad DONE
 
         //A kapott (max) 3 lépés alapján
         //klónozunk
@@ -117,6 +186,15 @@ public class Player {
 
 
         return result;
+    }
+
+    private boolean containsMatt(List<ValidMovePair> vpFromEnemy) {
+        for (ValidMovePair vp : vpFromEnemy) {
+            if (vp.isMateTest()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private List<ValidMovePair> movesFromEnemy(Game gameCopy) {
