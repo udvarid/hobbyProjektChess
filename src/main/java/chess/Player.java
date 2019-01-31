@@ -39,6 +39,7 @@ public class Player {
         return color;
     }
 
+
     public PlayerType getType() {
         return type;
     }
@@ -64,29 +65,7 @@ public class Player {
 
                 Game gameCopy = cloner.deepClone(game);
 
-                gameCopy.deleteFigure(validMovePair.getEnd());
-
-                Figure figureToMove = null;
-                for (Figure figureSearched : gameCopy.getFigures()) {
-                    if (figureSearched.getActualPosition().equals(validMovePair.getStart())) {
-                        figureToMove = figureSearched;
-                        break;
-                    }
-                }
-
-                figureToMove.getActualPosition().setX(validMovePair.getEnd().getX());
-                figureToMove.getActualPosition().setY(validMovePair.getEnd().getY());
-
-                figureToMove.setStillInStartingPosition(false);
-
-                if (figureToMove.getFigureType() == FigureType.PAWN &&
-                        ((this.color == Color.BLACK && validMovePair.getEnd().getX() == 1) ||
-                                (this.color == Color.WHITE && validMovePair.getEnd().getX() == 8))) {
-                    gameCopy.promote(validMovePair, 'q');
-                }
-
-                gameCopy.finalValidMoves(true);
-                gameCopy.cleanFromChessRelatedMoves();
+                moveIt(validMovePair, gameCopy, this.color);
 
                 List<ValidMovePair> vpFromEnemy = movesFromEnemy(gameCopy);
 
@@ -102,36 +81,41 @@ public class Player {
                         //klónozni az állást
                         Game game2Copy = cloner.deepClone(gameCopy);
                         //leléptetni az ellenfél lépését
-                        game2Copy.deleteFigure(vpEnemy.getEnd());
 
-                        Figure figureEnemyToMove = null;
-                        for (Figure figureSearched : game2Copy.getFigures()) {
-                            if (figureSearched.getActualPosition().equals(vpEnemy.getStart())) {
-                                figureEnemyToMove = figureSearched;
+                        moveIt(vpEnemy, game2Copy, this.enemyColor);
+
+                        //majd az összes lehetésges lépésen végigmenni
+                        for (ValidMovePair vpFinal : game2Copy.getValidmoves()) {
+                            if (vpFinal.isMateTest() && vpFinal.getFigure().getColor() == this.color) {
+                                scoreToAvg.add(2000);
                                 break;
                             }
                         }
-                        figureEnemyToMove.getActualPosition().setX(vpEnemy.getEnd().getX());
-                        figureEnemyToMove.getActualPosition().setY(vpEnemy.getEnd().getY());
+                        //klónozni
+                        int maxScoreFinal = Integer.MIN_VALUE;
+                        for (ValidMovePair vpFinal : game2Copy.getValidmoves()) {
+                            if (vpFinal.getFigure().getColor() == this.color) {
 
-                        figureEnemyToMove.setStillInStartingPosition(false);
+                                Game game3Copy = cloner.deepClone(game2Copy);
 
-                        if (figureEnemyToMove.getFigureType() == FigureType.PAWN &&
-                                ((this.enemyColor == Color.BLACK && vpEnemy.getEnd().getX() == 1) ||
-                                        (this.enemyColor == Color.WHITE && vpEnemy.getEnd().getX() == 8))) {
-                            game2Copy.promote(vpEnemy, 'q');
+                                moveIt(vpFinal, game3Copy, this.color);
+
+
+                                int scoreToSetFinal = 0;
+                                for (Evaluate evaluate : this.evaluates) {
+                                    int partScore = evaluate.score(this.color, this.enemyColor, game3Copy) * evaluate.getWeight() / 100;
+                                    scoreToSetFinal += partScore;
+                                }
+
+                                if (maxScoreFinal < scoreToSetFinal) {
+                                    maxScoreFinal = scoreToSetFinal;
+                                }
+
+
+                            }
                         }
 
-                        game2Copy.finalValidMoves(true);
-                        game2Copy.cleanFromChessRelatedMoves();
-                        //majd az összes lehetésges lépésen végigmenni
-                        //klónozni
-                        //leléptetni
-                        //frissíteni
-                        //kiértékelni
-                        //legjobb scoret kimenteni
-
-
+                        scoreToAvg.add(maxScoreFinal);
 
                     }
                     for (Integer score : scoreToAvg) {
@@ -161,29 +145,6 @@ public class Player {
             }
         }
         result = vms.get(randomNumber.nextInt(vms.size())).getValidMovePair();
-
-        //Végig megyünk az összes lehetséges lépéspáron DONE
-        //Ha tudunk mattot adni, megadjuk DONE
-        //Jelenlegi állást klónozzuk DONE
-        //Lelépjük DONE
-
-        //Átadjuk (minden lépést) az ellenfélnek DONE
-        //Ha az (az ellenfél) tud mattot adni, visszad egy 1 elemű listát, jelölve, hogy ez matt DONE
-        //Amúgy klónozza az állást DONE
-        //Lelép minden lépést, kiértékel DONE
-        //A legjobbak közül 3-at (max) visszaad DONE
-
-        //A kapott (max) 3 lépés alapján
-        //klónozunk
-        //lelépjük
-        //Ha tudunk mattot adni, akkor magas score-al (2000) számolunk
-        //Amúgy klónozzuk a táblát
-        //lelépjük a lépéseket és a kiértékelés alapján a max score-t visszaadjuk
-
-        //a (max) 3 score átlagát vesszük kiértékelés alapjául
-
-
-
 
         return result;
     }
@@ -220,33 +181,12 @@ public class Player {
 
                 Game gameCopyEnemy = clonerEnemy.deepClone(gameCopy);
 
-                gameCopyEnemy.deleteFigure(validMovePair.getEnd());
+                moveIt(validMovePair, gameCopyEnemy, this.enemyColor);
 
-                Figure figureToMove = null;
-                for (Figure figureSearched : gameCopyEnemy.getFigures()) {
-                    if (figureSearched.getActualPosition().equals(validMovePair.getStart())) {
-                        figureToMove = figureSearched;
-                        break;
-                    }
-                }
-
-                figureToMove.getActualPosition().setX(validMovePair.getEnd().getX());
-                figureToMove.getActualPosition().setY(validMovePair.getEnd().getY());
-
-                figureToMove.setStillInStartingPosition(false);
-
-                if (figureToMove.getFigureType() == FigureType.PAWN &&
-                        ((this.enemyColor == Color.BLACK && validMovePair.getEnd().getX() == 1) ||
-                                (this.enemyColor == Color.WHITE && validMovePair.getEnd().getX() == 8))) {
-                    gameCopyEnemy.promote(validMovePair, 'q');
-                }
-
-                gameCopyEnemy.finalValidMoves(true);
-                gameCopyEnemy.cleanFromChessRelatedMoves();
 
                 int scoreToSet = 0;
                 for (Evaluate evaluate : this.evaluates) {
-                    int partScore = evaluate.score(this.enemyColor, this.color, gameCopy) * evaluate.getWeight() / 100;
+                    int partScore = evaluate.score(this.enemyColor, this.color, gameCopyEnemy) * evaluate.getWeight() / 100;
                     scoreToSet += partScore;
                 }
                 vmsThis.setScore(scoreToSet);
@@ -279,13 +219,14 @@ public class Player {
 
     public ValidMovePair giveMove(Game game) {
         ValidMovePair result = null;
+        Cloner cloner = new Cloner();
 
         for (ValidMovePair validMovePair : game.getValidmoves()) {
             if (validMovePair.isMateTest() && validMovePair.getFigure().getColor() == this.color) {
                 return validMovePair;
             }
         }
-        Cloner cloner = new Cloner();
+
 
         vms = new ArrayList<>();
         int maxScore = Integer.MIN_VALUE;
@@ -297,30 +238,7 @@ public class Player {
 
                 Game gameCopy = cloner.deepClone(game);
 
-                gameCopy.deleteFigure(validMovePair.getEnd());
-
-                Figure figureToMove = null;
-                for (Figure figureSearched : gameCopy.getFigures()) {
-                    if (figureSearched.getActualPosition().equals(validMovePair.getStart())) {
-                        figureToMove = figureSearched;
-                        break;
-                    }
-                }
-
-                figureToMove.getActualPosition().setX(validMovePair.getEnd().getX());
-                figureToMove.getActualPosition().setY(validMovePair.getEnd().getY());
-
-                figureToMove.setStillInStartingPosition(false);
-
-
-                if (figureToMove.getFigureType() == FigureType.PAWN &&
-                        ((this.color == Color.BLACK && validMovePair.getEnd().getX() == 1) ||
-                                (this.color == Color.WHITE && validMovePair.getEnd().getX() == 8))) {
-                    gameCopy.promote(validMovePair, 'q');
-                }
-
-                gameCopy.finalValidMoves(true);
-                gameCopy.cleanFromChessRelatedMoves();
+                moveIt(validMovePair, gameCopy, this.color);
 
                 int scoreToSet = 0;
                 for (Evaluate evaluate : this.evaluates) {
@@ -352,6 +270,34 @@ public class Player {
 
         return result;
     }
+
+    private void moveIt(ValidMovePair validMovePair, Game gameCopy, Color colorToCheck) {
+        gameCopy.deleteFigure(validMovePair.getEnd());
+
+        Figure figureToMove = null;
+        for (Figure figureSearched : gameCopy.getFigures()) {
+            if (figureSearched.getActualPosition().equals(validMovePair.getStart())) {
+                figureToMove = figureSearched;
+                break;
+            }
+        }
+
+        figureToMove.getActualPosition().setX(validMovePair.getEnd().getX());
+        figureToMove.getActualPosition().setY(validMovePair.getEnd().getY());
+
+        figureToMove.setStillInStartingPosition(false);
+
+
+        if (figureToMove.getFigureType() == FigureType.PAWN &&
+                ((colorToCheck == Color.BLACK && validMovePair.getEnd().getX() == 1) ||
+                        (colorToCheck == Color.WHITE && validMovePair.getEnd().getX() == 8))) {
+            gameCopy.promote(validMovePair, 'q');
+        }
+
+        gameCopy.finalValidMoves(true);
+        gameCopy.cleanFromChessRelatedMoves();
+    }
+
 
     public List<Evaluate> getEvaluates() {
         return evaluates;
