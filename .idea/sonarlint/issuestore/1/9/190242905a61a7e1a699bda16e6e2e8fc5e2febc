@@ -1,5 +1,9 @@
 
-usquid:S3776-"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(œµÏ§üÿÿÿÿ8âó¶ƒŠ-
-msquid:S2259K"JA "NullPointerException" could be thrown; "figureToMove" is nullable here.(åğÔƒıÿÿÿÿ8«ñÇ‰-
-isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‹³…­8¯Å×Ë‰-
-psquid:S1450"RRemove the "vms" field and declare it as a local variable in the relevant methods.(ÌŞ²˜8¹ƒ„Š-
+osquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(¡ºîûÿÿÿÿ8Ù÷Õ¢Š-
+jsquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(èŸ›ª8Ù÷Õ¢Š-
+psquid:S3776/"RRefactor this method to reduce its Cognitive Complexity from 62 to the 15 allowed.(³Ô ¦8Û¤³Š-
+vsquid:S3776©"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Àíé™ıÿÿÿÿ8Ç…Ÿ¢Š-
+zsquid:S1450"WRemove the "vmsEnemy" field and declare it as a local variable in the relevant methods.(Âåˆúÿÿÿÿ8¾ıŠ-
+vsquid:S3776ç"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(œµÏ§üÿÿÿÿ8Ù÷Õ¢Š-
+nsquid:S2259¨"JA "NullPointerException" could be thrown; "figureToMove" is nullable here.(åğÔƒıÿÿÿÿ8Ù÷Õ¢Š-
+isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‹³…­8¯Å×Ë‰-

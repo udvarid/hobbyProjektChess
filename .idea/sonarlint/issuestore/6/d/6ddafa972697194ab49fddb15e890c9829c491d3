@@ -1,7 +1,8 @@
 
-fsquid:S2259º"BA "NullPointerException" could be thrown; "rook" is nullable here.(£‹‚şøÿÿÿÿ8†“í×ˆ-
-vsquid:S3776“"RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(¶¿°‰ÿÿÿÿÿ8ìÆå‰‰-
-nsquid:S2259¦"JA "NullPointerException" could be thrown; "figureToMove" is nullable here.(åğÔƒıÿÿÿÿ8ìÆå‰‰-
+fsquid:S2259»"BA "NullPointerException" could be thrown; "rook" is nullable here.(£‹‚şøÿÿÿÿ8ŸŞÊ¢Š-
+Nsquid:S1066Ã"/Merge this if statement with the enclosing one.(ûÆšÏ8ŸŞÊ¢Š-
+`squid:S1126ñ"AReplace this if-then-else statement by a single return statement.(Ø½ó8ŸŞÊ¢Š-
+vsquid:S3776”"RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(¶¿°‰ÿÿÿÿÿ8ŸŞÊ¢Š-
+nsquid:S2259§"JA "NullPointerException" could be thrown; "figureToMove" is nullable here.(åğÔƒıÿÿÿÿ8ŸŞÊ¢Š-
 usquid:S3776*"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Õıã‚ûÿÿÿÿ8®¬‚ ˆ-
-Nsquid:S1066Â"/Merge this if statement with the enclosing one.(ûÆšÏ8†“í×ˆ-
-`squid:S1126ğ"AReplace this if-then-else statement by a single return statement.(Ø½ó8†“í×ˆ-
+nsquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(ß‹øüÿÿÿÿ8¸Úª¥Š-
