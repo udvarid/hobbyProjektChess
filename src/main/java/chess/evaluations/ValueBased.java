@@ -57,4 +57,9 @@ public class ValueBased implements Evaluate {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    @Override
+    public String toString() {
+        return "Normal value based";
+    }
 }

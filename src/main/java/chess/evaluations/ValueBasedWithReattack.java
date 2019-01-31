@@ -36,11 +36,14 @@ public class ValueBasedWithReattack implements Evaluate {
             if (Math.abs(diff) < 3) {
                 result = 100 * Math.abs(diff) * (diff / Math.abs(diff));
             } else if (Math.abs(diff) < 6) {
-                result = 200 + 75 * (Math.abs(diff) - 2) * (diff / Math.abs(diff));
+                result = (200 + 75 * (Math.abs(diff) - 2)) * (diff / Math.abs(diff));
+
             } else if (Math.abs(diff) < 11) {
-                result = 425 + 50 * (Math.abs(diff) - 5) * (diff / Math.abs(diff));
+                result = (425 + 50 * (Math.abs(diff) - 5)) * (diff / Math.abs(diff));
+
             } else if (Math.abs(diff) < 20) {
-                result = 675 + 25 * (Math.abs(diff) - 10) * (diff / Math.abs(diff));
+                result = (675 + 25 * (Math.abs(diff) - 10)) * (diff / Math.abs(diff));
+
             } else {
                 result = 1000 * diff / Math.abs(diff);
             }
@@ -70,5 +73,10 @@ public class ValueBasedWithReattack implements Evaluate {
     @Override
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        return "Value based with reattacked";
     }
 }

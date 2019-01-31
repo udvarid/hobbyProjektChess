@@ -69,4 +69,9 @@ public class NumberOfSinglyPawns implements Evaluate {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    @Override
+    public String toString() {
+        return "Number of sinly pawns";
+    }
 }

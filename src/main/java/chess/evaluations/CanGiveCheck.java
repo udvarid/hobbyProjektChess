@@ -35,4 +35,9 @@ public class CanGiveCheck implements Evaluate {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    @Override
+    public String toString() {
+        return "Can give a check";
+    }
 }

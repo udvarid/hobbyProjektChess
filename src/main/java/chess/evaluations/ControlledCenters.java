@@ -96,4 +96,9 @@ public class ControlledCenters implements Evaluate {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    @Override
+    public String toString() {
+        return "Controlled cells in center";
+    }
 }

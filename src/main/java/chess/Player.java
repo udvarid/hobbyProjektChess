@@ -89,14 +89,15 @@ public class Player {
 
                 int scoreToSet = 0;
                 for (Evaluate evaluate : this.evaluates) {
-                    scoreToSet += evaluate.score(this.color, this.enemyColor, gameCopy) * evaluate.getWeight() / 100;
+                    int partScore = evaluate.score(this.color, this.enemyColor, gameCopy) * evaluate.getWeight() / 100;
+                    scoreToSet += partScore;
+                    //System.out.println(validMovePair.toString() + " - " + evaluate.toString() + " - " + partScore);
                 }
                 vmsThis.setScore(scoreToSet);
 
                 if (maxScore < scoreToSet) {
                     maxScore = scoreToSet;
                 }
-
 
 
             }
@@ -111,6 +112,8 @@ public class Player {
             }
         }
         result = vms.get(randomNumber.nextInt(vms.size())).getValidMovePair();
+
+        //System.out.println(maxScore);
 
         return result;
     }

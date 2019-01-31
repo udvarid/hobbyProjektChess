@@ -87,4 +87,9 @@ public class ControlledCells implements Evaluate {
         this.weight = weight;
 
     }
+
+    @Override
+    public String toString() {
+        return "Controlled cells";
+    }
 }

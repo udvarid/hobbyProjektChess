@@ -72,4 +72,9 @@ public class PassedPawn implements Evaluate {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    @Override
+    public String toString() {
+        return "Number of passed pawns";
+    }
 }
