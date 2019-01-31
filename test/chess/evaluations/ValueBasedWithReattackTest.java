@@ -31,7 +31,7 @@ public class ValueBasedWithReattackTest {
         bishopB.getActualPosition().setX(6);
         governor.getGame().finalValidMoves(true);
         governor.getGame().cleanFromChessRelatedMoves();
-        assertEquals(-100, test.score(Color.WHITE, Color.BLACK, governor.getGame()));
+        assertEquals(-200, test.score(Color.WHITE, Color.BLACK, governor.getGame()));
 
         Pawn pawnW2 = new Pawn(Color.WHITE, new Coordinate(2, 4), 1);
         Pawn pawnW3 = new Pawn(Color.WHITE, new Coordinate(2, 5), 1);
@@ -46,13 +46,13 @@ public class ValueBasedWithReattackTest {
         governor.getGame().getFigures().add(queen);
         governor.getGame().finalValidMoves(true);
         governor.getGame().cleanFromChessRelatedMoves();
-        assertEquals(500, test.score(Color.WHITE, Color.BLACK, governor.getGame()));
+        assertEquals(575, test.score(Color.WHITE, Color.BLACK, governor.getGame()));
 
         Pawn pawnB = new Pawn(Color.BLACK, new Coordinate(3, 5), 1);
         governor.getGame().getFigures().add(pawnB);
         governor.getGame().finalValidMoves(true);
         governor.getGame().cleanFromChessRelatedMoves();
-        assertEquals(-100, test.score(Color.WHITE, Color.BLACK, governor.getGame()));
+        assertEquals(-200, test.score(Color.WHITE, Color.BLACK, governor.getGame()));
     }
 }
 

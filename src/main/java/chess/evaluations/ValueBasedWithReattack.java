@@ -23,6 +23,7 @@ public class ValueBasedWithReattack implements Evaluate {
         for (Figure figure : game.getFigures()) {
             if (figure.getColor() == colorOwn && notAttacked(figure.getActualPosition(), game)) {
                 valueOwn += figure.getValue();
+
             }
             if (figure.getColor() == colorEnemy) {
                 valueEnemy += figure.getValue();
@@ -33,17 +34,18 @@ public class ValueBasedWithReattack implements Evaluate {
 
         if (diff != 0) {
             if (Math.abs(diff) < 3) {
-                result = 100 * diff / Math.abs(diff);
+                result = 100 * Math.abs(diff) * (diff / Math.abs(diff));
             } else if (Math.abs(diff) < 6) {
-                result = 250 * diff / Math.abs(diff);
+                result = 200 + 75 * (Math.abs(diff) - 2) * (diff / Math.abs(diff));
             } else if (Math.abs(diff) < 11) {
-                result = 500 * diff / Math.abs(diff);
+                result = 425 + 50 * (Math.abs(diff) - 5) * (diff / Math.abs(diff));
             } else if (Math.abs(diff) < 20) {
-                result = 750 * diff / Math.abs(diff);
+                result = 675 + 25 * (Math.abs(diff) - 10) * (diff / Math.abs(diff));
             } else {
                 result = 1000 * diff / Math.abs(diff);
             }
         }
+
 
 
         return result;
