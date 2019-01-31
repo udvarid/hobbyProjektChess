@@ -130,6 +130,7 @@ public class Player {
 
                 if (maxScore < scoreToSet) {
                     maxScore = scoreToSet;
+
                 }
 
 
